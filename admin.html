@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Painel administrativo protegido da Pizza Lavras." />
+  <title>Painel de pedidos | Pizza Lavras</title>
+  <link rel="stylesheet" href="./styles.css?v=10" />
+</head>
+<body class="admin-body">
+  <a class="skip" href="#admin-content">Pular para o conteúdo</a>
+
+  <header class="admin-topbar">
+    <div class="container admin-nav">
+      <a class="brand admin-brand" href="./index.html" aria-label="Pizza Lavras - página inicial">
+        <span class="brand-icon"><img src="./assets/motoboy-pizza-lavras.png" alt="Motoboy da Pizza Lavras em uma moto vermelha" /></span>
+        <span><b>Pizza</b><em>Lavras</em></span>
+      </a>
+      <nav class="admin-site-nav" aria-label="Navegação do site">
+        <a href="./index.html">Ver site</a>
+        <a href="./pizzas.html">Cardápio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="admin-content" class="admin-main">
+    <section class="admin-auth-screen" data-admin-auth-screen>
+      <div class="container admin-auth-layout">
+        <div class="admin-auth-copy">
+          <p class="eyebrow">● Área protegida</p>
+          <h1>O lado de dentro da <mark>Pizza Lavras.</mark></h1>
+          <p>Acompanhe os pedidos recebidos, veja os dados de entrega e mantenha cada pizza no ponto certo até sair para a rua.</p>
+          <ul class="admin-auth-benefits">
+            <li><span aria-hidden="true">✓</span> Pedidos centralizados em tempo real</li>
+            <li><span aria-hidden="true">✓</span> Dados de entrega organizados</li>
+            <li><span aria-hidden="true">✓</span> Atualização simples de cada etapa</li>
+          </ul>
+        </div>
+
+        <section class="admin-login-card" aria-labelledby="admin-login-title">
+          <p class="eyebrow">● Acesso da equipe</p>
+          <h2 id="admin-login-title">Entrar no painel</h2>
+          <p class="admin-login-copy">Use o e-mail autorizado do responsável pela pizzaria.</p>
+
+          <form class="admin-login-form" data-admin-login-form>
+            <label>
+              E-mail
+              <input type="email" name="email" autocomplete="email" placeholder="voce@exemplo.com" required />
+            </label>
+            <label>
+              Senha
+              <input type="password" name="password" autocomplete="current-password" placeholder="Sua senha" minlength="6" required />
+            </label>
+            <button class="button red full" type="submit" data-login-submit>Entrar no painel →</button>
+          </form>
+
+          <div class="admin-login-divider"><span>ou</span></div>
+          <button class="admin-google-button" type="button" data-google-login>
+            <span aria-hidden="true">G</span> Continuar com Google
+          </button>
+
+          <details class="admin-create-account">
+            <summary>Primeiro acesso? Criar uma conta</summary>
+            <p>A conta só entra no painel depois que o e-mail for autorizado pela Pizza Lavras.</p>
+            <button class="admin-text-button" type="button" data-toggle-signup>Criar conta com este e-mail</button>
+          </details>
+
+          <p class="admin-auth-feedback" data-admin-auth-feedback aria-live="polite"></p>
+        </section>
+      </div>
+    </section>
+
+    <section class="admin-denied-screen" data-admin-denied-screen hidden>
+      <div class="container">
+        <section class="admin-denied-card" aria-labelledby="admin-denied-title">
+          <span class="admin-denied-icon" aria-hidden="true">!</span>
+          <p class="eyebrow">● Acesso restrito</p>
+          <h1 id="admin-denied-title">Esta conta ainda não tem acesso ao painel.</h1>
+          <p>Você entrou como <strong data-denied-email>—</strong>. Peça ao responsável da Pizza Lavras para autorizar esse e-mail como administrador.</p>
+          <button class="button red" type="button" data-sign-out-denied>Sair desta conta</button>
+        </section>
+      </div>
+    </section>
+
+    <section class="admin-dashboard" data-admin-dashboard hidden aria-live="polite">
+      <div class="container">
+        <header class="admin-dashboard-head">
+          <div>
+            <p class="eyebrow">● Central de pedidos</p>
+            <h1>Boa noite, <mark data-admin-first-name>equipe</mark>.</h1>
+            <p data-dashboard-subtitle>Carregando os pedidos da Pizza Lavras…</p>
+          </div>
+          <div class="admin-head-actions">
+            <button class="admin-refresh-button" type="button" data-refresh-orders>
+              <span aria-hidden="true">↻</span> Atualizar
+            </button>
+            <button class="admin-user-button" type="button" data-sign-out title="Sair da conta">
+              <span class="admin-user-avatar" data-admin-avatar>PL</span>
+              <span><strong data-admin-user-name>Equipe Pizza Lavras</strong><small>Sair</small></span>
+            </button>
+          </div>
+        </header>
+
+        <section class="admin-metrics" aria-label="Resumo dos pedidos">
+          <article class="admin-metric-card red">
+            <span class="admin-metric-icon" aria-hidden="true">🍕</span>
+            <p>Pedidos recebidos</p>
+            <strong data-metric-orders>—</strong>
+            <small data-metric-orders-detail>Carregando…</small>
+          </article>
+          <article class="admin-metric-card yellow">
+            <span class="admin-metric-icon" aria-hidden="true">🔥</span>
+            <p>Para preparar</p>
+            <strong data-metric-preparing>—</strong>
+            <small>Novos e em preparo</small>
+          </article>
+          <article class="admin-metric-card cream">
+            <span class="admin-metric-icon" aria-hidden="true">🛵</span>
+            <p>Em entrega</p>
+            <strong data-metric-delivery>—</strong>
+            <small>Pedidos a caminho</small>
+          </article>
+          <article class="admin-metric-card wine">
+            <span class="admin-metric-icon" aria-hidden="true">R$</span>
+            <p>Total em pedidos</p>
+            <strong data-metric-revenue>—</strong>
+            <small>Sem contar cancelados</small>
+          </article>
+        </section>
+
+        <section class="admin-orders-panel" aria-labelledby="admin-orders-title">
+          <header class="admin-orders-head">
+            <div>
+              <p class="eyebrow">● Acompanhe a noite</p>
+              <h2 id="admin-orders-title">Pedidos recentes</h2>
+            </div>
+            <div class="admin-orders-controls">
+              <label class="admin-search">
+                <span class="sr-only">Buscar pedidos</span>
+                <input type="search" data-order-search placeholder="Buscar nome ou telefone" autocomplete="off" />
+              </label>
+              <select data-status-filter aria-label="Filtrar pedidos por status">
+                <option value="todos">Todos os status</option>
+                <option value="new">Novos</option>
+                <option value="confirmed">Confirmados</option>
+                <option value="preparing">Em preparo</option>
+                <option value="out_for_delivery">Em entrega</option>
+                <option value="delivered">Concluídos</option>
+                <option value="cancelled">Cancelados</option>
+              </select>
+            </div>
+          </header>
+
+          <p class="admin-orders-feedback" data-orders-feedback aria-live="polite"></p>
+          <div class="admin-orders-list" data-orders-list>
+            <div class="admin-loading-state"><span class="admin-spinner" aria-hidden="true"></span><p>Buscando os pedidos…</p></div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import {
+      getCurrentSession as getCurrentUser,
+      onSessionChange as onAuthStateChanged,
+      signInWithGoogle,
+      signInWithEmail,
+      signUpWithEmail,
+      signOutUser as signOut,
+      getAdminOrders as listAdminOrders,
+      updateOrderStatus,
+      isAdminEmail
+    } from './firebase-order-store.js';
+
+    const money = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+    const dateFormatter = new Intl.DateTimeFormat('pt-BR', {
+      dateStyle: 'short',
+      timeStyle: 'short'
+    });
+    const statusMeta = {
+      new: { label: 'Novo', className: 'new' },
+      confirmed: { label: 'Confirmado', className: 'confirmed' },
+      preparing: { label: 'Em preparo', className: 'preparing' },
+      out_for_delivery: { label: 'Saiu para entrega', className: 'delivery' },
+      delivered: { label: 'Concluído', className: 'done' },
+      cancelled: { label: 'Cancelado', className: 'cancelled' }
+    };
+    const statusAliases = {
+      pending: 'new',
+      received: 'new',
+      novo: 'new',
+      new: 'new',
+      confirmado: 'confirmed',
+      confirmed: 'confirmed',
+      accepted: 'confirmed',
+      preparing: 'preparing',
+      preparation: 'preparing',
+      preparo: 'preparing',
+      out_for_delivery: 'out_for_delivery',
+      outfordelivery: 'out_for_delivery',
+      delivery: 'out_for_delivery',
+      delivering: 'out_for_delivery',
+      saiu_entrega: 'out_for_delivery',
+      completed: 'delivered',
+      complete: 'delivered',
+      delivered: 'delivered',
+      concluido: 'delivered',
+      cancelled: 'cancelled',
+      canceled: 'cancelled',
+      cancelado: 'cancelled'
+    };
+
+    const elements = {
+      authScreen: document.querySelector('[data-admin-auth-screen]'),
+      deniedScreen: document.querySelector('[data-admin-denied-screen]'),
+      dashboard: document.querySelector('[data-admin-dashboard]'),
+      authForm: document.querySelector('[data-admin-login-form]'),
+      authFeedback: document.querySelector('[data-admin-auth-feedback]'),
+      loginSubmit: document.querySelector('[data-login-submit]'),
+      googleLogin: document.querySelector('[data-google-login]'),
+      signupToggle: document.querySelector('[data-toggle-signup]'),
+      deniedEmail: document.querySelector('[data-denied-email]'),
+      deniedSignOut: document.querySelector('[data-sign-out-denied]'),
+      signOut: document.querySelector('[data-sign-out]'),
+      refresh: document.querySelector('[data-refresh-orders]'),
+      dashboardSubtitle: document.querySelector('[data-dashboard-subtitle]'),
+      adminFirstName: document.querySelector('[data-admin-first-name]'),
+      adminUserName: document.querySelector('[data-admin-user-name]'),
+      adminAvatar: document.querySelector('[data-admin-avatar]'),
+      ordersList: document.querySelector('[data-orders-list]'),
+      ordersFeedback: document.querySelector('[data-orders-feedback]'),
+      orderSearch: document.querySelector('[data-order-search]'),
+      statusFilter: document.querySelector('[data-status-filter]'),
+      metricOrders: document.querySelector('[data-metric-orders]'),
+      metricOrdersDetail: document.querySelector('[data-metric-orders-detail]'),
+      metricPreparing: document.querySelector('[data-metric-preparing]'),
+      metricDelivery: document.querySelector('[data-metric-delivery]'),
+      metricRevenue: document.querySelector('[data-metric-revenue]')
+    };
+
+    let signedInUser = null;
+    let allOrders = [];
+    let loginMode = 'signin';
+    let activeLoad = 0;
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function asNumber(value) {
+      if (typeof value === 'number') return Number.isFinite(value) ? value : 0;
+      if (typeof value === 'string') return Number(value.replace(/[R$\\s.]/g, '').replace(',', '.')) || 0;
+      return 0;
+    }
+
+    function normalizeStatus(value) {
+      const key = String(value || 'novo').trim().toLowerCase().replace(/[ -]/g, '_');
+      return statusAliases[key] || (statusMeta[key] ? key : 'novo');
+    }
+
+    function orderId(order, index) {
+      return order.id || order.orderId || order.requestId || `pedido-${index + 1}`;
+    }
+
+    function customerOf(order) {
+      const customer = order.customer || order.client || {};
+      return {
+        name: order.customerName || customer.name || order.name || 'Cliente sem nome',
+        phone: order.customerPhone || customer.phone || order.phone || 'Telefone não informado',
+        email: order.customerEmail || customer.email || order.email || ''
+      };
+    }
+
+    function deliveryOf(order) {
+      const delivery = order.delivery || order.address || {};
+      const street = delivery.street || order.street || '';
+      const number = delivery.number || order.number || '';
+      const neighborhood = delivery.neighborhood || order.neighborhood || '';
+      const complement = delivery.complement || order.complement || '';
+      const lineOne = [street, number].filter(Boolean).join(', ');
+      const lineTwo = [neighborhood, complement].filter(Boolean).join(' · ');
+      return [lineOne, lineTwo].filter(Boolean).join(' — ') || 'Endereço não informado';
+    }
+
+    function itemText(item) {
+      if (typeof item === 'string') return item;
+      if (!item || typeof item !== 'object') return 'Pizza selecionada';
+      const flavors = Array.isArray(item.flavors) ? item.flavors.map((flavor) => flavor?.name || flavor).filter(Boolean).join(' + ') : '';
+      return item.name || item.title || flavors || item.flavor || 'Pizza selecionada';
+    }
+
+    function itemsOf(order) {
+      const items = order.items || order.pizzas || order.cart || [];
+      if (Array.isArray(items)) return items;
+      if (items && typeof items === 'object') return Object.values(items);
+      return [];
+    }
+
+    function totalOf(order) {
+      if (Number.isFinite(order.totalCents)) return order.totalCents / 100;
+      return asNumber(order.total ?? order.totalPrice ?? order.amount ?? order.subtotal);
+    }
+
+    function paymentOf(order) {
+      const payment = order.payment || {};
+      const method = payment.method || payment.kind || order.paymentMethod || order.method || 'Pagamento não informado';
+      const route = payment.route || order.checkoutRoute || order.route;
+      return route === 'whatsapp' ? `WhatsApp · ${method}` : method;
+    }
+
+    function dateOf(order) {
+      const value = order.createdAt || order.created_at || order.date || order.created;
+      if (!value) return 'Agora';
+      try {
+        const date = typeof value?.toDate === 'function' ? value.toDate() : new Date(value);
+        return Number.isNaN(date.getTime()) ? 'Data indisponível' : dateFormatter.format(date);
+      } catch {
+        return 'Data indisponível';
+      }
+    }
+
+    function firstName(user) {
+      const raw = user?.displayName || user?.email?.split('@')[0] || 'equipe';
+      return raw.trim().split(/\s+/)[0] || 'equipe';
+    }
+
+    function setAuthFeedback(message = '', isError = false) {
+      elements.authFeedback.textContent = message;
+      elements.authFeedback.classList.toggle('is-error', Boolean(message && isError));
+      elements.authFeedback.classList.toggle('is-success', Boolean(message && !isError));
+    }
+
+    function setAuthLoading(isLoading, label = '') {
+      elements.loginSubmit.disabled = isLoading;
+      elements.googleLogin.disabled = isLoading;
+      elements.signupToggle.disabled = isLoading;
+      if (isLoading) elements.loginSubmit.textContent = label || 'Entrando…';
+      else elements.loginSubmit.textContent = loginMode === 'signup' ? 'Criar conta →' : 'Entrar no painel →';
+    }
+
+    function setOrdersFeedback(message = '', isError = false) {
+      elements.ordersFeedback.textContent = message;
+      elements.ordersFeedback.classList.toggle('is-error', Boolean(message && isError));
+    }
+
+    function showScreen(screen) {
+      elements.authScreen.hidden = screen !== 'auth';
+      elements.deniedScreen.hidden = screen !== 'denied';
+      elements.dashboard.hidden = screen !== 'dashboard';
+    }
+
+    function humanizeAuthError(error) {
+      const code = error?.code || '';
+      const messages = {
+        'auth/invalid-email': 'Confira o e-mail informado.',
+        'auth/invalid-credential': 'E-mail ou senha incorretos.',
+        'auth/user-not-found': 'Não encontramos uma conta com este e-mail.',
+        'auth/wrong-password': 'E-mail ou senha incorretos.',
+        'auth/email-already-in-use': 'Já existe uma conta com este e-mail. Faça login.',
+        'auth/weak-password': 'A senha deve ter pelo menos 6 caracteres.',
+        'auth/popup-closed-by-user': 'A janela de login foi fechada antes da conclusão.',
+        'auth/cancelled-popup-request': 'Aguarde a janela de login atual terminar.'
+      };
+      return messages[code] || 'Não foi possível concluir o acesso agora. Tente novamente.';
+    }
+
+    function renderMetrics() {
+      const total = allOrders.length;
+      const preparing = allOrders.filter((order) => ['new', 'confirmed', 'preparing'].includes(normalizeStatus(order.status))).length;
+      const delivery = allOrders.filter((order) => normalizeStatus(order.status) === 'out_for_delivery').length;
+      const revenue = allOrders
+        .filter((order) => normalizeStatus(order.status) !== 'cancelled')
+        .reduce((sum, order) => sum + totalOf(order), 0);
+
+      elements.metricOrders.textContent = String(total);
+      elements.metricOrdersDetail.textContent = total === 1 ? '1 pedido no histórico' : `${total} pedidos no histórico`;
+      elements.metricPreparing.textContent = String(preparing);
+      elements.metricDelivery.textContent = String(delivery);
+      elements.metricRevenue.textContent = money.format(revenue);
+    }
+
+    function statusOptions(selected) {
+      return Object.entries(statusMeta).map(([value, meta]) =>
+        `<option value="${value}"${value === selected ? ' selected' : ''}>${meta.label}</option>`
+      ).join('');
+    }
+
+    function renderOrder(order, index) {
+      const id = orderId(order, index);
+      const status = normalizeStatus(order.status);
+      const meta = statusMeta[status];
+      const customer = customerOf(order);
+      const items = itemsOf(order);
+      const itemMarkup = items.length
+        ? items.map((item) => `<li>${escapeHtml(itemText(item))}${item?.size ? ` <small>${escapeHtml(item.size)}</small>` : ''}</li>`).join('')
+        : '<li>Itens não informados</li>';
+
+      return `
+        <article class="admin-order-card" data-order-id="${escapeHtml(id)}">
+          <header class="admin-order-head">
+            <div>
+              <span class="admin-order-code">Pedido #${escapeHtml(String(id).slice(-6).toUpperCase())}</span>
+              <h3>${escapeHtml(customer.name)}</h3>
+              <a href="tel:${escapeHtml(String(customer.phone).replace(/\D/g, ''))}">${escapeHtml(customer.phone)}</a>${customer.email ? `<a class="admin-order-email" href="mailto:${escapeHtml(customer.email)}">${escapeHtml(customer.email)}</a>` : ''}
+            </div>
+            <div class="admin-order-state">
+              <span class="admin-status-chip ${meta.className}">${meta.label}</span>
+              <time>${escapeHtml(dateOf(order))}</time>
+            </div>
+          </header>
+          <div class="admin-order-details">
+            <div>
+              <span class="admin-detail-label">Entrega</span>
+              <p>${escapeHtml(deliveryOf(order))}</p>
+            </div>
+            <div>
+              <span class="admin-detail-label">Pagamento</span>
+              <p>${escapeHtml(paymentOf(order))}</p>
+            </div>
+            <div class="admin-order-total">
+              <span class="admin-detail-label">Total</span>
+              <strong>${money.format(totalOf(order))}</strong>
+            </div>
+          </div>
+          <div class="admin-order-items">
+            <span class="admin-detail-label">Itens do pedido</span>
+            <ul>${itemMarkup}</ul>
+          </div>
+          <footer class="admin-order-footer">
+            <label>
+              Atualizar etapa
+              <select data-status-select aria-label="Atualizar status do pedido de ${escapeHtml(customer.name)}">${statusOptions(status)}</select>
+            </label>
+            <button class="admin-update-status" type="button" data-update-status>Salvar status</button>
+          </footer>
+        </article>`;
+    }
+
+    function filteredOrders() {
+      const query = elements.orderSearch.value.trim().toLocaleLowerCase('pt-BR');
+      const selectedStatus = elements.statusFilter.value;
+      return allOrders.filter((order) => {
+        const customer = customerOf(order);
+        const haystack = `${customer.name} ${customer.phone} ${orderId(order, 0)}`.toLocaleLowerCase('pt-BR');
+        return (!query || haystack.includes(query)) && (selectedStatus === 'todos' || normalizeStatus(order.status) === selectedStatus);
+      });
+    }
+
+    function renderOrders() {
+      renderMetrics();
+      const orders = filteredOrders();
+      if (!orders.length) {
+        elements.ordersList.innerHTML = `
+          <div class="admin-empty-state">
+            <span aria-hidden="true">🍕</span>
+            <h3>${allOrders.length ? 'Nenhum pedido encontrado' : 'Ainda não chegaram pedidos por aqui'}</h3>
+            <p>${allOrders.length ? 'Tente buscar outro nome, telefone ou status.' : 'Quando alguém finalizar um pedido no site, ele aparecerá nesta tela.'}</p>
+          </div>`;
+        return;
+      }
+      elements.ordersList.innerHTML = orders.map(renderOrder).join('');
+    }
+
+    async function loadOrders({ quiet = false } = {}) {
+      const requestId = ++activeLoad;
+      if (!quiet) {
+        elements.refresh.disabled = true;
+        elements.refresh.classList.add('is-loading');
+        setOrdersFeedback('Atualizando pedidos…');
+      }
+      try {
+        const result = await listAdminOrders();
+        if (requestId !== activeLoad) return;
+        allOrders = Array.isArray(result) ? result : [];
+        renderOrders();
+        elements.dashboardSubtitle.textContent = allOrders.length
+          ? `${allOrders.length === 1 ? '1 pedido recebido' : `${allOrders.length} pedidos recebidos`} nesta conta.`
+          : 'Tudo tranquilo por enquanto. Os novos pedidos aparecerão aqui.';
+        setOrdersFeedback(quiet ? '' : 'Pedidos atualizados agora.');
+      } catch (error) {
+        if (requestId !== activeLoad) return;
+        console.error('Não foi possível carregar pedidos:', error);
+        elements.ordersList.innerHTML = `<div class="admin-empty-state is-error"><span aria-hidden="true">!</span><h3>Não conseguimos carregar os pedidos</h3><p>Confira as permissões da conta e tente atualizar novamente.</p></div>`;
+        setOrdersFeedback('Não foi possível carregar os pedidos. Tente novamente.', true);
+      } finally {
+        if (requestId === activeLoad) {
+          elements.refresh.disabled = false;
+          elements.refresh.classList.remove('is-loading');
+        }
+      }
+    }
+
+    async function applyUser(user) {
+      signedInUser = user || null;
+      if (!signedInUser) {
+        allOrders = [];
+        showScreen('auth');
+        setAuthLoading(false);
+        return;
+      }
+
+      try {
+        const isAdmin = signedInUser.isAdmin === true || (signedInUser.emailVerified === true && isAdminEmail(signedInUser.email));
+        if (!isAdmin) {
+          elements.deniedEmail.textContent = signedInUser.email || 'esta conta';
+          showScreen('denied');
+          return;
+        }
+
+        const name = firstName(signedInUser);
+        const fullName = signedInUser.displayName || signedInUser.email || 'Equipe Pizza Lavras';
+        elements.adminFirstName.textContent = name;
+        elements.adminUserName.textContent = fullName;
+        elements.adminAvatar.textContent = name.slice(0, 2).toUpperCase();
+        showScreen('dashboard');
+        await loadOrders({ quiet: true });
+      } catch (error) {
+        console.error('Não foi possível validar o acesso administrativo:', error);
+        setAuthFeedback('Não foi possível validar este acesso. Tente novamente.', true);
+        showScreen('auth');
+      }
+    }
+
+    elements.authForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const form = new FormData(elements.authForm);
+      const email = String(form.get('email') || '').trim();
+      const password = String(form.get('password') || '');
+      setAuthLoading(true, loginMode === 'signup' ? 'Criando conta…' : 'Entrando…');
+      setAuthFeedback();
+      try {
+        const result = loginMode === 'signup'
+          ? await signUpWithEmail(email, password)
+          : await signInWithEmail(email, password);
+        const fallbackUser = result?.user || await Promise.resolve(getCurrentUser());
+        if (fallbackUser) await applyUser(fallbackUser);
+        if (loginMode === 'signup') setAuthFeedback('Conta criada. Vamos conferir se este e-mail tem acesso ao painel.');
+      } catch (error) {
+        setAuthFeedback(humanizeAuthError(error), true);
+      } finally {
+        setAuthLoading(false);
+      }
+    });
+
+    elements.googleLogin.addEventListener('click', async () => {
+      setAuthLoading(true, 'Abrindo Google…');
+      setAuthFeedback();
+      try {
+        const result = await signInWithGoogle();
+        const fallbackUser = result?.user || await Promise.resolve(getCurrentUser());
+        if (fallbackUser) await applyUser(fallbackUser);
+      } catch (error) {
+        setAuthFeedback(humanizeAuthError(error), true);
+      } finally {
+        setAuthLoading(false);
+      }
+    });
+
+    elements.signupToggle.addEventListener('click', () => {
+      loginMode = loginMode === 'signup' ? 'signin' : 'signup';
+      elements.signupToggle.textContent = loginMode === 'signup' ? 'Voltar para entrar' : 'Criar conta com este e-mail';
+      setAuthLoading(false);
+      setAuthFeedback(loginMode === 'signup'
+        ? 'Crie uma conta; o painel continuará protegido para e-mails autorizados.'
+        : 'Use seu e-mail autorizado para entrar.');
+    });
+
+    async function leaveAccount() {
+      try {
+        await signOut();
+      } catch (error) {
+        console.error('Não foi possível sair:', error);
+      }
+      await applyUser(null);
+    }
+
+    elements.signOut.addEventListener('click', leaveAccount);
+    elements.deniedSignOut.addEventListener('click', leaveAccount);
+    elements.refresh.addEventListener('click', () => loadOrders());
+    elements.orderSearch.addEventListener('input', renderOrders);
+    elements.statusFilter.addEventListener('change', renderOrders);
+
+    elements.ordersList.addEventListener('click', async (event) => {
+      const button = event.target.closest('[data-update-status]');
+      if (!button) return;
+      const card = button.closest('[data-order-id]');
+      const select = card?.querySelector('[data-status-select]');
+      const id = card?.dataset.orderId;
+      if (!id || !select) return;
+
+      button.disabled = true;
+      button.textContent = 'Salvando…';
+      setOrdersFeedback();
+      try {
+        const newStatus = select.value;
+        await updateOrderStatus(id, newStatus);
+        allOrders = allOrders.map((order, index) => orderId(order, index) === id ? { ...order, status: newStatus } : order);
+        renderOrders();
+        setOrdersFeedback('Status do pedido atualizado.');
+      } catch (error) {
+        console.error('Não foi possível atualizar o status:', error);
+        button.disabled = false;
+        button.textContent = 'Salvar status';
+        setOrdersFeedback('Não foi possível salvar o status. Tente novamente.', true);
+      }
+    });
+
+    const unsubscribe = onAuthStateChanged((user) => {
+      applyUser(user);
+    });
+    window.addEventListener('pagehide', () => {
+      if (typeof unsubscribe === 'function') unsubscribe();
+    }, { once: true });
+
+    Promise.resolve(getCurrentUser()).then((user) => {
+      if (user) applyUser(user);
+    }).catch(() => undefined);
+  </script>
+</body>
+</html>
