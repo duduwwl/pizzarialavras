@@ -1,0 +1,203 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // The dashboard is deliberately tied to one verified Firebase account.
+    // Do not replace this with a value sent by the browser.
+    function isSignedInCustomer() {
+      return request.auth != null
+        && request.auth.token.email is string
+        && request.auth.token.firebase.sign_in_provider != 'anonymous';
+    }
+
+    function isAdmin() {
+      return isSignedInCustomer()
+        && request.auth.token.email == 'dudumesquita2004@gmail.com'
+        && request.auth.token.email_verified == true;
+    }
+
+    function hasAllowedFields(data, required, optional) {
+      return data is map
+        && data.keys().hasAll(required)
+        && data.keys().hasOnly(required.concat(optional));
+    }
+
+    function stringBetween(value, minLength, maxLength) {
+      return value is string
+        && value.size() >= minLength
+        && value.size() <= maxLength;
+    }
+
+    function validCustomer(customer) {
+      return hasAllowedFields(customer, ['name', 'phone'], [])
+        && stringBetween(customer.name, 2, 80)
+        && stringBetween(customer.phone, 10, 20);
+    }
+
+    function validDelivery(delivery) {
+      return hasAllowedFields(
+          delivery,
+          ['street', 'number', 'neighborhood'],
+          ['complement']
+        )
+        && stringBetween(delivery.street, 3, 120)
+        && stringBetween(delivery.number, 1, 20)
+        && stringBetween(delivery.neighborhood, 2, 80)
+        && (!('complement' in delivery)
+          || stringBetween(delivery.complement, 0, 120));
+    }
+
+    function validFlavorId(flavorId) {
+      return flavorId is string
+        && flavorId in [
+          'mussarela', 'calabresa', 'marguerita', 'portuguesa', 'frango',
+          'lavras', 'lombo', 'quatro', 'rucula', 'romeu', 'chocolate', 'banana'
+        ];
+    }
+
+    function priceFor(flavorId, size) {
+      let mediumPrices = {
+        'mussarela': 3800, 'calabresa': 4100, 'marguerita': 4200,
+        'portuguesa': 4500, 'frango': 4600, 'lavras': 4800,
+        'lombo': 4900, 'quatro': 5100, 'rucula': 5000,
+        'romeu': 4300, 'chocolate': 4500, 'banana': 4400
+      };
+      let largePrices = {
+        'mussarela': 4900, 'calabresa': 5300, 'marguerita': 5400,
+        'portuguesa': 5700, 'frango': 5800, 'lavras': 6100,
+        'lombo': 6200, 'quatro': 6500, 'rucula': 6400,
+        'romeu': 5500, 'chocolate': 5700, 'banana': 5600
+      };
+
+      return size == 'media'
+        ? mediumPrices.get(flavorId, -1)
+        : largePrices.get(flavorId, -1);
+    }
+
+    function validFlavors(flavors) {
+      return flavors is list
+        && ((flavors.size() == 1 && validFlavorId(flavors[0]))
+          || (flavors.size() == 2
+            && validFlavorId(flavors[0])
+            && validFlavorId(flavors[1])
+            && flavors[0] != flavors[1]));
+    }
+
+    function validItemPrice(item) {
+      let firstPrice = priceFor(item.flavors[0], item.size);
+      let secondPrice = item.flavors.size() == 2
+        ? priceFor(item.flavors[1], item.size)
+        : -1;
+
+      // In half-and-half pizzas, the higher priced flavor is charged.
+      return item.unitPriceCents
+        == (firstPrice > secondPrice ? firstPrice : secondPrice);
+    }
+
+    function validItem(item) {
+      return hasAllowedFields(item, ['size', 'flavors', 'unitPriceCents'], [])
+        && item.size is string
+        && item.size in ['media', 'grande']
+        && validFlavors(item.flavors)
+        && item.unitPriceCents is int
+        && validItemPrice(item);
+    }
+
+    function validItems(items) {
+      return items is list
+        && ((items.size() == 1 && validItem(items[0]))
+          || (items.size() == 2 && validItem(items[0]) && validItem(items[1]))
+          || (items.size() == 3 && validItem(items[0]) && validItem(items[1]) && validItem(items[2]))
+          || (items.size() == 4 && validItem(items[0]) && validItem(items[1]) && validItem(items[2]) && validItem(items[3]))
+          || (items.size() == 5 && validItem(items[0]) && validItem(items[1]) && validItem(items[2]) && validItem(items[3]) && validItem(items[4]))
+          || (items.size() == 6 && validItem(items[0]) && validItem(items[1]) && validItem(items[2]) && validItem(items[3]) && validItem(items[4]) && validItem(items[5])));
+    }
+
+    function subtotalMatchesItems(items, subtotalCents) {
+      return (items.size() == 1 && subtotalCents == items[0].unitPriceCents)
+        || (items.size() == 2 && subtotalCents == items[0].unitPriceCents + items[1].unitPriceCents)
+        || (items.size() == 3 && subtotalCents == items[0].unitPriceCents + items[1].unitPriceCents + items[2].unitPriceCents)
+        || (items.size() == 4 && subtotalCents == items[0].unitPriceCents + items[1].unitPriceCents + items[2].unitPriceCents + items[3].unitPriceCents)
+        || (items.size() == 5 && subtotalCents == items[0].unitPriceCents + items[1].unitPriceCents + items[2].unitPriceCents + items[3].unitPriceCents + items[4].unitPriceCents)
+        || (items.size() == 6 && subtotalCents == items[0].unitPriceCents + items[1].unitPriceCents + items[2].unitPriceCents + items[3].unitPriceCents + items[4].unitPriceCents + items[5].unitPriceCents);
+    }
+
+    function validPayment(route, method) {
+      return (route == 'online' && method in ['pix', 'card'])
+        || (route == 'whatsapp' && method == 'whatsapp');
+    }
+
+    function allowedStatus(status) {
+      return status is string
+        && status in [
+          'new', 'confirmed', 'preparing', 'out_for_delivery', 'delivered', 'cancelled'
+        ];
+    }
+
+    function validNewOrder(order) {
+      return hasAllowedFields(
+          order,
+          ['customerUid', 'customerEmail', 'customer', 'delivery', 'items',
+           'subtotalCents', 'deliveryFeeCents', 'totalCents', 'checkoutRoute',
+           'paymentMethod', 'status', 'createdAt', 'updatedAt'],
+          []
+        )
+        && order.customerUid is string
+        && order.customerUid == request.auth.uid
+        && stringBetween(order.customerEmail, 3, 254)
+        && order.customerEmail == request.auth.token.email
+        && validCustomer(order.customer)
+        && validDelivery(order.delivery)
+        && validItems(order.items)
+        && order.subtotalCents is int
+        && order.subtotalCents >= 3800
+        && order.subtotalCents <= 39000
+        && subtotalMatchesItems(order.items, order.subtotalCents)
+        && order.deliveryFeeCents is int
+        && order.deliveryFeeCents == 800
+        && order.totalCents is int
+        && order.totalCents == order.subtotalCents + order.deliveryFeeCents
+        && order.checkoutRoute is string
+        && order.paymentMethod is string
+        && validPayment(order.checkoutRoute, order.paymentMethod)
+        && order.status == 'new'
+        // serverTimestamp() is evaluated as request.time by Firestore Rules.
+        && order.createdAt is timestamp
+        && order.createdAt == request.time
+        && order.updatedAt is timestamp
+        && order.updatedAt == request.time;
+    }
+
+    function validAdminStatusUpdate() {
+      return request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['status', 'updatedAt'])
+        && allowedStatus(request.resource.data.status)
+        && request.resource.data.updatedAt is timestamp
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    match /orders/{orderId} {
+      // Every order has a logged-in, email-backed owner. The browser cannot
+      // choose a different UID or email because validNewOrder binds both to
+      // the Firebase auth token.
+      allow create: if isSignedInCustomer()
+        && validNewOrder(request.resource.data);
+
+      // A customer can retrieve a known order ID, but cannot enumerate orders.
+      // The verified owner account can retrieve and list every order.
+      allow get: if isAdmin()
+        || (isSignedInCustomer() && resource.data.customerUid == request.auth.uid);
+      allow list: if isAdmin();
+
+      // Only the verified owner can change workflow fields, never customer,
+      // payment, prices, or order line items.
+      allow update: if isAdmin() && validAdminStatusUpdate();
+      allow delete: if false;
+    }
+
+    // Everything else remains private, including the old orderRequests collection.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
