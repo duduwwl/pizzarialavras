@@ -86,7 +86,7 @@
     <section class="admin-dashboard" data-admin-dashboard hidden aria-live="polite">
       <div class="container">
         <aside class="admin-test-banner" data-admin-test-banner hidden role="status">
-          <strong>Modo de teste — dados fictícios, nada é salvo.</strong>
+          <strong>Modo de demonstração — dados fictícios, nada é salvo.</strong>
           <span>Você pode filtrar os pedidos e alterar etapas apenas nesta página.</span>
         </aside>
         <header class="admin-dashboard-head">
@@ -168,12 +168,11 @@
   <script type="module">
     const query = new URLSearchParams(window.location.search);
     const isLocalFileTest = window.location.protocol === 'file:';
-    const isHostedTestMode = !isLocalFileTest && query.get('teste') === '1';
-    const testMode = isLocalFileTest || isHostedTestMode;
+    const isPublicDemo = query.get('demo') === '1';
+    const testMode = isLocalFileTest || isPublicDemo;
 
-    // O arquivo local funciona sem Firebase para facilitar a demonstração.
-    // Em uma URL hospedada, ?teste=1 ainda exige uma sessão Firebase, mas nunca
-    // lê ou grava pedidos reais.
+    // Os modos de demonstração usam somente pedidos fictícios e não carregam o Firebase.
+    // O painel real continua protegido em admin.html sem ?demo=1.
     let getCurrentUser = () => null;
     let onAuthStateChanged = () => () => {};
     let signInWithGoogle = async () => { throw new Error('auth/unavailable'); };
@@ -185,7 +184,7 @@
     let updateOrderStatus = async () => {};
     let isAdminEmail = () => false;
 
-    if (!isLocalFileTest) {
+    if (!testMode) {
       const firebaseStore = await import('./firebase-order-store.js?v=15');
       ({
         getCurrentSession: getCurrentUser,
@@ -245,6 +244,14 @@
       emailVerified: false,
       isAdmin: false
     });
+    const publicDemoUser = Object.freeze({
+      uid: 'demonstracao-publica',
+      email: 'demonstracao@pizza-lavras.invalid',
+      displayName: 'Demonstração Pizza Lavras',
+      emailVerified: false,
+      isAdmin: false
+    });
+    const demoUser = isPublicDemo ? publicDemoUser : localTestUser;
 
     function createDemoOrders() {
       return [
@@ -660,15 +667,13 @@
 
     async function applyUser(user) {
       signedInUser = user || null;
+      if (!signedInUser && testMode) signedInUser = demoUser;
       if (!signedInUser) {
         stopOrderSubscription();
         allOrders = [];
         showTestBanner(false);
         showScreen('auth');
         setAuthLoading(false);
-        if (isHostedTestMode) {
-          setAuthFeedback('Modo de teste: entre com qualquer conta Firebase para abrir somente dados fictícios.');
-        }
         return;
       }
 
@@ -748,9 +753,9 @@
     });
 
     async function leaveAccount() {
-      if (isLocalFileTest) {
-        await applyUser(localTestUser);
-        setOrdersFeedback('Modo de teste local: o painel permanece com dados fictícios.');
+      if (testMode) {
+        await applyUser(demoUser);
+        setOrdersFeedback('Modo de demonstração: o painel permanece com dados fictícios.');
         return;
       }
       try {
@@ -799,8 +804,8 @@
     });
 
     let unsubscribe = null;
-    if (isLocalFileTest) {
-      applyUser(localTestUser);
+    if (testMode) {
+      applyUser(demoUser);
     } else {
       unsubscribe = onAuthStateChanged((user) => {
         applyUser(user);
