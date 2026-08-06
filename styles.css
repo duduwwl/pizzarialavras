@@ -12,7 +12,34 @@ footer{color:#f8e3d7;background:#3d0e14}.footer-main{display:grid;grid-template-
 /* Checkout */
 .checkout{position:sticky;top:20px;padding:23px;border:1px solid #edcec1;border-radius:24px;background:#fff8f0;box-shadow:var(--shadow)}.checkout-head{display:flex;align-items:flex-start;justify-content:space-between;padding-bottom:17px;border-bottom:1px solid #efd8ce}.checkout-head .eyebrow{margin-bottom:4px}.checkout-head h2{font-size:1.95rem}.checkout-head>span{display:grid;min-width:30px;height:30px;place-items:center;border-radius:50%;background:var(--yellow);color:var(--wine);font-size:.76rem;font-weight:900}.cart-items{padding:9px 0 3px}.empty{margin:12px 0 17px;color:var(--muted);font-size:.82rem}.empty small{display:block;color:#a48a83;font-size:.73rem}.cart-item{padding:11px 0;border-bottom:1px dashed #e8cfc4}.cart-line{display:flex;justify-content:space-between;gap:10px}.cart-item h4{margin:0;font-size:.8rem;line-height:1.3}.cart-item p{margin:4px 0 0;color:var(--muted);font-size:.69rem;line-height:1.35}.cart-item strong{color:var(--red);font-size:.78rem;white-space:nowrap}.cart-item button{margin-top:5px;padding:0;border:0;background:transparent;color:#a9574f;font-size:.66rem;font-weight:800;text-decoration:underline}.totals{padding:4px 0 14px;border-bottom:1px solid #efd8ce}.totals p{display:flex;justify-content:space-between;margin:8px 0;color:var(--muted);font-size:.76rem}.totals strong{color:var(--ink)}.totals .grand-total{margin-top:13px;color:var(--ink);font-size:.96rem;font-weight:900}.totals .grand-total strong{color:var(--red);font-size:1.1rem}.checkout form{margin-top:19px}.form-title{margin:0 0 12px}.payment-title{margin-top:20px}.checkout label{display:block;margin-bottom:9px;color:#694742;font-size:.71rem;font-weight:780}.checkout input,.checkout select{width:100%;height:39px;margin-top:4px;padding:0 10px;border:1px solid #e7d3ca;border-radius:9px;background:#fff;color:var(--ink);font-size:.76rem;outline:0}.checkout input:focus,.checkout select:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(199,43,49,.1)}.form-row{display:grid;grid-template-columns:1.5fr .7fr;gap:8px}.form-row.equal{grid-template-columns:1fr 1fr}.checkout form .button{margin-top:5px;min-height:47px;font-size:.76rem}.privacy{margin:10px 0 0;color:#9b7d75;font-size:.65rem;text-align:center}.feedback{margin-top:10px;color:var(--red-deep);font-size:.73rem;font-weight:700;line-height:1.45}.feedback a{color:var(--red);text-decoration:underline}
 @media(max-width:900px){nav{gap:15px}.hero-grid{grid-template-columns:1fr .82fr}.hero-visual>img{right:-11%;width:510px}.section-heading.split{gap:35px}.order-layout{grid-template-columns:minmax(0,1fr) 315px;gap:19px}.checkout{padding:18px}.menu-grid{grid-template-columns:1fr}}
-@media(max-width:720px){.container{width:min(100% - 32px,620px)}.nav{min-height:72px}.brand-icon{width:43px;height:43px}.brand{font-size:1.22rem}nav{gap:10px;font-size:.74rem}nav>a:not(.nav-button){display:none}.nav-button{padding:9px 12px;font-size:.72rem}.hero-grid{display:block;min-height:0}.hero-copy{padding:64px 0 12px}.hero-description{font-size:.98rem}.hero-stats{gap:16px;margin-top:31px}.hero-visual{min-height:300px}.hero-visual>img{right:50%;bottom:-18px;width:370px;transform:translateX(50%);animation:none}.round-note{width:70px;height:70px;font-size:.54rem}.note-one{right:0}.note-two{width:58px;height:58px}.spark-b{display:none}.promise-grid,.pillars,.featured-grid{grid-template-columns:1fr}.promise article{min-height:76px;padding:13px 2px;border-right:0;border-bottom:1px solid var(--line)}.promise article:last-child{border-bottom:0}.section{padding:70px 0}.section-heading.split{grid-template-columns:1fr;gap:19px}.pillars{gap:13px;margin-top:34px}.pillar{min-height:255px}.pillar h3{margin-top:76px}.section-heading.row{align-items:flex-start;flex-direction:column}.featured-grid{gap:13px;margin-top:30px}.featured{grid-template-columns:.72fr 1fr;grid-template-rows:1fr;min-height:205px}.pizza-art{align-self:center;width:150px;height:150px;margin:0 auto;font-size:4rem}.featured>div:last-child{align-self:center;padding:20px 16px 20px 0}.featured span{min-height:0;margin-bottom:9px}.featured b{margin-top:8px}.cta-inner{align-items:flex-start;flex-direction:column;min-height:0;padding:54px 0}.…772 tokens truncated…lute;opacity:0;pointer-events:none}
+@media(max-width:720px){.container{width:min(100% - 32px,620px)}.nav{min-height:72px}.brand-icon{width:43px;height:43px}.brand{font-size:1.22rem}nav{gap:10px;font-size:.74rem}nav>a:not(.nav-button){display:none}.nav-button{padding:9px 12px;font-size:.72rem}.hero-grid{display:block;min-height:0}.hero-copy{padding:64px 0 12px}.hero-description{font-size:.98rem}.hero-stats{gap:16px;margin-top:31px}.hero-visual{min-height:300px}.hero-visual>img{right:50%;bottom:-18px;width:370px;transform:translateX(50%);animation:none}.round-note{width:70px;height:70px;font-size:.54rem}.note-one{right:0}.note-two{width:58px;height:58px}.spark-b{display:none}.promise-grid,.pillars,.featured-grid{grid-template-columns:1fr}.promise article{min-height:76px;padding:13px 2px;border-right:0;border-bottom:1px solid var(--line)}.promise article:last-child{border-bottom:0}.section{padding:70px 0}.section-heading.split{grid-template-columns:1fr;gap:19px}.pillars{gap:13px;margin-top:34px}.pillar{min-height:255px}.pillar h3{margin-top:76px}.section-heading.row{align-items:flex-start;flex-direction:column}.featured-grid{gap:13px;margin-top:30px}.featured{grid-template-columns:.72fr 1fr;grid-template-rows:1fr;min-height:205px}.pizza-art{align-self:center;width:150px;height:150px;margin:0 auto;font-size:4rem}.featured>div:last-child{align-self:center;padding:20px 16px 20px 0}.featured span{min-height:0;margin-bottom:9px}.featured b{margin-top:8px}.cta-inner{align-items:flex-start;flex-direction:column;min-height:0;padding:54px 0}.footer-main{grid-template-columns:1fr;gap:18px;padding:42px 0}.footer-bottom{align-items:flex-start;flex-direction:column}.menu-hero{padding:57px 0 62px}.menu-hero::after{right:-230px;width:420px;height:420px;border-width:33px}.order-section{padding:51px 0 70px}.order-layout{grid-template-columns:1fr}.section-heading.row.compact{align-items:flex-start;flex-direction:column;gap:12px}.builder{padding:18px}.builder-title{align-items:flex-start;flex-direction:column;gap:7px}.builder-title small{text-align:left}.builder-options,.size-options{grid-template-columns:1fr}.menu-grid{grid-template-columns:1fr}.checkout{position:static;order:2;padding:21px}.form-row{grid-template-columns:1.5fr .75fr}}
+@media(max-width:420px){h1{font-size:2.82rem}.hero-actions{align-items:flex-start;flex-direction:column;gap:19px}.hero-stats{align-items:flex-start;flex-direction:column;gap:11px}.hero-visual{min-height:278px}.hero-visual>img{width:330px}.featured{grid-template-columns:.64fr 1fr}.pizza-art{width:130px;height:130px;border-width:8px;font-size:3.2rem}.featured>div:last-child{padding-right:10px}.featured h3{font-size:1.15rem}.featured span{font-size:.77rem}}
+
+/* Reserve a dedicated illustration area above each card title. */
+.pillar{min-height:360px}
+.pillar h3{margin-top:150px!important}
+@media(max-width:720px){.pillar{min-height:350px}.pillar h3{margin-top:150px!important}}
+
+/* Real food photography for the featured and menu pizzas. */
+.featured-image{height:205px;overflow:hidden;background:#3b1416}
+.featured-image img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+.featured:hover .featured-image img{transform:scale(1.06)}
+.pizza-card-photo{min-height:336px;padding:0;overflow:hidden}
+.pizza-card-photo .pizza-photo{position:relative;height:145px;overflow:hidden;background:#461718}
+.pizza-card-photo .pizza-photo::after{position:absolute;inset:0;background:linear-gradient(180deg,transparent 32%,rgba(34,8,10,.32));content:""}
+.pizza-card-photo .pizza-photo img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.pizza-card-photo:hover .pizza-photo img{transform:scale(1.05)}
+.pizza-card-photo .pizza-photo span{position:absolute;z-index:1;top:12px;left:12px;padding:5px 8px;border-radius:999px;background:rgba(255,253,249,.92);color:var(--red-deep);font-size:.6rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.pizza-card-content{display:flex;flex:1;flex-direction:column;padding:16px 18px 18px}
+.pizza-card-photo .description{margin-bottom:12px}
+
+/* A clear, safe payment decision step. */
+.payment-flow{margin-top:20px;padding-top:1px;border-top:1px solid #efd8ce}
+.checkout-routes{display:grid;gap:8px}
+.route-card{display:flex;align-items:center;gap:10px;padding:11px;border:1px solid #e8d4ca;border-radius:13px;background:#fff;cursor:pointer;transition:border-color .18s,box-shadow .18s,transform .18s}
+.route-card:hover{transform:translateY(-1px);border-color:#df9e93}
+.route-card.selected{border-color:var(--red);box-shadow:0 0 0 2px rgba(199,43,49,.1)}
+.route-card input,.kind-card input{position:absolute;opacity:0;pointer-events:none}
 .route-symbol{display:grid;width:34px;height:34px;flex:0 0 34px;place-items:center;border-radius:10px;background:#ffe8ad;color:var(--red-deep);font-size:.95rem}
 .route-card b,.route-card small{display:block}.route-card b{font-size:.78rem}.route-card small{color:var(--muted);font-size:.66rem;line-height:1.4}
 .online-payment-panel,.whatsapp-panel{margin-top:12px;padding:13px;border:1px solid #efd8ce;border-radius:14px;background:#fffdf9}
@@ -52,3 +79,621 @@ h1,h2,h3{font-family:"Bree Serif",Georgia,"Times New Roman",serif;letter-spacing
 .checkout-account{margin:18px 0 20px;padding:15px 0 2px;border-bottom:1px solid #efd8ce}.checkout-account .form-title{margin-bottom:10px}.delivery-title{margin-top:3px}.account-summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid #efd8ce;border-radius:13px;background:#fffdf9}.account-summary b{display:block;color:var(--red-deep);font-size:.77rem}.account-summary p{margin:3px 0 0;color:var(--muted);font-size:.66rem;line-height:1.4}.small-button{min-height:36px!important;flex:0 0 auto;padding:0 11px!important;font-size:.66rem!important}.button.outline{border:1px solid #d9a79e;background:#fff;color:var(--red-deep);box-shadow:none}.button.outline:hover{border-color:var(--red);background:#fff7f4}.signed-in-summary{border-color:#b7d4a7;background:#f7fff1}.signed-in-summary b::before{margin-right:5px;color:#4d873c;content:'✓'}.text-button{padding:3px;border:0;background:transparent;color:var(--red);font-size:.67rem;font-weight:900;text-decoration:underline}
 .auth-dialog{width:min(calc(100% - 30px),480px);max-height:min(760px,calc(100vh - 30px));margin:auto;padding:30px;border:0;border-radius:26px;background:#fffdfa;color:var(--ink);box-shadow:0 28px 80px rgba(51,10,15,.35)}.auth-dialog::backdrop{background:rgba(53,7,12,.58);backdrop-filter:blur(3px)}.auth-dialog h2{margin-bottom:10px;font-size:2.25rem}.auth-dialog .eyebrow{margin-bottom:8px}.auth-intro{margin:0 0 20px;color:var(--muted);font-size:.84rem;line-height:1.58}.auth-dialog label{display:grid;gap:6px;margin:13px 0;color:#694742;font-size:.73rem;font-weight:850}.auth-dialog input{width:100%;height:44px;padding:0 12px;border:1px solid #e6d0c5;border-radius:11px;background:#fff;color:var(--ink);font-size:.86rem;outline:0}.auth-dialog input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(199,43,49,.12)}.auth-dialog .button{min-height:45px;margin-top:7px;font-size:.78rem}.auth-close{position:absolute;top:13px;right:15px;display:grid;width:32px;height:32px;place-items:center;border:0;border-radius:50%;background:#fff0e6;color:var(--red-deep);font-size:1.35rem;line-height:1}.auth-close:hover{background:#ffe0d7}.auth-mode-tabs{display:grid;grid-template-columns:1fr 1fr;margin:0 0 18px;padding:4px;border-radius:12px;background:#fff0e6}.auth-mode-tabs button{min-height:34px;border:0;border-radius:8px;background:transparent;color:#7d5a55;font-size:.73rem;font-weight:900}.auth-mode-tabs button.active{background:#fff;color:var(--red-deep);box-shadow:0 2px 7px rgba(99,38,32,.12)}.auth-divider{display:flex;align-items:center;gap:10px;margin:18px 0 5px;color:#a78b83;font-size:.68rem}.auth-divider::before,.auth-divider::after{height:1px;flex:1;background:#ecdcd5;content:''}.auth-feedback{min-height:20px;margin:14px 0 0;color:#47793d;font-size:.73rem;font-weight:760;line-height:1.45}.auth-feedback.is-error{color:#b33034}.auth-dialog [data-auth-signed-in] .button{margin-top:13px}.admin-order-email{display:block!important;max-width:250px;overflow:hidden;margin-top:3px!important;color:#9a6d63!important;font-size:.64rem!important;text-overflow:ellipsis;white-space:nowrap}
 @media(max-width:720px){.nav-login{display:none}.account-summary{align-items:flex-start;flex-direction:column}.small-button{width:100%}.auth-dialog{padding:27px 21px}.auth-dialog h2{font-size:2rem}}
+
+/* Hand-drawn ingredient illustrations for the story cards (CSS only). */
+.pillar .doodle{
+  isolation:isolate;
+  display:block;
+  width:116px;
+  height:116px;
+  overflow:visible;
+  border:0;
+  background:none;
+  box-shadow:none;
+  color:transparent;
+  font-size:0;
+  line-height:0;
+  text-indent:-9999px;
+}
+.pillar .doodle::before,.pillar .doodle::after{position:absolute;content:""}
+
+/* A warm, spiralled dough ball. */
+.pillar .doodle.dough{
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 37% 35%,rgba(255,250,224,.78) 0 3px,transparent 3.5px),
+    radial-gradient(circle at 62% 69%,rgba(130,34,26,.18) 0 4px,transparent 4.5px),
+    radial-gradient(circle at 50% 50%,#ffd889 0 15%,#f88b55 16% 48%,#e6533f 49% 100%);
+  box-shadow:inset 0 0 0 7px #ffe4b9,inset 0 0 0 14px #d84939,0 8px 0 rgba(83,13,20,.18);
+  transform:rotate(-11deg);
+}
+.pillar .doodle.dough::before{
+  inset:20px;
+  border:3px dashed #ffe5a9;
+  border-radius:50%;
+  opacity:.95;
+}
+.pillar .doodle.dough::after{
+  top:33px;
+  left:36px;
+  width:43px;
+  height:43px;
+  border:4px solid #e87548;
+  border-right-color:transparent;
+  border-bottom-color:transparent;
+  border-radius:50%;
+  box-shadow:12px 7px 0 -8px #ffe7af;
+  transform:rotate(-34deg);
+}
+
+/* A ripe tomato with leaf, highlight and tomato segments. */
+.pillar .doodle.tomato{
+  border:6px solid #fff0d3;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 34% 28%,#ffc090 0 7%,transparent 8%),
+    radial-gradient(circle at 50% 52%,transparent 0 47%,rgba(136,34,31,.2) 48% 50%,transparent 51%),
+    linear-gradient(145deg,#ff7659 3%,#ea4539 58%,#bd2c31 100%);
+  box-shadow:0 8px 0 rgba(85,22,22,.13),inset -10px -13px 0 rgba(133,31,32,.13);
+  transform:rotate(7deg);
+}
+.pillar .doodle.tomato::before{
+  top:-12px;
+  left:29px;
+  z-index:2;
+  width:57px;
+  height:39px;
+  background:#4f7c32;
+  clip-path:polygon(50% 42%,63% 4%,67% 39%,100% 23%,75% 53%,99% 72%,61% 67%,50% 100%,39% 67%,1% 72%,25% 53%,0 23%,33% 39%,37% 4%);
+  transform:rotate(-8deg);
+}
+.pillar .doodle.tomato::after{
+  top:28px;
+  left:25px;
+  width:54px;
+  height:64px;
+  border-right:2px solid rgba(129,30,29,.22);
+  border-left:2px solid rgba(255,217,169,.35);
+  border-radius:48%;
+  transform:rotate(14deg);
+}
+
+/* A cheese slice with a thick crust and tiny pepperoni rounds. */
+.pillar .doodle.slice{
+  width:126px;
+  height:112px;
+  border:0;
+  border-radius:0;
+  background:none;
+  box-shadow:none;
+  transform:rotate(-6deg);
+}
+.pillar .doodle.slice::before{
+  inset:3px 6px 2px;
+  z-index:1;
+  background:
+    radial-gradient(circle at 49% 55%,#c84331 0 6px,#8c2d28 6.5px 8px,transparent 8.5px),
+    radial-gradient(circle at 33% 35%,#c84331 0 6px,#8c2d28 6.5px 8px,transparent 8.5px),
+    radial-gradient(circle at 66% 31%,#c84331 0 5px,#8c2d28 5.5px 7px,transparent 7.5px),
+    linear-gradient(125deg,#fff0a0 6%,#ffd151 52%,#f4a834 100%);
+  clip-path:polygon(7% 16%,94% 16%,51% 95%);
+  filter:drop-shadow(0 7px 0 rgba(109,46,24,.18));
+}
+.pillar .doodle.slice::after{
+  top:9px;
+  left:11px;
+  z-index:2;
+  width:102px;
+  height:25px;
+  border:5px solid #c95d31;
+  border-radius:52% 52% 48% 48%;
+  background:linear-gradient(180deg,#ef9450,#d96a38);
+  box-shadow:inset 0 -4px 0 rgba(123,43,27,.24),0 3px 0 rgba(124,47,28,.16);
+  transform:rotate(2deg);
+}
+
+/* The promise-card calabresa illustration: use three empty spans inside the <i>. */
+.promise .calabresa-icon{
+  position:relative;
+  display:block;
+  width:42px;
+  height:42px;
+  grid-row:span 2;
+  align-self:center;
+  overflow:visible;
+  color:transparent;
+  font-size:0!important;
+  font-style:normal;
+  line-height:0;
+}
+.promise .calabresa-icon::before{
+  position:absolute;
+  top:8px;
+  left:8px;
+  width:27px;
+  height:27px;
+  border:2px solid #8f2824;
+  border-radius:50%;
+  background:radial-gradient(circle at 34% 31%,#f7a06e 0 10%,transparent 11%),#cf4232;
+  box-shadow:0 2px 0 rgba(103,25,24,.2);
+  content:"";
+}
+.promise .calabresa-icon span{
+  position:absolute;
+  z-index:1;
+  display:block;
+  width:24px;
+  height:24px;
+  border:2px solid #902922;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 33%,#f8a66f 0 10%,transparent 11%),#d94a35;
+  box-shadow:0 2px 0 rgba(102,23,23,.2);
+  color:transparent;
+  font-size:0;
+}
+.promise .calabresa-icon span::after{
+  position:absolute;
+  top:6px;
+  left:6px;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:#8d2922;
+  box-shadow:7px 3px 0 #8d2922,4px 10px 0 #8d2922;
+  content:"";
+}
+.promise .calabresa-icon span:nth-child(1){top:1px;left:1px;transform:rotate(-13deg)}
+.promise .calabresa-icon span:nth-child(2){top:14px;left:3px;transform:rotate(13deg)}
+.promise .calabresa-icon span:nth-child(3){top:8px;left:18px;transform:rotate(29deg)}
+
+/* Make featured prices feel like a distinct, easy-to-scan menu badge. */
+.featured b{
+  display:inline-flex;
+  width:max-content;
+  min-height:37px;
+  align-items:center;
+  margin-top:16px;
+  padding:1px 13px 0;
+  border:1px solid #f0c97b;
+  border-radius:999px;
+  background:#fff3c8;
+  color:#791920;
+  box-shadow:0 3px 0 rgba(121,25,32,.18);
+  font-family:"Righteous","Bree Serif",Georgia,serif;
+  font-size:1rem;
+  font-weight:400;
+  letter-spacing:.01em;
+  line-height:1;
+}
+.featured b::before{
+  width:7px;
+  height:7px;
+  margin-right:7px;
+  border-radius:50%;
+  background:var(--red);
+  box-shadow:0 0 0 3px rgba(199,43,49,.13);
+  content:"";
+}
+.red-feature b{border-color:#ffd770;background:#fff8df;color:#761922;box-shadow:0 3px 0 rgba(71,9,16,.28)}
+.yellow-feature b{border-color:#c86a32;background:#fff8df;color:#791920;box-shadow:0 3px 0 rgba(120,61,14,.2)}
+
+@media(max-width:720px){
+  .featured b{min-height:33px;margin-top:9px;padding:1px 10px 0;font-size:.9rem}
+  .featured b::before{width:6px;height:6px;margin-right:6px}
+}
+
+/* Menu choices: give flavors, sizes and payment methods their own clear hierarchy. */
+.menu-body .builder-options,.menu-body .size-options{gap:12px}
+.menu-body .builder-options .option{
+  position:relative;
+  min-height:98px;
+  isolation:isolate;
+  overflow:hidden;
+  padding:14px 48px 14px 14px;
+  border:1px solid #e7cfc4;
+  border-radius:17px;
+  background:linear-gradient(135deg,#fff 0%,#fffaf5 100%);
+  box-shadow:0 2px 0 rgba(116,45,38,.05);
+}
+.menu-body .builder-options .option::before{
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  background:linear-gradient(118deg,rgba(255,238,204,.62),rgba(255,255,255,0) 58%);
+  content:"";
+  opacity:0;
+  transition:opacity .18s ease;
+}
+.menu-body .builder-options .option::after{
+  position:absolute;
+  top:14px;
+  right:14px;
+  display:grid;
+  width:21px;
+  height:21px;
+  place-items:center;
+  border:2px solid #e3c9bd;
+  border-radius:50%;
+  color:#fff;
+  background:#fff;
+  content:"";
+  font-size:.68rem;
+  font-weight:950;
+  transition:background .18s,border-color .18s,transform .18s;
+}
+.menu-body .builder-options .option:hover{border-color:#de9b90;box-shadow:0 6px 15px rgba(128,47,40,.09)}
+.menu-body .builder-options .option.selected{border-color:var(--red);background:linear-gradient(135deg,#fff 0%,#fff6ed 100%);box-shadow:0 7px 0 rgba(121,25,32,.1)}
+.menu-body .builder-options .option.selected::before{opacity:1}
+.menu-body .builder-options .option.selected::after{border-color:var(--red);background:var(--red);content:"✓";transform:scale(1.04)}
+.menu-body .builder-options .option .option-icon{
+  width:45px;
+  height:45px;
+  flex-basis:45px;
+  border:1px solid #f0cd85;
+  border-radius:13px;
+  background:linear-gradient(145deg,#ffdf82,#ffbe39);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 3px 0 rgba(196,117,22,.18);
+  color:var(--wine);
+  font-family:"Righteous","Bree Serif",Georgia,serif;
+  font-size:1rem;
+}
+.menu-body .builder-options .option:nth-child(2) .option-icon{font-size:.67rem;letter-spacing:-.06em}
+.menu-body .builder-options .option b{color:var(--ink);font-size:.84rem;line-height:1.15}
+.menu-body .builder-options .option small{max-width:175px;margin-top:4px;color:#896e68;font-size:.68rem;line-height:1.38}
+
+.menu-body .size-options .size{
+  position:relative;
+  display:grid;
+  grid-template-columns:42px minmax(0,1fr) max-content;
+  min-height:86px;
+  gap:11px;
+  padding:12px 13px;
+  border-color:#e7cfc4;
+  border-radius:16px;
+  background:linear-gradient(135deg,#fff 0%,#fffaf6 100%);
+  box-shadow:0 2px 0 rgba(116,45,38,.05);
+}
+.menu-body .size-options .size::before{
+  display:grid;
+  width:42px;
+  height:42px;
+  place-items:center;
+  align-self:center;
+  border:1px solid #f0d28c;
+  border-radius:12px;
+  background:#fff1c3;
+  color:var(--red-deep);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.78);
+  font-family:"Righteous","Bree Serif",Georgia,serif;
+  font-size:1.06rem;
+  content:"M";
+}
+.menu-body .size-options .size:nth-child(2)::before{content:"G"}
+.menu-body .size-options .size:hover{border-color:#de9b90;box-shadow:0 6px 15px rgba(128,47,40,.09)}
+.menu-body .size-options .size.selected{border-color:var(--red);background:linear-gradient(135deg,#fff 0%,#fff5eb 100%);box-shadow:0 7px 0 rgba(121,25,32,.1)}
+.menu-body .size-options .size.selected::before{border-color:#e6a733;background:var(--yellow);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 3px 0 rgba(182,103,20,.15)}
+.menu-body .size-options .size>span{min-width:0}
+.menu-body .size-options .size b{color:var(--ink);font-size:.83rem;line-height:1.15}
+.menu-body .size-options .size small{margin-top:4px;color:#896e68;font-size:.67rem;line-height:1.35}
+.menu-body .size-options .size>strong{
+  display:inline-flex;
+  min-width:max-content;
+  align-items:center;
+  align-self:center;
+  justify-content:center;
+  min-height:34px;
+  margin:0;
+  padding:1px 9px 0;
+  border:1px solid #f0c77e;
+  border-radius:999px;
+  background:#fff3ca;
+  color:var(--red-deep);
+  box-shadow:0 2px 0 rgba(123,49,25,.13);
+  font-family:"Righteous","Bree Serif",Georgia,serif;
+  font-size:.76rem;
+  font-weight:400;
+  letter-spacing:.005em;
+  line-height:1;
+  text-align:center;
+  white-space:nowrap;
+}
+.menu-body .size-options .size.selected>strong{border-color:#e5a12e;background:var(--yellow);box-shadow:0 3px 0 rgba(159,82,15,.18)}
+
+.menu-body .payment-kind{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.menu-body .kind-card{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 20px;
+  grid-template-rows:auto auto;
+  min-height:82px;
+  gap:6px 8px;
+  padding:13px 12px;
+  border-color:#e5d0c7;
+  border-radius:13px;
+  background:linear-gradient(135deg,#fff 0%,#fffaf7 100%);
+  box-shadow:0 2px 0 rgba(116,45,38,.05);
+  transition:border-color .18s,box-shadow .18s,transform .18s,background .18s;
+}
+.menu-body .kind-card::after{
+  display:grid;
+  width:19px;
+  height:19px;
+  place-items:center;
+  border:2px solid #e1c8bc;
+  border-radius:50%;
+  color:#fff;
+  background:#fff;
+  content:"";
+  font-size:.62rem;
+  font-weight:950;
+  transition:background .18s,border-color .18s,transform .18s;
+}
+.menu-body .kind-card:hover{border-color:#df9e93;box-shadow:0 6px 15px rgba(128,47,40,.09);transform:translateY(-1px)}
+.menu-body .kind-card.selected{border-color:var(--red);background:linear-gradient(135deg,#fff 0%,#fff4ea 100%);box-shadow:0 6px 0 rgba(121,25,32,.1)}
+.menu-body .kind-card.selected::after{border-color:var(--red);background:var(--red);content:"✓";transform:scale(1.04)}
+.menu-body .kind-card span{align-self:end;color:var(--red-deep);font-family:"Bree Serif",Georgia,serif;font-size:.88rem;line-height:1.05}
+.menu-body .kind-card small{align-self:start;margin:0;color:#846b65;font-size:.68rem;line-height:1.38}
+.menu-body .online-payment-panel{margin-top:13px;padding:15px}
+.menu-body .payment-ready{margin:14px 0 10px;padding:11px}
+
+@media(max-width:720px){
+  .menu-body .builder-options .option{min-height:92px}
+  .menu-body .size-options .size{min-height:82px}
+  .menu-body .kind-card{min-height:78px}
+}
+@media(max-width:390px){
+  .menu-body .size-options .size{grid-template-columns:40px minmax(0,1fr);gap:9px;padding:11px}
+  .menu-body .size-options .size::before{width:40px;height:40px}
+  .menu-body .size-options .size>strong{grid-column:2;justify-self:start;min-width:0;font-size:.72rem}
+  .menu-body .payment-kind{grid-template-columns:1fr}
+  .menu-body .kind-card{min-height:72px}
+}
+
+/* Pizza mode illustrations and a calmer hierarchy for the size choices. */
+.menu-body .builder-options .pizza-mode-icon{
+  position:relative;
+  display:block;
+  width:48px;
+  height:48px;
+  flex:0 0 48px;
+  overflow:hidden;
+  border:3px solid #dd7536;
+  border-radius:50%;
+  box-shadow:inset 0 0 0 3px rgba(255,249,213,.75),0 3px 0 rgba(157,76,18,.16);
+}
+.menu-body .builder-options .pizza-mode-icon::after{
+  position:absolute;
+  inset:4px;
+  border:1px solid rgba(137,55,27,.32);
+  border-radius:50%;
+  content:"";
+}
+.menu-body .builder-options .pizza-whole{
+  background:
+    radial-gradient(circle at 30% 28%,#b82e2f 0 3px,transparent 3.6px),
+    radial-gradient(circle at 67% 31%,#b82e2f 0 3px,transparent 3.6px),
+    radial-gradient(circle at 35% 69%,#b82e2f 0 3px,transparent 3.6px),
+    radial-gradient(circle at 70% 66%,#9b452b 0 3px,transparent 3.6px),
+    radial-gradient(circle at 50% 50%,#ffd86d 0 61%,#f4b935 62% 100%);
+}
+.menu-body .builder-options .pizza-whole::before{
+  position:absolute;
+  z-index:1;
+  top:5px;
+  bottom:5px;
+  left:50%;
+  width:1px;
+  background:rgba(139,55,30,.25);
+  box-shadow:0 0 0 0 rgba(0,0,0,0),-13px 13px 0 -0.4px rgba(139,55,30,.22),13px 13px 0 -0.4px rgba(139,55,30,.22);
+  content:"";
+  transform:rotate(45deg);
+}
+.menu-body .builder-options .pizza-half{
+  background:
+    radial-gradient(circle at 28% 29%,#b72f30 0 3px,transparent 3.6px),
+    radial-gradient(circle at 31% 67%,#b72f30 0 3px,transparent 3.6px),
+    radial-gradient(circle at 70% 31%,#a14a2b 0 3px,transparent 3.6px),
+    radial-gradient(circle at 70% 66%,#a14a2b 0 3px,transparent 3.6px),
+    linear-gradient(90deg,#f8bf39 0 49%,#ffe07a 50% 100%);
+}
+.menu-body .builder-options .pizza-half::before{
+  position:absolute;
+  z-index:1;
+  top:4px;
+  bottom:4px;
+  left:50%;
+  border-left:2px dashed rgba(133,54,28,.58);
+  content:"";
+}
+
+.menu-body .size-options .size{
+  display:grid;
+  grid-template-columns:46px minmax(0,1fr);
+  grid-template-rows:auto auto;
+  grid-template-areas:"mark copy" "mark price";
+  align-items:center;
+  min-height:118px;
+  gap:7px 12px;
+  padding:14px;
+}
+.menu-body .size-options .size::before{grid-area:mark}
+.menu-body .size-options .size-copy{
+  display:grid;
+  grid-area:copy;
+  min-width:0;
+  gap:2px;
+  align-self:end;
+}
+.menu-body .size-options .size-kicker{
+  color:#a0574d;
+  font-family:"Nunito Sans",Inter,sans-serif;
+  font-size:.62rem;
+  font-weight:900;
+  letter-spacing:.045em;
+  line-height:1.15;
+  text-transform:uppercase;
+}
+.menu-body .size-options .size-copy b{
+  color:var(--ink);
+  font-family:"Bree Serif",Georgia,serif;
+  font-size:1.04rem;
+  letter-spacing:-.015em;
+  line-height:1.05;
+}
+.menu-body .size-options .size-copy small{
+  margin:1px 0 0;
+  color:#806761;
+  font-family:"Nunito Sans",Inter,sans-serif;
+  font-size:.68rem;
+  font-weight:700;
+  line-height:1.32;
+}
+.menu-body .size-options .size-copy small span{padding:0 2px;color:#d38959}
+.menu-body .size-options .size>strong{
+  display:inline-flex;
+  grid-area:price;
+  align-items:baseline;
+  justify-self:center;
+  align-self:start;
+  min-width:0;
+  min-height:29px;
+  gap:5px;
+  margin:0;
+  padding:3px 9px 2px;
+  border-radius:999px;
+  color:var(--red-deep);
+  font-family:"Nunito Sans",Inter,sans-serif;
+  white-space:nowrap;
+}
+.menu-body .size-options .size>strong small{
+  display:inline;
+  margin:0;
+  color:#864e41;
+  font-family:"Nunito Sans",Inter,sans-serif;
+  font-size:.61rem;
+  font-weight:900;
+  letter-spacing:.015em;
+}
+.menu-body .size-options .size>strong span{
+  color:var(--red-deep);
+  font-family:"Righteous","Bree Serif",Georgia,serif;
+  font-size:.86rem;
+  font-weight:400;
+  letter-spacing:.01em;
+  line-height:1;
+}
+
+/* Keep the payment reassurance attached to its own card, never the radio marker. */
+.menu-body .kind-card{grid-template-columns:minmax(0,1fr) 20px;grid-template-rows:auto auto}
+.menu-body .kind-card span{grid-column:1;grid-row:1;align-self:end}
+.menu-body .kind-card small{grid-column:1;grid-row:2;align-self:start}
+.menu-body .kind-card::after{grid-column:2;grid-row:1 / span 2;align-self:center;justify-self:end}
+
+@media(max-width:390px){
+  .menu-body .size-options .size{grid-template-columns:42px minmax(0,1fr);grid-template-areas:"mark copy" "mark price";gap:6px 10px;padding:12px}
+  .menu-body .size-options .size::before{width:42px;height:42px}
+  .menu-body .size-options .size>strong{grid-column:auto;justify-self:center;font-size:inherit}
+}
+
+/* Compact WhatsApp shortcut for the site navigation. */
+nav>a.whatsapp-nav-link{
+  display:grid;
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  place-items:center;
+  padding:0;
+  border:1px solid rgba(135,241,175,.52);
+  border-radius:50%;
+  background:#168a50;
+  color:#fff;
+  box-shadow:0 3px 0 rgba(32,89,49,.36),inset 0 1px 0 rgba(255,255,255,.24);
+  opacity:1;
+  transition:transform .18s,background .18s,box-shadow .18s;
+}
+nav>a.whatsapp-nav-link::after{display:none}
+nav>a.whatsapp-nav-link:hover{color:#fff;background:#1ca95e;box-shadow:0 5px 0 rgba(32,89,49,.31);transform:translateY(-2px)}
+nav>a.whatsapp-nav-link:focus-visible{outline-color:#9af0b7}
+nav>a.whatsapp-nav-link svg,nav>a.whatsapp-nav-link img{display:block;width:18px;height:18px;max-width:none;object-fit:contain;fill:currentColor}
+.lightbar nav>a.whatsapp-nav-link{border-color:#a7e2b7;background:#e3f7e9;color:#147a4b;box-shadow:0 3px 0 rgba(40,123,73,.14),inset 0 1px 0 rgba(255,255,255,.85)}
+.lightbar nav>a.whatsapp-nav-link:hover{color:#fff;background:#168a50;box-shadow:0 5px 0 rgba(32,89,49,.24)}
+@media(max-width:720px){
+  nav>a.whatsapp-nav-link{display:grid!important;width:34px;height:34px;flex-basis:34px;margin-left:1px}
+  nav>a.whatsapp-nav-link svg,nav>a.whatsapp-nav-link img{width:17px;height:17px}
+}
+
+/* Cardápio: dense enough to scan, but still comfortable to tap on every screen. */
+.menu-body .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(min-width:901px){.menu-body .menu-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}}
+@media(max-width:720px){
+  .menu-body .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .menu-body .pizza-card-photo{min-height:0;border-radius:16px}
+  .menu-body .pizza-card-photo .pizza-photo{height:116px}
+  .menu-body .pizza-card-photo .pizza-photo span{top:8px;left:8px;padding:4px 6px;font-size:.52rem;letter-spacing:.075em}
+  .menu-body .pizza-card-content{padding:12px 11px 11px}
+  .menu-body .pizza-card-top{display:block}
+  .menu-body .pizza-card-photo .pizza-card-top .mini{display:none}
+  .menu-body .pizza-card p.category{margin-bottom:5px;font-size:.52rem;letter-spacing:.085em}
+  .menu-body .pizza-card h3{font-size:1rem;line-height:1.08}
+  .menu-body .pizza-card-photo .description{display:-webkit-box;min-height:0;margin:7px 0 10px;overflow:hidden;color:#765f60;font-size:.71rem;line-height:1.4;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+  .menu-body .pizza-bottom{gap:5px;padding-top:9px}
+  .menu-body .price small{font-size:.54rem;line-height:1.2}
+  .menu-body .price strong{font-size:.82rem;line-height:1.15;white-space:nowrap}
+  .menu-body .pick{min-height:38px;padding:0 8px;border-radius:999px;font-size:.63rem;line-height:1;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+  .menu-body .pick:active{transform:translateY(1px)}
+}
+@media(max-width:390px){
+  .menu-body .menu-grid{gap:8px}
+  .menu-body .pizza-card-photo .pizza-photo{height:104px}
+  .menu-body .pizza-card-content{padding:10px}
+  .menu-body .pizza-card h3{font-size:.93rem}
+  .menu-body .pizza-card-photo .description{margin:6px 0 8px;font-size:.67rem}
+  .menu-body .pick{min-height:36px;padding:0 7px;font-size:.59rem}
+}
+@media(max-width:330px){
+  .menu-body .pizza-card-photo .pizza-photo{height:92px}
+  .menu-body .pizza-card-content{padding:9px}
+  .menu-body .pizza-card p.category{font-size:.48rem}
+  .menu-body .pizza-card h3{font-size:.86rem}
+  .menu-body .pizza-card-photo .description{font-size:.62rem}
+  .menu-body .pizza-bottom{align-items:stretch;flex-direction:column}
+  .menu-body .price{display:flex;align-items:baseline;justify-content:space-between;gap:3px}
+  .menu-body .price small{font-size:.5rem}
+  .menu-body .price strong{font-size:.76rem}
+  .menu-body .pick{width:100%;min-height:34px;font-size:.57rem}
+}
+
+/* Clearly distinguish the safe local dashboard preview from the real manager area. */
+.admin-test-banner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin:0 0 24px;
+  padding:13px 16px;
+  border:1px solid #e5b542;
+  border-radius:14px;
+  background:#fff3c4;
+  color:#603b12;
+  box-shadow:0 5px 0 rgba(151,98,18,.12);
+}
+.admin-test-banner::before{
+  display:grid;
+  width:31px;
+  height:31px;
+  flex:0 0 31px;
+  place-items:center;
+  border-radius:50%;
+  background:#f2bd38;
+  color:#5e3510;
+  content:"⚑";
+  font-size:.9rem;
+  font-weight:950;
+}
+.admin-test-banner strong,.admin-test-banner span{display:block}
+.admin-test-banner strong{font-size:.78rem;font-weight:950;letter-spacing:.02em}
+.admin-test-banner span{margin-left:auto;color:#7e5b25;font-size:.69rem;line-height:1.4;text-align:right}
+@media(max-width:620px){
+  .admin-test-banner{align-items:flex-start;gap:10px;margin-bottom:17px;padding:12px}
+  .admin-test-banner span{margin:3px 0 0;text-align:left}
+}

@@ -5,6 +5,7 @@ import {
   getAuth,
   onAuthStateChanged as firebaseOnAuthStateChanged,
   sendEmailVerification as firebaseSendEmailVerification,
+  signInAnonymously,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut as firebaseSignOut,
@@ -53,6 +54,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: 'select_account' });
+let anonymousSignInPromise = null;
 
 // The first auth event tells callers that Firebase restored any saved login.
 const initialAuthState = new Promise(resolve => {
@@ -126,6 +128,25 @@ async function authenticatedUser() {
   return user;
 }
 
+// Orders may be placed without creating a visible customer account. Firebase
+// still gives that browser a temporary authenticated UID, so Firestore can bind
+// the new order to the session without allowing public writes.
+export async function ensureOrderSession() {
+  await initialAuthState;
+
+  if (auth.currentUser) return auth.currentUser;
+
+  if (!anonymousSignInPromise) {
+    anonymousSignInPromise = signInAnonymously(auth)
+      .then(credential => credential.user)
+      .finally(() => {
+        anonymousSignInPromise = null;
+      });
+  }
+
+  return anonymousSignInPromise;
+}
+
 async function adminSession() {
   const user = await authenticatedUser();
   const session = sessionFromUser(user);
@@ -158,22 +179,31 @@ function orderDataFor(user, orderRequest) {
   }
 
   // Whitelist only the fields customers are allowed to submit. UID, email,
-  // timestamps and status are always created by this module.
-  return {
+  // timestamps and status are always created by this module. Anonymous order
+  // sessions deliberately store an empty e-mail; their UID remains private.
+  const order = {
     customerUid: user.uid,
-    customerEmail: user.email,
+    customerEmail: normalizedEmail(user.email),
     customer: orderRequest.customer,
-    delivery: orderRequest.delivery,
     items: orderRequest.items,
     subtotalCents: orderRequest.subtotalCents,
     deliveryFeeCents: orderRequest.deliveryFeeCents,
     totalCents: orderRequest.totalCents,
+    fulfillmentMethod: orderRequest.fulfillmentMethod,
     checkoutRoute: orderRequest.checkoutRoute,
     paymentMethod: orderRequest.paymentMethod,
     status: 'new',
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp()
   };
+
+  // Pickup has no address field at all. That makes the submitted data match
+  // the Firestore rule and avoids retaining delivery details unnecessarily.
+  if (orderRequest.fulfillmentMethod === 'delivery') {
+    order.delivery = orderRequest.delivery;
+  }
+
+  return order;
 }
 
 export { auth, db };
@@ -266,9 +296,14 @@ export const signOut = signOutUser;
 // Order helpers ----------------------------------------------------------------------
 
 export async function saveOrder(orderRequest) {
-  const user = await authenticatedUser();
+  const user = await ensureOrderSession();
   const reference = await addDoc(collection(db, 'orders'), orderDataFor(user, orderRequest));
-  return { id: reference.id, uid: user.uid, email: user.email };
+  return {
+    id: reference.id,
+    uid: user.uid,
+    email: normalizedEmail(user.email),
+    isAnonymous: Boolean(user.isAnonymous)
+  };
 }
 
 // Kept as an alias so the existing checkout can be upgraded without breaking imports.

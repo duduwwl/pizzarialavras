@@ -4,14 +4,25 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // The dashboard is deliberately tied to one verified Firebase account.
     // Do not replace this with a value sent by the browser.
-    function isSignedInCustomer() {
+    function isEmailCustomer() {
       return request.auth != null
         && request.auth.token.email is string
         && request.auth.token.firebase.sign_in_provider != 'anonymous';
     }
 
+    // A guest checkout receives a temporary Firebase Anonymous UID. It can
+    // create one validated order, but never read orders or access the panel.
+    function isAnonymousOrderSession() {
+      return request.auth != null
+        && request.auth.token.firebase.sign_in_provider == 'anonymous';
+    }
+
+    function canCreateOrder() {
+      return isEmailCustomer() || isAnonymousOrderSession();
+    }
+
     function isAdmin() {
-      return isSignedInCustomer()
+      return isEmailCustomer()
         && request.auth.token.email == 'dudumesquita2004@gmail.com'
         && request.auth.token.email_verified == true;
     }
@@ -37,14 +48,35 @@ service cloud.firestore {
     function validDelivery(delivery) {
       return hasAllowedFields(
           delivery,
-          ['street', 'number', 'neighborhood'],
+          ['zipCode', 'street', 'number', 'neighborhood'],
           ['complement']
         )
+        && delivery.zipCode is string
+        && delivery.zipCode.matches('^[0-9]{8}$')
         && stringBetween(delivery.street, 3, 120)
         && stringBetween(delivery.number, 1, 20)
         && stringBetween(delivery.neighborhood, 2, 80)
         && (!('complement' in delivery)
           || stringBetween(delivery.complement, 0, 120));
+    }
+
+    function validOrderIdentity(order) {
+      return order.customerUid is string
+        && order.customerUid == request.auth.uid
+        && order.customerEmail is string
+        && ((isAnonymousOrderSession() && order.customerEmail == '')
+          || (isEmailCustomer()
+            && order.customerEmail == request.auth.token.email));
+    }
+
+    function validFulfillment(order) {
+      return (order.fulfillmentMethod == 'delivery'
+          && ('delivery' in order)
+          && validDelivery(order.delivery)
+          && order.deliveryFeeCents == 800)
+        || (order.fulfillmentMethod == 'pickup'
+          && !('delivery' in order)
+          && order.deliveryFeeCents == 0);
     }
 
     function validFlavorId(flavorId) {
@@ -137,24 +169,21 @@ service cloud.firestore {
     function validNewOrder(order) {
       return hasAllowedFields(
           order,
-          ['customerUid', 'customerEmail', 'customer', 'delivery', 'items',
-           'subtotalCents', 'deliveryFeeCents', 'totalCents', 'checkoutRoute',
-           'paymentMethod', 'status', 'createdAt', 'updatedAt'],
-          []
+          ['customerUid', 'customerEmail', 'customer', 'items',
+           'subtotalCents', 'deliveryFeeCents', 'totalCents', 'fulfillmentMethod',
+           'checkoutRoute', 'paymentMethod', 'status', 'createdAt', 'updatedAt'],
+          ['delivery']
         )
-        && order.customerUid is string
-        && order.customerUid == request.auth.uid
-        && stringBetween(order.customerEmail, 3, 254)
-        && order.customerEmail == request.auth.token.email
+        && validOrderIdentity(order)
         && validCustomer(order.customer)
-        && validDelivery(order.delivery)
         && validItems(order.items)
         && order.subtotalCents is int
         && order.subtotalCents >= 3800
         && order.subtotalCents <= 39000
         && subtotalMatchesItems(order.items, order.subtotalCents)
         && order.deliveryFeeCents is int
-        && order.deliveryFeeCents == 800
+        && order.fulfillmentMethod is string
+        && validFulfillment(order)
         && order.totalCents is int
         && order.totalCents == order.subtotalCents + order.deliveryFeeCents
         && order.checkoutRoute is string
@@ -177,17 +206,14 @@ service cloud.firestore {
     }
 
     match /orders/{orderId} {
-      // Every order has a logged-in, email-backed owner. The browser cannot
-      // choose a different UID or email because validNewOrder binds both to
-      // the Firebase auth token.
-      allow create: if isSignedInCustomer()
+      // A regular account or a temporary anonymous Firebase session can create
+      // a validated order. The browser cannot choose a different UID or email.
+      allow create: if canCreateOrder()
         && validNewOrder(request.resource.data);
 
-      // A customer can retrieve a known order ID, but cannot enumerate orders.
-      // The verified owner account can retrieve and list every order.
-      allow get: if isAdmin()
-        || (isSignedInCustomer() && resource.data.customerUid == request.auth.uid);
-      allow list: if isAdmin();
+      // Order details remain private: only the verified owner account can read
+      // or list them in the administrative dashboard.
+      allow get, list: if isAdmin();
 
       // Only the verified owner can change workflow fields, never customer,
       // payment, prices, or order line items.

@@ -18,7 +18,7 @@ let firebaseOrderStorePromise;
 
 function getFirebaseOrderStore(){
   if(!firebaseOrderStorePromise){
-    firebaseOrderStorePromise=import('./firebase-order-store.js').catch(error=>{
+    firebaseOrderStorePromise=import('./firebase-order-store.js?v=15').catch(error=>{
       firebaseOrderStorePromise=null;
       throw error;
     });
@@ -103,21 +103,6 @@ function closeAuthDialog(){
   else authDialog.removeAttribute('open');
 }
 
-async function requireCustomerLogin(){
-  try{
-    const store=await getFirebaseOrderStore();
-    const session=store.getCurrentSession();
-    if(session?.isAuthenticated)return session;
-    setAuthFeedback('Entre ou crie sua conta antes de finalizar o pedido.');
-    openAuthDialog();
-    return null;
-  }catch(error){
-    setAuthFeedback('Não foi possível carregar o login. Verifique sua conexão e tente novamente.',true);
-    openAuthDialog();
-    return null;
-  }
-}
-
 if(authDialog){
   document.querySelectorAll('[data-open-auth]').forEach(button=>button.addEventListener('click',openAuthDialog));
   document.querySelectorAll('[data-auth-close]').forEach(button=>button.addEventListener('click',closeAuthDialog));
@@ -165,7 +150,7 @@ if(authDialog){
 const menuGrid=document.querySelector('[data-menu-grid]');
 if(menuGrid){
   const MAX_CART_ITEMS=6;
-  const state={filter:'todos',mode:'single',size:'media',flavors:[],cart:[]};
+  const state={filter:'todos',mode:'single',size:'media',fulfillment:'delivery',flavors:[],cart:[]};
   const category={tradicionais:'Tradicional',especiais:'Especial',doces:'Doce'};
   const pizzaImages={
     tradicionais:{src:'./assets/pizza-calabresa-real.png',alt:'Pizza de calabresa com queijo derretido e cebola roxa'},
@@ -178,6 +163,7 @@ if(menuGrid){
   const cartCount=document.querySelector('[data-cart-count]');
   const subtotal=document.querySelector('[data-subtotal]');
   const delivery=document.querySelector('[data-delivery]');
+  const fulfillmentFeeLabel=document.querySelector('[data-fulfillment-fee-label]');
   const total=document.querySelector('[data-total]');
   const form=document.querySelector('[data-checkout-form]');
   const feedback=document.querySelector('[data-feedback]');
@@ -197,7 +183,7 @@ if(menuGrid){
   function renderBuilder(){
     document.querySelectorAll('.option').forEach(label=>label.classList.toggle('selected',label.querySelector('input').checked));
     document.querySelectorAll('.size').forEach(label=>label.classList.toggle('selected',label.querySelector('input').checked));
-    builderMessage.textContent=state.mode==='duo'?'Escolha dois sabores. O valor será o do sabor de maior preço.':'Escolha o sabor que vai virar protagonista.';
+    builderMessage.textContent=state.mode==='duo'?'Escolha duas metades. O valor será o do sabor de maior preço.':'Escolha o sabor que vai ocupar todos os pedaços.';
     if(!state.flavors.length){flavors.innerHTML='<span>Nenhum sabor escolhido ainda.</span>'}
     else{flavors.innerHTML=state.flavors.map((pizza,index)=>`<span class="flavor-chip">${state.mode==='duo'?`${index+1}º sabor: `:''}${pizza.name}<button type="button" data-remove-flavor="${pizza.id}" aria-label="Remover ${pizza.name}">×</button></span>`).join('')}
   }
@@ -205,8 +191,14 @@ if(menuGrid){
   function renderCart(){
     if(!state.cart.length){cartItems.innerHTML='<p class="empty">Seu pedido está vazio.<small>Escolha um sabor no cardápio.</small></p>'}
     else{cartItems.innerHTML=state.cart.map(item=>`<article class="cart-item"><div class="cart-line"><div><h4>${item.mode==='duo'?'Pizza meio a meio':item.flavors[0].name}</h4><p>${item.size==='media'?'Média · 6 fatias':'Grande · 8 fatias'}${item.mode==='duo'?` · ${item.flavors.map(pizza=>pizza.name).join(' + ')}`:''}</p></div><strong>${money(item.price)}</strong></div><button type="button" data-remove-cart="${item.id}">Remover</button></article>`).join('')}
-    const sub=state.cart.reduce((sum,item)=>sum+item.price,0), fee=state.cart.length?8:0;
-    cartCount.textContent=state.cart.length;subtotal.textContent=money(sub);delivery.textContent=fee?money(fee):'—';total.textContent=money(sub+fee);
+    const sub=state.cart.reduce((sum,item)=>sum+item.price,0);
+    const fee=state.cart.length&&state.fulfillment==='delivery'?8:0;
+    const isPickup=state.fulfillment==='pickup';
+    cartCount.textContent=state.cart.length;
+    subtotal.textContent=money(sub);
+    if(fulfillmentFeeLabel)fulfillmentFeeLabel.textContent=isPickup?'Retirada':'Entrega';
+    delivery.textContent=state.cart.length?(isPickup?'Grátis':money(fee)):'—';
+    total.textContent=money(sub+fee);
   }
 
   function refresh(){renderMenu();renderBuilder();renderCart()}
@@ -229,6 +221,7 @@ if(menuGrid){
   cartItems.addEventListener('click',event=>{const button=event.target.closest('[data-remove-cart]');if(!button)return;state.cart=state.cart.filter(item=>item.id!==button.dataset.removeCart);feedback.textContent='Item removido do pedido.';renderCart()});
 
   const routeInputs=document.querySelectorAll('input[name="checkout-route"]');
+  const fulfillmentInputs=document.querySelectorAll('input[name="fulfillment"]');
   const methodInputs=document.querySelectorAll('input[name="online-method"]');
   const onlinePanel=document.querySelector('[data-online-panel]');
   const whatsappPanel=document.querySelector('[data-whatsapp-panel]');
@@ -236,6 +229,10 @@ if(menuGrid){
   const onlineCopy=document.querySelector('[data-online-method-copy]');
   const simulateButton=document.querySelector('[data-simulate-payment]');
   const whatsappButton=document.querySelector('[data-order-whatsapp]');
+  const deliveryFields=document.querySelectorAll('[data-delivery-fields]');
+  const customerDetailsHeading=document.querySelector('[data-customer-details-heading]');
+  const fulfillmentCopy=document.querySelector('[data-fulfillment-copy]');
+  const paymentStep=document.querySelector('[data-payment-step]');
   const currentMethod=()=>document.querySelector('input[name="online-method"]:checked').value;
 
   function validateCheckout(){
@@ -244,33 +241,54 @@ if(menuGrid){
   }
   function currentAmounts(){
     const subtotal=state.cart.reduce((sum,item)=>sum+item.price,0);
-    const deliveryFee=state.cart.length?8:0;
+    const deliveryFee=state.cart.length&&state.fulfillment==='delivery'?8:0;
     return {subtotalCents:Math.round(subtotal*100),deliveryFeeCents:Math.round(deliveryFee*100),totalCents:Math.round((subtotal+deliveryFee)*100)};
   }
   function checkoutValue(data,name){return String(data.get(name)??'').trim()}
+  function normalizedZipCode(data){return checkoutValue(data,'zipCode').replace(/\D/g,'')}
+  function displayZipCode(zipCode){return zipCode?zipCode.replace(/(\d{5})(\d{3})/,'$1-$2'):''}
   function buildOrderPayload(route){
     const data=new FormData(form),amounts=currentAmounts();
-    return {
+    const fulfillmentMethod=state.fulfillment;
+    const payload={
       customer:{name:checkoutValue(data,'name'),phone:checkoutValue(data,'phone')},
-      delivery:{street:checkoutValue(data,'street'),number:checkoutValue(data,'number'),neighborhood:checkoutValue(data,'neighborhood'),complement:checkoutValue(data,'complement')},
       items:state.cart.map(item=>({size:item.size,flavors:item.flavors.map(pizza=>pizza.id),unitPriceCents:Math.round(item.price*100)})),
       subtotalCents:amounts.subtotalCents,
       deliveryFeeCents:amounts.deliveryFeeCents,
       totalCents:amounts.totalCents,
+      fulfillmentMethod,
       checkoutRoute:route,
       paymentMethod:route==='whatsapp'?'whatsapp':(currentMethod()==='PIX'?'pix':'card')
     };
+    if(fulfillmentMethod==='delivery'){
+      payload.delivery={
+        zipCode:normalizedZipCode(data),
+        street:checkoutValue(data,'street'),
+        number:checkoutValue(data,'number'),
+        neighborhood:checkoutValue(data,'neighborhood'),
+        complement:checkoutValue(data,'complement')
+      };
+    }
+    return payload;
   }
   function orderSummary(finalization){
     const data=new FormData(form),amounts=currentAmounts();
     const order=state.cart.map((item,index)=>`${index+1}. ${item.mode==='duo'?`Meio a meio: ${item.flavors.map(pizza=>pizza.name).join(' / ')}`:item.flavors[0].name} (${item.size==='media'?'Média':'Grande'}) — ${money(item.price)}`).join('\n');
     const extra=data.get('complement')?`, ${data.get('complement')}`:'';
-    const message=`Olá, Pizza Lavras! Quero fazer este pedido:\n\n${order}\n\nEntrega:\nNome: ${data.get('name')}\nEndereço: ${data.get('street')}, ${data.get('number')} — ${data.get('neighborhood')}${extra}\nTelefone: ${data.get('phone')}\nFinalização: ${finalization}\n\nTotal: ${money(amounts.totalCents/100)}`;
+    const fulfillment=state.fulfillment==='pickup'
+      ? 'Retirada: vou buscar o pedido na Pizza Lavras.'
+      : `Entrega:\nEndereço: ${data.get('street')}, ${data.get('number')} — ${data.get('neighborhood')}${extra}\nCEP: ${displayZipCode(normalizedZipCode(data))}`;
+    const message=`Olá, Pizza Lavras! Quero fazer este pedido:\n\n${order}\n\n${fulfillment}\nNome: ${data.get('name')}\nTelefone: ${data.get('phone')}\nFinalização: ${finalization}\n\nTotal: ${money(amounts.totalCents/100)}`;
     return {message,total:amounts.totalCents/100};
   }
-  async function persistOrder(payload){const {saveOrder}=await getFirebaseOrderStore();return saveOrder(payload)}
+  async function persistOrder(payload){
+    const {ensureOrderSession,saveOrder}=await getFirebaseOrderStore();
+    await ensureOrderSession();
+    return saveOrder(payload);
+  }
   function firestoreErrorCopy(error){
-    if(error?.code==='auth/requires-authenticated-user')return 'Entre na sua conta para registrar o pedido.';
+    if(['auth/operation-not-allowed','auth/admin-restricted-operation'].includes(error?.code))return 'O pedido sem conta ainda não foi habilitado no Firebase. Ative o login Anônimo e tente novamente.';
+    if(error?.code==='auth/requires-authenticated-user')return 'Não foi possível criar uma sessão temporária para registrar o pedido.';
     if(error?.code==='permission-denied')return 'O Firestore recusou o pedido. Confira se as regras atualizadas foram publicadas.';
     if(error?.code==='unavailable')return 'O Firebase está indisponível no momento. Verifique sua conexão e tente novamente.';
     return 'Não foi possível registrar o pedido no sistema.';
@@ -288,8 +306,22 @@ if(menuGrid){
   }
   function updateRoute(){
     const route=document.querySelector('input[name="checkout-route"]:checked').value;
-    document.querySelectorAll('.route-card').forEach(card=>card.classList.toggle('selected',card.querySelector('input').checked));
+    document.querySelectorAll('.route-card:not(.fulfillment-option)').forEach(card=>card.classList.toggle('selected',card.querySelector('input').checked));
     onlinePanel.hidden=route!=='online';whatsappPanel.hidden=route!=='whatsapp';
+  }
+  function updateFulfillment(){
+    const selected=document.querySelector('input[name="fulfillment"]:checked');
+    state.fulfillment=selected?.value==='pickup'?'pickup':'delivery';
+    const isDelivery=state.fulfillment==='delivery';
+    document.querySelectorAll('.fulfillment-option').forEach(card=>card.classList.toggle('selected',card.querySelector('input').checked));
+    deliveryFields.forEach(field=>{
+      field.hidden=!isDelivery;
+      field.querySelectorAll('input,select,textarea').forEach(control=>control.disabled=!isDelivery);
+    });
+    if(customerDetailsHeading)customerDetailsHeading.textContent=isDelivery?'Dados para entrega':'Dados para retirada';
+    if(paymentStep)paymentStep.textContent='4';
+    if(fulfillmentCopy)fulfillmentCopy.textContent=isDelivery?'Receba onde estiver: a taxa de entrega é de R$ 8,00.':'Retire na Pizza Lavras no horário combinado. Não há taxa de atendimento.';
+    renderCart();
   }
   function updateOnlineMethod(){
     const method=currentMethod();
@@ -300,8 +332,6 @@ if(menuGrid){
   }
   async function saveCheckout(route,button){
     if(!validateCheckout()||isSavingOrder)return null;
-    const session=await requireCustomerLogin();
-    if(!session)return null;
     const originalText=button.textContent;
     const summary=orderSummary(route==='whatsapp'?'Pedido pelo WhatsApp':`Pagamento online via ${currentMethod()} (demonstração)`);
     const payload=buildOrderPayload(route);
@@ -320,9 +350,10 @@ if(menuGrid){
   }
 
   routeInputs.forEach(input=>input.addEventListener('change',updateRoute));
+  fulfillmentInputs.forEach(input=>input.addEventListener('change',updateFulfillment));
   methodInputs.forEach(input=>input.addEventListener('change',updateOnlineMethod));
   simulateButton.addEventListener('click',()=>saveCheckout('online',simulateButton));
   whatsappButton.addEventListener('click',()=>saveCheckout('whatsapp',whatsappButton));
   form.addEventListener('submit',event=>event.preventDefault());
-  updateRoute();updateOnlineMethod();refresh();
+  updateRoute();updateFulfillment();updateOnlineMethod();refresh();
 }

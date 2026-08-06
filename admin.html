@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow" />
   <meta name="description" content="Painel administrativo protegido da Pizza Lavras." />
   <title>Painel de pedidos | Pizza Lavras</title>
-  <link rel="stylesheet" href="./styles.css?v=10" />
+  <link rel="stylesheet" href="./styles.css?v=16" />
 </head>
 <body class="admin-body">
   <a class="skip" href="#admin-content">Pular para o conteúdo</a>
@@ -85,6 +85,10 @@
 
     <section class="admin-dashboard" data-admin-dashboard hidden aria-live="polite">
       <div class="container">
+        <aside class="admin-test-banner" data-admin-test-banner hidden role="status">
+          <strong>Modo de teste — dados fictícios, nada é salvo.</strong>
+          <span>Você pode filtrar os pedidos e alterar etapas apenas nesta página.</span>
+        </aside>
         <header class="admin-dashboard-head">
           <div>
             <p class="eyebrow">● Central de pedidos</p>
@@ -162,17 +166,40 @@
   </main>
 
   <script type="module">
-    import {
-      getCurrentSession as getCurrentUser,
-      onSessionChange as onAuthStateChanged,
-      signInWithGoogle,
-      signInWithEmail,
-      signUpWithEmail,
-      signOutUser as signOut,
-      getAdminOrders as listAdminOrders,
-      updateOrderStatus,
-      isAdminEmail
-    } from './firebase-order-store.js';
+    const query = new URLSearchParams(window.location.search);
+    const isLocalFileTest = window.location.protocol === 'file:';
+    const isHostedTestMode = !isLocalFileTest && query.get('teste') === '1';
+    const testMode = isLocalFileTest || isHostedTestMode;
+
+    // O arquivo local funciona sem Firebase para facilitar a demonstração.
+    // Em uma URL hospedada, ?teste=1 ainda exige uma sessão Firebase, mas nunca
+    // lê ou grava pedidos reais.
+    let getCurrentUser = () => null;
+    let onAuthStateChanged = () => () => {};
+    let signInWithGoogle = async () => { throw new Error('auth/unavailable'); };
+    let signInWithEmail = async () => { throw new Error('auth/unavailable'); };
+    let signUpWithEmail = async () => { throw new Error('auth/unavailable'); };
+    let signOut = async () => {};
+    let listAdminOrders = async () => [];
+    let subscribeToAdminOrders = async () => () => {};
+    let updateOrderStatus = async () => {};
+    let isAdminEmail = () => false;
+
+    if (!isLocalFileTest) {
+      const firebaseStore = await import('./firebase-order-store.js?v=15');
+      ({
+        getCurrentSession: getCurrentUser,
+        onSessionChange: onAuthStateChanged,
+        signInWithGoogle,
+        signInWithEmail,
+        signUpWithEmail,
+        signOutUser: signOut,
+        getAdminOrders: listAdminOrders,
+        subscribeToAdminOrders,
+        updateOrderStatus,
+        isAdminEmail
+      } = firebaseStore);
+    }
 
     const money = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
     const dateFormatter = new Intl.DateTimeFormat('pt-BR', {
@@ -211,6 +238,74 @@
       canceled: 'cancelled',
       cancelado: 'cancelled'
     };
+    const localTestUser = Object.freeze({
+      uid: 'teste-local',
+      email: 'teste-local@pizza-lavras.invalid',
+      displayName: 'Teste local',
+      emailVerified: false,
+      isAdmin: false
+    });
+
+    function createDemoOrders() {
+      return [
+        {
+          id: 'DEMO-001',
+          status: 'new',
+          createdAt: '2026-08-06T19:15:00-03:00',
+          customer: {
+            name: 'Cliente teste 01',
+            phone: '(35) 90000-0001',
+            email: 'cliente01@exemplo.invalid'
+          },
+          delivery: {
+            street: 'Rua de Demonstração',
+            number: '101',
+            neighborhood: 'Centro',
+            complement: 'Casa teste',
+            zipCode: '00000000'
+          },
+          fulfillmentMethod: 'delivery',
+          payment: { method: 'PIX (demonstração)' },
+          items: [{ name: 'Mussarela Clássica', size: 'Média' }],
+          total: 46
+        },
+        {
+          id: 'DEMO-002',
+          status: 'preparing',
+          createdAt: '2026-08-06T19:28:00-03:00',
+          customer: {
+            name: 'Cliente teste 02',
+            phone: '(35) 90000-0002',
+            email: 'cliente02@exemplo.invalid'
+          },
+          delivery: {
+            street: 'Avenida de Demonstração',
+            number: '45',
+            neighborhood: 'Jardim teste',
+            complement: '',
+            zipCode: '00000000'
+          },
+          fulfillmentMethod: 'delivery',
+          payment: { method: 'Cartão (demonstração)' },
+          items: [{ name: 'Calabresa da Vila', size: 'Grande' }, { name: 'Borda de queijo', size: '' }],
+          total: 61
+        },
+        {
+          id: 'DEMO-003',
+          status: 'out_for_delivery',
+          createdAt: '2026-08-06T19:42:00-03:00',
+          customer: {
+            name: 'Cliente teste 03',
+            phone: '(35) 90000-0003',
+            email: 'cliente03@exemplo.invalid'
+          },
+          fulfillmentMethod: 'pickup',
+          payment: { method: 'Pagamento na retirada (demonstração)' },
+          items: [{ name: 'Chocolate Crocante', size: 'Média' }],
+          total: 45
+        }
+      ];
+    }
 
     const elements = {
       authScreen: document.querySelector('[data-admin-auth-screen]'),
@@ -233,6 +328,7 @@
       ordersFeedback: document.querySelector('[data-orders-feedback]'),
       orderSearch: document.querySelector('[data-order-search]'),
       statusFilter: document.querySelector('[data-status-filter]'),
+      testBanner: document.querySelector('[data-admin-test-banner]'),
       metricOrders: document.querySelector('[data-metric-orders]'),
       metricOrdersDetail: document.querySelector('[data-metric-orders-detail]'),
       metricPreparing: document.querySelector('[data-metric-preparing]'),
@@ -244,6 +340,8 @@
     let allOrders = [];
     let loginMode = 'signin';
     let activeLoad = 0;
+    let unsubscribeOrders = null;
+    let demoOrdersInitialized = false;
 
     function escapeHtml(value) {
       return String(value ?? '')
@@ -284,9 +382,18 @@
       const number = delivery.number || order.number || '';
       const neighborhood = delivery.neighborhood || order.neighborhood || '';
       const complement = delivery.complement || order.complement || '';
+      const zipCode = delivery.zipCode || order.zipCode || '';
       const lineOne = [street, number].filter(Boolean).join(', ');
-      const lineTwo = [neighborhood, complement].filter(Boolean).join(' · ');
+      const zip = String(zipCode).replace(/\D/g, '');
+      const formattedZip = zip.length === 8 ? `CEP ${zip.slice(0, 5)}-${zip.slice(5)}` : '';
+      const lineTwo = [neighborhood, complement, formattedZip].filter(Boolean).join(' · ');
       return [lineOne, lineTwo].filter(Boolean).join(' — ') || 'Endereço não informado';
+    }
+
+    function fulfillmentOf(order) {
+      const method = String(order.fulfillmentMethod || order.fulfillment || order.serviceMethod || 'delivery').toLowerCase();
+      if (method === 'pickup') return { label: 'Retirada', details: 'Retirada na loja' };
+      return { label: 'Entrega', details: deliveryOf(order) };
     }
 
     function itemText(item) {
@@ -397,6 +504,7 @@
       const status = normalizeStatus(order.status);
       const meta = statusMeta[status];
       const customer = customerOf(order);
+      const fulfillment = fulfillmentOf(order);
       const items = itemsOf(order);
       const itemMarkup = items.length
         ? items.map((item) => `<li>${escapeHtml(itemText(item))}${item?.size ? ` <small>${escapeHtml(item.size)}</small>` : ''}</li>`).join('')
@@ -417,8 +525,8 @@
           </header>
           <div class="admin-order-details">
             <div>
-              <span class="admin-detail-label">Entrega</span>
-              <p>${escapeHtml(deliveryOf(order))}</p>
+              <span class="admin-detail-label">${escapeHtml(fulfillment.label)}</span>
+              <p>${escapeHtml(fulfillment.details)}</p>
             </div>
             <div>
               <span class="admin-detail-label">Pagamento</span>
@@ -468,7 +576,30 @@
       elements.ordersList.innerHTML = orders.map(renderOrder).join('');
     }
 
+    function setDashboardIdentity(user) {
+      const name = firstName(user);
+      const fullName = user?.displayName || user?.email || 'Equipe Pizza Lavras';
+      elements.adminFirstName.textContent = name;
+      elements.adminUserName.textContent = fullName;
+      elements.adminAvatar.textContent = name.slice(0, 2).toUpperCase();
+    }
+
+    function showTestBanner(show) {
+      elements.testBanner.hidden = !show;
+    }
+
     async function loadOrders({ quiet = false } = {}) {
+      if (testMode) {
+        if (!demoOrdersInitialized) {
+          allOrders = createDemoOrders();
+          demoOrdersInitialized = true;
+        }
+        renderOrders();
+        elements.dashboardSubtitle.textContent = 'Demonstração com pedidos fictícios. Nenhuma informação é enviada ou salva.';
+        setOrdersFeedback(quiet ? '' : 'Modo de teste: os pedidos exibidos são fictícios e ficam apenas nesta página.');
+        return;
+      }
+
       const requestId = ++activeLoad;
       if (!quiet) {
         elements.refresh.disabled = true;
@@ -497,30 +628,74 @@
       }
     }
 
+    function stopOrderSubscription() {
+      if (typeof unsubscribeOrders === 'function') unsubscribeOrders();
+      unsubscribeOrders = null;
+    }
+
+    async function startOrderSubscription() {
+      stopOrderSubscription();
+      if (testMode) return;
+      try {
+        const stop = await subscribeToAdminOrders(
+          (orders) => {
+            allOrders = Array.isArray(orders) ? orders : [];
+            renderOrders();
+            elements.dashboardSubtitle.textContent = allOrders.length
+              ? `${allOrders.length === 1 ? '1 pedido recebido' : `${allOrders.length} pedidos recebidos`} nesta conta.`
+              : 'Tudo tranquilo por enquanto. Os novos pedidos aparecerão aqui.';
+            setOrdersFeedback('Atualização automática ativa.');
+          },
+          (error) => {
+            console.error('Não foi possível atualizar pedidos automaticamente:', error);
+            setOrdersFeedback('A atualização automática falhou. Use o botão Atualizar.', true);
+          }
+        );
+        unsubscribeOrders = typeof stop === 'function' ? stop : null;
+      } catch (error) {
+        console.error('Não foi possível iniciar a atualização automática:', error);
+        setOrdersFeedback('A atualização automática falhou. Use o botão Atualizar.', true);
+      }
+    }
+
     async function applyUser(user) {
       signedInUser = user || null;
       if (!signedInUser) {
+        stopOrderSubscription();
         allOrders = [];
+        showTestBanner(false);
         showScreen('auth');
         setAuthLoading(false);
+        if (isHostedTestMode) {
+          setAuthFeedback('Modo de teste: entre com qualquer conta Firebase para abrir somente dados fictícios.');
+        }
         return;
       }
 
       try {
+        if (testMode) {
+          stopOrderSubscription();
+          setDashboardIdentity(signedInUser);
+          showTestBanner(true);
+          showScreen('dashboard');
+          await loadOrders({ quiet: true });
+          return;
+        }
+
         const isAdmin = signedInUser.isAdmin === true || (signedInUser.emailVerified === true && isAdminEmail(signedInUser.email));
         if (!isAdmin) {
+          stopOrderSubscription();
+          showTestBanner(false);
           elements.deniedEmail.textContent = signedInUser.email || 'esta conta';
           showScreen('denied');
           return;
         }
 
-        const name = firstName(signedInUser);
-        const fullName = signedInUser.displayName || signedInUser.email || 'Equipe Pizza Lavras';
-        elements.adminFirstName.textContent = name;
-        elements.adminUserName.textContent = fullName;
-        elements.adminAvatar.textContent = name.slice(0, 2).toUpperCase();
+        setDashboardIdentity(signedInUser);
+        showTestBanner(false);
         showScreen('dashboard');
         await loadOrders({ quiet: true });
+        await startOrderSubscription();
       } catch (error) {
         console.error('Não foi possível validar o acesso administrativo:', error);
         setAuthFeedback('Não foi possível validar este acesso. Tente novamente.', true);
@@ -573,6 +748,11 @@
     });
 
     async function leaveAccount() {
+      if (isLocalFileTest) {
+        await applyUser(localTestUser);
+        setOrdersFeedback('Modo de teste local: o painel permanece com dados fictícios.');
+        return;
+      }
       try {
         await signOut();
       } catch (error) {
@@ -600,6 +780,12 @@
       setOrdersFeedback();
       try {
         const newStatus = select.value;
+        if (testMode) {
+          allOrders = allOrders.map((order, index) => orderId(order, index) === id ? { ...order, status: newStatus } : order);
+          renderOrders();
+          setOrdersFeedback('Modo de teste: a etapa foi alterada somente nesta página e não foi salva.');
+          return;
+        }
         await updateOrderStatus(id, newStatus);
         allOrders = allOrders.map((order, index) => orderId(order, index) === id ? { ...order, status: newStatus } : order);
         renderOrders();
@@ -612,16 +798,23 @@
       }
     });
 
-    const unsubscribe = onAuthStateChanged((user) => {
-      applyUser(user);
-    });
+    let unsubscribe = null;
+    if (isLocalFileTest) {
+      applyUser(localTestUser);
+    } else {
+      unsubscribe = onAuthStateChanged((user) => {
+        applyUser(user);
+      });
+
+      Promise.resolve(getCurrentUser()).then((user) => {
+        if (user) applyUser(user);
+      }).catch(() => undefined);
+    }
+
     window.addEventListener('pagehide', () => {
+      stopOrderSubscription();
       if (typeof unsubscribe === 'function') unsubscribe();
     }, { once: true });
-
-    Promise.resolve(getCurrentUser()).then((user) => {
-      if (user) applyUser(user);
-    }).catch(() => undefined);
   </script>
 </body>
 </html>

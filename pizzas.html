@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Cardápio de pizzas tradicionais, especiais e doces da Pizza Lavras." />
   <title>Cardápio | Pizza Lavras</title>
-  <link rel="stylesheet" href="./styles.css?v=9" />
+  <link rel="stylesheet" href="./styles.css?v=16" />
 </head>
 <body class="menu-body">
   <a class="skip" href="#menu">Pular para o cardápio</a>
   <header class="topbar lightbar">
     <div class="container nav">
       <a class="brand" href="./index.html" aria-label="Pizza Lavras - página inicial"><span class="brand-icon"><img src="./assets/motoboy-pizza-lavras.png" alt="Motoboy da Pizza Lavras em uma moto vermelha" /></span><span><b>Pizza</b><em>Lavras</em></span></a>
-      <nav aria-label="Navegação principal"><a href="./index.html">Início</a><a class="active" href="./pizzas.html">Cardápio</a><a href="./index.html#sobre">A casa</a><a href="./index.html#contato">Contato</a><button class="nav-login" type="button" data-open-auth><span data-auth-trigger-label>Entrar</span></button><a class="nav-button" href="#checkout">Finalizar pedido →</a></nav>
+      <nav aria-label="Navegação principal"><a href="./index.html">Início</a><a class="active" href="./pizzas.html">Cardápio</a><a href="./index.html#sobre">A casa</a><a href="./index.html#contato">Contato</a><a class="whatsapp-nav-link" href="https://wa.me/5535998764545" target="_blank" rel="noopener noreferrer" aria-label="Falar com a Pizza Lavras pelo WhatsApp"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.9 7.25L3.5 20l1.28-3.76A8.5 8.5 0 1 1 20.5 11.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.6 7.8c.22-.5.48-.52.7-.52h.58c.18 0 .4.07.5.38l.7 1.67c.1.26.07.46-.07.65l-.43.55c-.14.18-.3.36-.13.66.17.29.75 1.22 1.62 1.98 1.12.98 2.06 1.29 2.36 1.44.3.15.47.13.64-.08l.82-.95c.2-.25.42-.2.7-.1l1.75.82c.28.14.46.2.53.32.07.12.07.7-.16 1.36-.23.66-1.3 1.27-1.8 1.35-.46.07-1.04.1-1.68-.1-.4-.13-.92-.3-1.58-.59-2.75-1.2-4.55-4-4.69-4.18-.14-.19-1.13-1.5-1.13-2.86 0-1.36.71-2.03.96-2.31Z" fill="currentColor"/></svg></a><button class="nav-login" type="button" data-open-auth><span data-auth-trigger-label>Entrar</span></button><a class="nav-button" href="#checkout">Finalizar pedido →</a></nav>
     </div>
   </header>
   <main>
     <section class="menu-hero">
-      <div class="container"><p class="eyebrow">✦ Cardápio Pizza Lavras</p><h1>Qual sabor vai <mark>fazer parte da sua noite?</mark></h1><p>Escolha uma pizza ou combine até dois sabores. A gente cuida do resto — e manda bem quentinha.</p><div class="menu-badges"><span>🍕 Até 2 sabores</span><span>🔥 Assada na hora</span><span>🛵 Entrega em Lavras</span></div></div>
+      <div class="container"><p class="eyebrow">✦ Cardápio Pizza Lavras</p><h1>Dois sabores, uma decisão <mark>difícil e deliciosa.</mark></h1><p>Escolha uma pizza ou combine até dois sabores. A gente cuida do resto — e manda bem quentinha.</p><div class="menu-badges"><span><span aria-hidden="true">🫓</span> Até 2 sabores</span><span>🔥 Assada na hora</span><span>🛵 Entrega em Lavras</span></div></div>
     </section>
 
     <section class="order-section" id="menu">
@@ -27,12 +27,12 @@
           <section class="builder" aria-labelledby="builder-title">
             <div class="builder-title"><div><span class="step">1</span><h3 id="builder-title">Como você quer a pizza?</h3></div><small data-builder-message>Escolha o sabor que vai virar protagonista.</small></div>
             <div class="builder-options">
-              <label class="option selected"><input type="radio" name="mode" value="single" checked /><span class="option-icon">1</span><span><b>Um sabor</b><small>Clássica do começo ao fim</small></span></label>
-              <label class="option"><input type="radio" name="mode" value="duo" /><span class="option-icon">½ + ½</span><span><b>Dois sabores</b><small>Cobrado pelo sabor de maior valor</small></span></label>
+              <label class="option option-single selected"><input type="radio" name="mode" value="single" checked /><span class="option-icon pizza-mode-icon pizza-whole" aria-hidden="true"></span><span class="option-copy"><b>Pizza inteira</b><small>Um sabor em todos os pedaços</small></span></label>
+              <label class="option option-duo"><input type="radio" name="mode" value="duo" /><span class="option-icon pizza-mode-icon pizza-half" aria-hidden="true"></span><span class="option-copy"><b>Meio a meio</b><small>Dois sabores; vale o de maior preço</small></span></label>
             </div>
             <div class="size-options">
-              <label class="size selected"><input type="radio" name="size" value="media" checked /><span><b>Média</b><small>6 fatias · até 2 pessoas</small></span><strong>A partir de R$ 38</strong></label>
-              <label class="size"><input type="radio" name="size" value="grande" /><span><b>Grande</b><small>8 fatias · 3 a 4 pessoas</small></span><strong>A partir de R$ 49</strong></label>
+              <label class="size size-medium selected"><input type="radio" name="size" value="media" checked /><span class="size-copy"><b>Média</b><small>6 fatias <span aria-hidden="true">·</span> serve até 2 pessoas</small></span><strong><small>A partir de</small><span>R$ 38</span></strong></label>
+              <label class="size size-large"><input type="radio" name="size" value="grande" /><span class="size-copy"><b>Grande</b><small>8 fatias <span aria-hidden="true">·</span> serve 3 a 4 pessoas</small></span><strong><small>A partir de</small><span>R$ 49</span></strong></label>
             </div>
             <div class="selected-flavors" data-selected-flavors><span>Nenhum sabor escolhido ainda.</span></div>
           </section>
@@ -43,26 +43,24 @@
         <aside class="checkout" id="checkout" aria-labelledby="checkout-title">
           <div class="checkout-head"><div><p class="eyebrow">✦ Seu pedido</p><h2 id="checkout-title">Quase lá!</h2></div><span data-cart-count>0</span></div>
           <div class="cart-items" data-cart-items><p class="empty">Seu pedido está vazio.<small>Escolha um sabor no cardápio.</small></p></div>
-          <div class="totals"><p><span>Subtotal</span><strong data-subtotal>R$ 0,00</strong></p><p><span>Entrega</span><strong data-delivery>—</strong></p><p class="grand-total"><span>Total</span><strong data-total>R$ 0,00</strong></p></div>
+          <div class="totals"><p><span>Subtotal</span><strong data-subtotal>R$ 0,00</strong></p><p><span data-fulfillment-fee-label>Entrega</span><strong data-delivery>—</strong></p><p class="grand-total"><span>Total</span><strong data-total>R$ 0,00</strong></p></div>
           <form data-checkout-form>
-            <section class="checkout-account" data-checkout-account aria-live="polite">
-              <div class="form-title"><span class="step">2</span><h3>Identifique-se</h3></div>
-              <div class="account-summary" data-checkout-signed-out>
-                <div><b>Entre para finalizar</b><p>Você recebe um número de pedido e a pizzaria identifica sua solicitação.</p></div>
-                <button class="button outline small-button" type="button" data-open-auth>Entrar ou criar conta</button>
+            <section class="fulfillment-flow" aria-labelledby="fulfillment-title">
+              <div class="form-title"><span class="step">2</span><h3 id="fulfillment-title">Como quer receber?</h3></div>
+              <div class="checkout-routes fulfillment-options" role="radiogroup" aria-label="Forma de atendimento">
+                <label class="route-card fulfillment-option selected"><input type="radio" name="fulfillment" value="delivery" checked /><span class="route-symbol" aria-hidden="true">🛵</span><span><b>Entrega em casa</b><small>Taxa fixa de R$ 8,00</small></span></label>
+                <label class="route-card fulfillment-option"><input type="radio" name="fulfillment" value="pickup" /><span class="route-symbol" aria-hidden="true">🍕</span><span><b>Retirada na loja</b><small>Você busca; não há taxa</small></span></label>
               </div>
-              <div class="account-summary signed-in-summary" data-checkout-signed-in hidden>
-                <div><b data-checkout-account-name>Conta conectada</b><p data-checkout-account-email></p></div>
-                <button class="text-button" type="button" data-auth-signout>Sair</button>
-              </div>
+              <p class="demo-notice fulfillment-copy" data-fulfillment-copy>Receba onde estiver: a taxa de entrega é de R$ 8,00.</p>
             </section>
-            <div class="form-title delivery-title"><span class="step">3</span><h3>Dados para entrega</h3></div>
+            <div class="form-title delivery-title"><span class="step">3</span><h3 data-customer-details-heading>Dados para entrega</h3></div>
             <label>Seu nome<input name="name" type="text" autocomplete="name" placeholder="Como podemos te chamar?" required /></label>
             <label>Telefone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(35) 99999-9999" required /></label>
-            <div class="form-row"><label>Rua / Avenida<input name="street" type="text" autocomplete="street-address" placeholder="Ex.: Rua das Flores" required /></label><label>Número<input name="number" type="text" inputmode="numeric" placeholder="123" required /></label></div>
-            <div class="form-row equal"><label>Bairro<input name="neighborhood" type="text" placeholder="Seu bairro" required /></label><label>Complemento<input name="complement" type="text" placeholder="Apto, bloco..." /></label></div>
+            <div class="form-row equal" data-delivery-fields><label>CEP<input name="zipCode" type="text" autocomplete="postal-code" inputmode="numeric" placeholder="37200-000" maxlength="9" pattern="[0-9]{5}-?[0-9]{3}" required /></label><label>Bairro<input name="neighborhood" type="text" placeholder="Seu bairro" required /></label></div>
+            <div class="form-row" data-delivery-fields><label>Rua / Avenida<input name="street" type="text" autocomplete="street-address" placeholder="Ex.: Rua das Flores" required /></label><label>Número<input name="number" type="text" inputmode="numeric" placeholder="123" required /></label></div>
+            <label data-delivery-fields>Complemento<input name="complement" type="text" placeholder="Apto, bloco..." /></label>
             <section class="payment-flow" aria-labelledby="payment-title">
-              <div class="form-title payment-title"><span class="step">4</span><h3 id="payment-title">Como deseja finalizar?</h3></div>
+              <div class="form-title payment-title"><span class="step" data-payment-step>4</span><h3 id="payment-title">Como deseja finalizar?</h3></div>
               <div class="checkout-routes" role="radiogroup" aria-label="Rota de finalização">
                 <label class="route-card selected"><input type="radio" name="checkout-route" value="online" checked /><span class="route-symbol">⚡</span><span><b>Pagar no site</b><small>PIX ou cartão · demonstração</small></span></label>
                 <label class="route-card"><input type="radio" name="checkout-route" value="whatsapp" /><span class="route-symbol">◔</span><span><b>Pedir pelo WhatsApp</b><small>Confirme com nossa equipe</small></span></label>
@@ -110,6 +108,6 @@
     </section>
     <p class="auth-feedback" data-auth-feedback aria-live="polite"></p>
   </dialog>
-  <script src="./script.js?v=10"></script>
+  <script src="./script.js?v=15"></script>
 </body>
 </html>

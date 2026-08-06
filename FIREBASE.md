@@ -7,15 +7,14 @@ fez o pedido e centralizar os pedidos no painel `admin.html`.
 
 Cada pedido é criado na coleção `orders` com:
 
-- conta do cliente (`customerUid` e e-mail);
+- sessão do pedido (`customerUid` e e-mail apenas quando o cliente escolher entrar);
 - nome e telefone;
 - endereço de entrega;
 - pizzas, sabores, tamanho e valores em centavos;
 - forma de finalização, status e datas.
 
-O cliente não consegue ler pedidos de outras pessoas, nem alterar valor, itens
-ou dados depois de salvar. Somente o administrador pode listar pedidos e mudar
-o status.
+O cliente não consegue ler ou alterar pedidos depois de salvar. Somente o
+administrador pode consultar a lista e mudar o status.
 
 ## Configuração no Console do Firebase
 
@@ -36,3 +35,8 @@ O campo de pagamento do site ainda é demonstrativo: ele registra a intenção d
 cliente, mas não gera PIX nem cobra cartão. Para cobrança real, integre um
 gateway por uma Cloud Function/backend e nunca coloque chaves privadas, dados
 de cartão, CVV ou segredo de webhook no HTML/JavaScript público.
+
+## Pedido sem login
+
+Para aceitar pedidos sem criar conta, habilite **Anônimo** em
+**Authentication → Método de login** no Firebase.
