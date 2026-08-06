@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Cardápio de pizzas tradicionais, especiais e doces da Pizza Lavras." />
   <title>Cardápio | Pizza Lavras</title>
-  <link rel="stylesheet" href="./styles.css?v=5" />
+  <link rel="stylesheet" href="./styles.css?v=9" />
 </head>
 <body class="menu-body">
   <a class="skip" href="#menu">Pular para o cardápio</a>
   <header class="topbar lightbar">
     <div class="container nav">
       <a class="brand" href="./index.html" aria-label="Pizza Lavras - página inicial"><span class="brand-icon"><img src="./assets/motoboy-pizza-lavras.png" alt="Motoboy da Pizza Lavras em uma moto vermelha" /></span><span><b>Pizza</b><em>Lavras</em></span></a>
-      <nav aria-label="Navegação principal"><a href="./index.html">Início</a><a class="active" href="./pizzas.html">Cardápio</a><a href="./index.html#sobre">A casa</a><a href="./index.html#contato">Contato</a><a class="nav-button" href="#checkout">Finalizar pedido →</a></nav>
+      <nav aria-label="Navegação principal"><a href="./index.html">Início</a><a class="active" href="./pizzas.html">Cardápio</a><a href="./index.html#sobre">A casa</a><a href="./index.html#contato">Contato</a><button class="nav-login" type="button" data-open-auth><span data-auth-trigger-label>Entrar</span></button><a class="nav-button" href="#checkout">Finalizar pedido →</a></nav>
     </div>
   </header>
   <main>
@@ -45,13 +45,24 @@
           <div class="cart-items" data-cart-items><p class="empty">Seu pedido está vazio.<small>Escolha um sabor no cardápio.</small></p></div>
           <div class="totals"><p><span>Subtotal</span><strong data-subtotal>R$ 0,00</strong></p><p><span>Entrega</span><strong data-delivery>—</strong></p><p class="grand-total"><span>Total</span><strong data-total>R$ 0,00</strong></p></div>
           <form data-checkout-form>
-            <div class="form-title"><span class="step">2</span><h3>Dados para entrega</h3></div>
+            <section class="checkout-account" data-checkout-account aria-live="polite">
+              <div class="form-title"><span class="step">2</span><h3>Identifique-se</h3></div>
+              <div class="account-summary" data-checkout-signed-out>
+                <div><b>Entre para finalizar</b><p>Você recebe um número de pedido e a pizzaria identifica sua solicitação.</p></div>
+                <button class="button outline small-button" type="button" data-open-auth>Entrar ou criar conta</button>
+              </div>
+              <div class="account-summary signed-in-summary" data-checkout-signed-in hidden>
+                <div><b data-checkout-account-name>Conta conectada</b><p data-checkout-account-email></p></div>
+                <button class="text-button" type="button" data-auth-signout>Sair</button>
+              </div>
+            </section>
+            <div class="form-title delivery-title"><span class="step">3</span><h3>Dados para entrega</h3></div>
             <label>Seu nome<input name="name" type="text" autocomplete="name" placeholder="Como podemos te chamar?" required /></label>
             <label>Telefone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(35) 99999-9999" required /></label>
             <div class="form-row"><label>Rua / Avenida<input name="street" type="text" autocomplete="street-address" placeholder="Ex.: Rua das Flores" required /></label><label>Número<input name="number" type="text" inputmode="numeric" placeholder="123" required /></label></div>
             <div class="form-row equal"><label>Bairro<input name="neighborhood" type="text" placeholder="Seu bairro" required /></label><label>Complemento<input name="complement" type="text" placeholder="Apto, bloco..." /></label></div>
             <section class="payment-flow" aria-labelledby="payment-title">
-              <div class="form-title payment-title"><span class="step">3</span><h3 id="payment-title">Como deseja finalizar?</h3></div>
+              <div class="form-title payment-title"><span class="step">4</span><h3 id="payment-title">Como deseja finalizar?</h3></div>
               <div class="checkout-routes" role="radiogroup" aria-label="Rota de finalização">
                 <label class="route-card selected"><input type="radio" name="checkout-route" value="online" checked /><span class="route-symbol">⚡</span><span><b>Pagar no site</b><small>PIX ou cartão · demonstração</small></span></label>
                 <label class="route-card"><input type="radio" name="checkout-route" value="whatsapp" /><span class="route-symbol">◔</span><span><b>Pedir pelo WhatsApp</b><small>Confirme com nossa equipe</small></span></label>
@@ -63,21 +74,42 @@
                 </div>
                 <div class="payment-ready"><span class="payment-ready-icon">🔐</span><div><b data-online-method-title>PIX instantâneo</b><p data-online-method-copy>A cobrança seria criada aqui, sem sair do pedido.</p></div></div>
                 <p class="demo-notice">Ambiente demonstrativo: nenhuma cobrança será realizada nesta versão.</p>
-                <button class="button red full" type="button" data-simulate-payment>Simular pagamento online →</button>
+                <button class="button red full" type="button" data-simulate-payment>Registrar pedido online →</button>
               </div>
               <div class="whatsapp-panel" data-whatsapp-panel hidden>
-                <span class="whatsapp-icon">◔</span><div><b>Finalize com a nossa equipe</b><p>Enviaremos seu pedido completo para o WhatsApp da Pizza Lavras.</p></div>
-                <button class="button whatsapp-button full" type="button" data-order-whatsapp>Enviar pedido pelo WhatsApp →</button>
+                <span class="whatsapp-icon">◔</span><div><b>Finalize com a nossa equipe</b><p>Vamos registrar o pedido e abrir o WhatsApp da Pizza Lavras.</p></div>
+                <button class="button whatsapp-button full" type="button" data-order-whatsapp>Registrar e abrir WhatsApp →</button>
               </div>
             </section>
-            <p class="privacy">🔒 Seus dados são usados para preparar e entregar o pedido.</p>
+            <p class="privacy">🔒 Seus dados são usados para preparar e entregar o pedido. O pagamento online continua em demonstração.</p>
             <div class="feedback" data-feedback aria-live="polite"></div>
           </form>
         </aside>
       </div>
     </section>
   </main>
-  <footer id="contato"><div class="container footer-main"><a class="brand" href="./index.html"><span class="brand-icon"><img src="./assets/motoboy-pizza-lavras.png" alt="" /></span><span><b>Pizza</b><em>Lavras</em></span></a><p>Pizza gostosa, conversa boa e entrega que chega sorrindo.</p><div><a href="tel:+5535998764545">(35) 99876-4545</a><a href="https://instagram.com/pizzalavras.oficial" target="_blank" rel="noreferrer">@pizzalavras.oficial</a></div></div><div class="container footer-bottom"><span>© <span data-year></span> Pizza Lavras. Marca fictícia para demonstração.</span><a href="./index.html">Voltar ao início</a></div></footer>
-  <script src="./script.js?v=7"></script>
+  <footer id="contato"><div class="container footer-main"><a class="brand" href="./index.html"><span class="brand-icon"><img src="./assets/motoboy-pizza-lavras.png" alt="" /></span><span><b>Pizza</b><em>Lavras</em></span></a><p>Pizza gostosa, conversa boa e entrega que chega sorrindo.</p><div><a href="tel:+5535998764545">(35) 99876-4545</a><a href="https://instagram.com/pizzalavras.oficial" target="_blank" rel="noreferrer">@pizzalavras.oficial</a><a href="./admin.html">Área do gerente</a></div></div><div class="container footer-bottom"><span>© <span data-year></span> Pizza Lavras. Marca fictícia para demonstração.</span><a href="./index.html">Voltar ao início</a></div></footer>
+  <dialog class="auth-dialog" data-auth-dialog aria-labelledby="auth-dialog-title">
+    <button class="auth-close" type="button" data-auth-close aria-label="Fechar">×</button>
+    <section data-auth-signed-out>
+      <p class="eyebrow">✦ Sua conta Pizza Lavras</p>
+      <h2 id="auth-dialog-title">Entre para acompanhar seu pedido.</h2>
+      <p class="auth-intro">Use seu e-mail ou a conta Google. Seus pedidos ficam identificados para a nossa equipe.</p>
+      <div class="auth-mode-tabs" role="tablist" aria-label="Acesso à conta"><button type="button" class="active" data-auth-mode="login">Entrar</button><button type="button" data-auth-mode="signup">Criar conta</button></div>
+      <label>E-mail<input type="email" autocomplete="email" data-auth-email placeholder="voce@email.com" /></label>
+      <label>Senha<input type="password" autocomplete="current-password" data-auth-password placeholder="Pelo menos 6 caracteres" /></label>
+      <button class="button red full" type="button" data-auth-email-submit>Entrar na minha conta</button>
+      <div class="auth-divider"><span>ou</span></div>
+      <button class="button outline full" type="button" data-auth-google><span aria-hidden="true">G</span> Continuar com Google</button>
+    </section>
+    <section data-auth-signed-in hidden>
+      <p class="eyebrow">✦ Conta conectada</p>
+      <h2>Você já está por aqui.</h2>
+      <p class="auth-intro" data-auth-profile></p>
+      <button class="button outline full" type="button" data-auth-signout>Sair desta conta</button>
+    </section>
+    <p class="auth-feedback" data-auth-feedback aria-live="polite"></p>
+  </dialog>
+  <script src="./script.js?v=10"></script>
 </body>
 </html>
