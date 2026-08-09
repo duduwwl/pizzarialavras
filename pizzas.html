@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Cardápio de pizzas tradicionais, especiais e doces da Pizza Lavras." />
   <title>Cardápio | Pizza Lavras</title>
-  <link rel="stylesheet" href="./styles.css?v=16" />
+  <link rel="stylesheet" href="./styles.css?v=17" />
 </head>
 <body class="menu-body">
   <a class="skip" href="#menu">Pular para o cardápio</a>
@@ -24,6 +24,15 @@
       <div class="container order-layout">
         <div class="menu-area">
           <div class="section-heading row compact"><div><p class="eyebrow">✦ Escolha seus sabores</p><h2>Nosso cardápio</h2></div><p>Todos os tamanhos incluem massa artesanal, molho da casa e muito cuidado.</p></div>
+          <section class="menu-offers" id="ofertas" aria-labelledby="menu-offers-title">
+            <div class="menu-offers-heading"><div><p class="eyebrow">✦ Combos da casa</p><h3 id="menu-offers-title">Deixe a noite completa.</h3></div><p>Combos com refrigerante para confirmar com a equipe no WhatsApp.</p></div>
+            <div class="menu-offer-grid">
+              <a class="menu-offer-card menu-offer-calabresa" href="#menu-list"><span class="menu-offer-photo"><img src="./assets/pizza-calabresa-artesanal.jpg" alt="Pizza de calabresa dourada" /></span><span class="menu-offer-copy"><small>Combo da Vila</small><b>Calabresa Grande + refri 2 L</b><em>R$ 59,90</em></span><span class="menu-offer-arrow" aria-hidden="true">→</span></a>
+              <a class="menu-offer-card menu-offer-especial" href="#menu-list"><span class="menu-offer-photo"><img src="./assets/pizza-lavras-especial-artesanal.jpg" alt="Pizza especial com bastante recheio" /></span><span class="menu-offer-copy"><small>Noite Especial</small><b>Lavras Especial + refri 2 L</b><em>R$ 64,90</em></span><span class="menu-offer-arrow" aria-hidden="true">→</span></a>
+              <a class="menu-offer-card menu-offer-doce" href="#menu-list"><span class="menu-offer-photo"><img src="./assets/pizza-chocolate-crocante-artesanal.jpg" alt="Pizza doce de sobremesa" /></span><span class="menu-offer-copy"><small>Final Feliz</small><b>Pizza doce + Coca-Cola lata</b><em>A partir de R$ 49,90</em></span><span class="menu-offer-arrow" aria-hidden="true">→</span></a>
+            </div>
+            <p class="menu-offer-note">Ao finalizar, escolha <strong>Pedir pelo WhatsApp</strong> para confirmar a promo&ccedil;&atilde;o e a disponibilidade.</p>
+          </section>
           <section class="builder" aria-labelledby="builder-title">
             <div class="builder-title"><div><span class="step">1</span><h3 id="builder-title">Como você quer a pizza?</h3></div><small data-builder-message>Escolha o sabor que vai virar protagonista.</small></div>
             <div class="builder-options">
@@ -36,7 +45,7 @@
             </div>
             <div class="selected-flavors" data-selected-flavors><span>Nenhum sabor escolhido ainda.</span></div>
           </section>
-          <div class="filters" aria-label="Filtrar cardápio"><button class="filter active" type="button" data-filter="todos">Todas <span>12</span></button><button class="filter" type="button" data-filter="tradicionais">Tradicionais <span>5</span></button><button class="filter" type="button" data-filter="especiais">Especiais <span>4</span></button><button class="filter" type="button" data-filter="doces">Doces <span>3</span></button></div>
+          <div class="filters" id="menu-list" aria-label="Filtrar cardápio"><button class="filter active" type="button" data-filter="todos">Todas <span>12</span></button><button class="filter" type="button" data-filter="tradicionais">Tradicionais <span>5</span></button><button class="filter" type="button" data-filter="especiais">Especiais <span>4</span></button><button class="filter" type="button" data-filter="doces">Doces <span>3</span></button></div>
           <div class="menu-grid" data-menu-grid aria-live="polite"></div>
         </div>
 
@@ -108,6 +117,6 @@
     </section>
     <p class="auth-feedback" data-auth-feedback aria-live="polite"></p>
   </dialog>
-  <script src="./script.js?v=15"></script>
+  <script src="./script.js?v=16"></script>
 </body>
 </html>

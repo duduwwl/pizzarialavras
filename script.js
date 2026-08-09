@@ -153,9 +153,28 @@ if(menuGrid){
   const state={filter:'todos',mode:'single',size:'media',fulfillment:'delivery',flavors:[],cart:[]};
   const category={tradicionais:'Tradicional',especiais:'Especial',doces:'Doce'};
   const pizzaImages={
-    tradicionais:{src:'./assets/pizza-calabresa-real.png',alt:'Pizza de calabresa com queijo derretido e cebola roxa'},
-    especiais:{src:'./assets/pizza-especial-real.png',alt:'Pizza especial de frango, bacon, milho e mussarela'},
-    doces:{src:'./assets/pizza-doce-real.png',alt:'Pizza doce com queijo e goiabada cremosa'}
+    mussarela:{src:'./assets/pizza-mussarela-artesanal.jpg',alt:'Pizza artesanal de mussarela com tomate fresco e orégano'},
+    calabresa:{src:'./assets/pizza-calabresa-artesanal.jpg',alt:'Pizza artesanal de calabresa fatiada, cebola roxa e queijo derretido'},
+    marguerita:{src:'./assets/pizza-marguerita-artesanal.jpg',alt:'Pizza artesanal marguerita com tomate e manjericão fresco'},
+    portuguesa:{src:'./assets/pizza-portuguesa-artesanal.jpg',alt:'Pizza artesanal portuguesa com presunto, ovos, pimentão e azeitonas'},
+    frango:{src:'./assets/pizza-frango-catutiry-artesanal.jpg',alt:'Pizza artesanal de frango com Catupiry cremoso'},
+    lavras:{src:'./assets/pizza-lavras-especial-artesanal.jpg',alt:'Pizza Lavras Especial com frango cremoso, bacon e milho'},
+    lombo:{src:'./assets/pizza-lombo-mineiro-artesanal.jpg',alt:'Pizza artesanal de lombo mineiro com requeijão e cebola caramelizada'},
+    quatro:{src:'./assets/pizza-quatro-queijos-artesanal.jpg',alt:'Pizza artesanal quatro queijos com borda dourada'},
+    rucula:{src:'./assets/pizza-rucula-tomate-seco-artesanal.jpg',alt:'Pizza artesanal de rúcula fresca com tomate seco'},
+    romeu:{src:'./assets/pizza-romeu-julieta-artesanal.jpg',alt:'Pizza doce artesanal de Romeu e Julieta com goiabada cremosa'},
+    chocolate:{src:'./assets/pizza-chocolate-crocante-artesanal.jpg',alt:'Pizza doce artesanal de chocolate crocante'},
+    banana:{src:'./assets/pizza-banana-caramelada-artesanal.jpg',alt:'Pizza doce artesanal de banana caramelada e canela'}
+  };
+  const pizzaImageFallbacks={
+    tradicionais:{src:'./assets/pizza-calabresa-real.png',alt:'Pizza artesanal com queijo derretido'},
+    especiais:{src:'./assets/pizza-especial-real.png',alt:'Pizza especial artesanal'},
+    doces:{src:'./assets/pizza-doce-real.png',alt:'Pizza doce artesanal'}
+  };
+  const pizzaVisual=pizza=>{
+    const fallback=pizzaImageFallbacks[pizza.category];
+    const visual=pizzaImages[pizza.id]||fallback;
+    return {...visual,fallbackSrc:fallback.src};
   };
   const flavors=document.querySelector('[data-selected-flavors]');
   const builderMessage=document.querySelector('[data-builder-message]');
@@ -175,9 +194,15 @@ if(menuGrid){
     const visible=state.filter==='todos'?pizzas:pizzas.filter(pizza=>pizza.category===state.filter);
     menuGrid.innerHTML=visible.map(pizza=>{
       const picked=state.flavors.some(item=>item.id===pizza.id);
-      const visual=pizzaImages[pizza.category];
-      return `<article class="pizza-card pizza-card-photo ${picked?'selected':''}"><div class="pizza-photo"><img src="${visual.src}" alt="${visual.alt}" /><span>${category[pizza.category]}</span></div><div class="pizza-card-content"><h3>${pizza.name}</h3><p class="description">${pizza.description}</p><div class="pizza-bottom"><span class="price"><small>${state.size==='media'?'Média · 6 fatias':'Grande · 8 fatias'}</small><strong>${money(priceOf(pizza))}</strong></span><button class="pick" type="button" data-pick="${pizza.id}" aria-pressed="${picked}">${picked?'Escolhida ✓':'Escolher'}</button></div></div></article>`;
+      const visual=pizzaVisual(pizza);
+      return `<article class="pizza-card pizza-card-photo ${picked?'selected':''}"><div class="pizza-photo"><img src="${visual.src}" alt="${visual.alt}" data-fallback-src="${visual.fallbackSrc}" loading="lazy" decoding="async" /><span>${category[pizza.category]}</span></div><div class="pizza-card-content"><h3>${pizza.name}</h3><p class="description">${pizza.description}</p><div class="pizza-bottom"><span class="price"><small>${state.size==='media'?'Média · 6 fatias':'Grande · 8 fatias'}</small><strong>${money(priceOf(pizza))}</strong></span><button class="pick" type="button" data-pick="${pizza.id}" aria-pressed="${picked}">${picked?'Escolhida ✓':'Escolher'}</button></div></div></article>`;
     }).join('');
+    menuGrid.querySelectorAll('img[data-fallback-src]').forEach(image=>image.addEventListener('error',()=>{
+      const fallback=image.dataset.fallbackSrc;
+      if(!fallback||image.dataset.usedFallback==='true')return;
+      image.dataset.usedFallback='true';
+      image.src=fallback;
+    },{once:true}));
   }
 
   function renderBuilder(){
