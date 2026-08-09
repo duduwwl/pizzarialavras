@@ -827,42 +827,38 @@ nav>a.whatsapp-nav-link svg,nav>a.whatsapp-nav-link img{display:block;width:18px
 .menu-offers-heading .eyebrow{margin-bottom:5px}
 .menu-combo-kicker{display:inline-flex;align-items:center;gap:6px}
 .combo-heading-icon{width:18px;height:18px;flex:0 0 18px;color:var(--red)}
-.menu-offers-heading h3{margin:0;font-size:1.26rem}
+.menu-offers-heading h3{max-width:430px;margin:0;font-size:1.26rem;line-height:1.05}
 .menu-offers-heading>p{max-width:255px;margin:0;color:var(--muted);font-size:.69rem;line-height:1.48;text-align:right}
-.menu-offer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.menu-offer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .menu-offer-card{
-  display:grid;
-  grid-template-columns:56px minmax(0,1fr) 18px;
-  align-items:center;
-  gap:9px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
   min-width:0;
-  min-height:79px;
-  padding:8px;
+  min-height:278px;
+  overflow:hidden;
+  padding:0;
   border:1px solid #ead7cd;
-  border-radius:15px;
-  background:#fffdfa;
+  border-radius:19px;
+  background:#fff;
   transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
 }
-.menu-offer-card:hover{border-color:#dd8f81;box-shadow:0 8px 17px rgba(114,44,33,.1);transform:translateY(-2px)}
-.menu-offer-photo{display:block;width:56px;height:61px;overflow:hidden;border-radius:10px;background:#48191a}
+.menu-offer-card:hover{border-color:#dd8f81;box-shadow:0 11px 27px rgba(109,42,34,.1);transform:translateY(-2px)}
+.menu-offer-photo{position:relative;display:block;width:100%;height:125px;overflow:hidden;border-radius:0;background:#48191a}
 .menu-offer-photo img{width:100%;height:100%;object-fit:cover}
-.menu-offer-copy{display:grid;min-width:0;gap:2px}
-.menu-offer-copy small{color:var(--red);font-size:.53rem;font-weight:950;letter-spacing:.09em;text-transform:uppercase}
-.menu-offer-copy b{display:block;overflow:hidden;color:var(--ink);font-size:.68rem;line-height:1.23;text-overflow:ellipsis}
-.menu-offer-copy em{color:var(--red-deep);font-family:"Righteous","Bree Serif",Georgia,serif;font-size:.73rem;font-style:normal;line-height:1.12;white-space:nowrap}
-.menu-offer-arrow{color:var(--red);font-size:1rem;font-weight:950;transition:transform .18s ease}
-.menu-offer-card:hover .menu-offer-arrow{transform:translateX(2px)}
-.menu-offer-especial{background:#fff9f4}
-.menu-offer-doce{background:#fff8e8}
+.menu-offer-badge{position:absolute;top:10px;left:10px;padding:5px 8px;border-radius:999px;background:var(--yellow);color:var(--wine);font-size:.56rem;font-weight:950;letter-spacing:.08em;text-transform:uppercase}
+.menu-offer-copy{display:flex;min-height:153px;flex-direction:column;align-items:flex-start;gap:5px;padding:12px 13px 13px}
+.menu-offer-copy small{color:var(--red);font-size:.56rem;font-weight:950;letter-spacing:.1em;text-transform:uppercase}
+.menu-offer-copy b{display:block;min-height:38px;padding-right:21px;color:var(--ink);font-family:"Bree Serif",Georgia,serif;font-size:.98rem;line-height:1.1}
+.menu-offer-copy em{display:block;margin-top:auto;color:var(--red);font-family:"Righteous","Bree Serif",Georgia,serif;font-size:.88rem;font-style:normal;line-height:1.1;white-space:normal}
+.menu-offer-arrow{position:absolute;right:13px;bottom:14px;display:grid;width:25px;height:25px;place-items:center;border:1px solid var(--red);border-radius:50%;color:var(--red);font-size:.92rem;font-weight:950;transition:transform .18s ease,background .18s ease,color .18s ease}
+.menu-offer-card:hover .menu-offer-arrow{color:#fff;background:var(--red);transform:translateX(2px)}
+.menu-offer-especial{background:#fffdfa}
+.menu-offer-doce{background:#fffdf8}
 .menu-offer-note{margin:12px 0 0;color:#8a695f;font-size:.65rem;line-height:1.45}
 .menu-offer-note strong{color:var(--red-deep)}
 
-@media(max-width:1050px) and (min-width:721px){
-  .menu-offer-grid{grid-template-columns:1fr}
-  .menu-offer-card{grid-template-columns:70px minmax(0,1fr) 24px;min-height:78px}
-  .menu-offer-photo{width:70px;height:60px}
-  .menu-offer-copy b{font-size:.75rem}
-}
 @media(max-width:900px) and (min-width:721px){
   .offer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .offer-card:first-child{grid-column:span 2}
@@ -884,10 +880,13 @@ nav>a.whatsapp-nav-link svg,nav>a.whatsapp-nav-link img{display:block;width:18px
   .menu-offers{margin-bottom:19px;padding:15px;border-radius:18px}
   .menu-offers-heading{align-items:flex-start;flex-direction:column;gap:5px;margin-bottom:12px}
   .menu-offers-heading>p{max-width:none;font-size:.65rem;text-align:left}
-  .menu-offer-grid{grid-template-columns:1fr;gap:8px}
-  .menu-offer-card{grid-template-columns:62px minmax(0,1fr) 20px;min-height:72px}
-  .menu-offer-photo{width:62px;height:56px}
-  .menu-offer-copy b{font-size:.72rem}
+  .menu-offer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .menu-offer-card{min-height:255px;border-radius:17px}
+  .menu-offer-photo{height:108px}
+  .menu-offer-copy{min-height:147px;padding:11px}
+  .menu-offer-copy b{min-height:40px;font-size:.9rem}
+  .menu-offer-copy em{padding-right:18px;font-size:.81rem}
+  .menu-offer-arrow{right:10px;bottom:11px;width:23px;height:23px;font-size:.82rem}
 }
 
 /* Ingredient emojis keep the three story cards immediate and easy to scan. */
