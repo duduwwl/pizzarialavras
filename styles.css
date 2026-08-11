@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900&family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800;9..144,900&display=swap');
 :root{--red:#d62828;--red-deep:#81191f;--wine:#4b0f15;--yellow:#ffc640;--cream:#fff7ec;--paper:#fffdfa;--ink:#2c1719;--muted:#765f60;--line:#eadbd5;--shadow:0 18px 48px rgba(91,31,29,.14)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button,input,select{font:inherit}button{cursor:pointer}.container{width:min(1170px,calc(100% - 40px));margin-inline:auto}.skip{position:fixed;top:-100px;left:20px;z-index:100;padding:10px 15px;border-radius:9px;background:var(--red-deep);color:#fff}.skip:focus{top:15px}.eyebrow{margin:0 0 10px;color:var(--red);font-size:.72rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase}.eyebrow.light{color:#fff4e9}.eyebrow.light::first-letter{color:var(--yellow)}h1,h2,h3,.brand{font-family:Georgia,"Times New Roman",serif}h1{margin:0 0 20px;color:#fffaf1;font-size:clamp(3rem,6vw,5.7rem);line-height:.94;letter-spacing:-.06em}h2{margin:0;font-size:clamp(2.25rem,4vw,3.72rem);line-height:1.03;letter-spacing:-.05em}h2 strong{color:var(--red);font:inherit}h3{margin:0 0 8px;font-size:1.45rem;line-height:1.1;letter-spacing:-.035em}mark{padding:0;background:transparent;color:var(--yellow)}.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:51px;padding:0 22px;border:0;border-radius:999px;font-size:.9rem;font-weight:850;transition:transform .18s,box-shadow .18s}.button:hover{transform:translateY(-2px)}.button.yellow{background:var(--yellow);color:var(--wine);box-shadow:0 8px 0 #e5a81c}.button.red{background:var(--red);color:#fff;box-shadow:0 7px 0 var(--red-deep)}.button.full{width:100%}.text-link,.under-link{font-weight:830;font-size:.89rem}.text-link{color:var(--red)}.under-link{color:#fff4e9}.button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
 /* Navigation */
@@ -53,10 +53,10 @@ footer{color:#f8e3d7;background:#3d0e14}.footer-main{display:grid;grid-template-
 
 @media(max-width:720px){.featured-image{height:100%}.pizza-card-photo{min-height:315px}.pizza-card-photo .pizza-photo{height:152px}}
 
-/* Friendly, neighborhood-pizzeria typography. */
-body{font-family:"Nunito Sans","Trebuchet MS",ui-sans-serif,system-ui,sans-serif}
-h1,h2,h3{font-family:"Bree Serif",Georgia,"Times New Roman",serif;letter-spacing:-.02em}
-.brand{font-family:"Righteous","Arial Rounded MT Bold",sans-serif;letter-spacing:-.035em}
+/* Tipografia mais contemporânea: calor nos títulos e leitura limpa no cardápio. */
+body{font-family:"DM Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.01em}
+h1,h2,h3{font-family:"Fraunces",Georgia,"Times New Roman",serif;letter-spacing:-.025em}
+.brand{font-family:"DM Sans",ui-sans-serif,sans-serif;font-weight:800;letter-spacing:-.045em}
 
 /* Administrative dashboard — scoped to admin.html only. */
 .admin-body{min-height:100vh;background:#fff8f0;color:var(--ink)}
@@ -259,7 +259,7 @@ h1,h2,h3{font-family:"Bree Serif",Georgia,"Times New Roman",serif;letter-spacing
   background:#fff3c8;
   color:#791920;
   box-shadow:0 3px 0 rgba(121,25,32,.18);
-  font-family:"Righteous","Bree Serif",Georgia,serif;
+  font-family:"DM Sans",ui-sans-serif,sans-serif;
   font-size:1rem;
   font-weight:400;
   letter-spacing:.01em;
@@ -334,7 +334,7 @@ h1,h2,h3{font-family:"Bree Serif",Georgia,"Times New Roman",serif;letter-spacing
   background:linear-gradient(145deg,#ffdf82,#ffbe39);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 3px 0 rgba(196,117,22,.18);
   color:var(--wine);
-  font-family:"Righteous","Bree Serif",Georgia,serif;
+  font-family:"DM Sans",ui-sans-serif,sans-serif;
   font-size:1rem;
 }
 .menu-body .builder-options .option:nth-child(2) .option-icon{font-size:.67rem;letter-spacing:-.06em}
@@ -364,7 +364,7 @@ h1,h2,h3{font-family:"Bree Serif",Georgia,"Times New Roman",serif;letter-spacing
   background:#fff1c3;
   color:var(--red-deep);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.78);
-  font-family:"Righteous","Bree Serif",Georgia,serif;
+  font-family:"DM Sans",ui-sans-serif,sans-serif;
   font-size:1.06rem;
   content:"M";
 }
@@ -389,7 +389,7 @@ h1,h2,h3{font-family:"Bree Serif",Georgia,"Times New Roman",serif;letter-spacing
   background:#fff3ca;
   color:var(--red-deep);
   box-shadow:0 2px 0 rgba(123,49,25,.13);
-  font-family:"Righteous","Bree Serif",Georgia,serif;
+  font-family:"DM Sans",ui-sans-serif,sans-serif;
   font-size:.76rem;
   font-weight:400;
   letter-spacing:.005em;
@@ -431,7 +431,7 @@ h1,h2,h3{font-family:"Bree Serif",Georgia,"Times New Roman",serif;letter-spacing
 .menu-body .kind-card:hover{border-color:#df9e93;box-shadow:0 6px 15px rgba(128,47,40,.09);transform:translateY(-1px)}
 .menu-body .kind-card.selected{border-color:var(--red);background:linear-gradient(135deg,#fff 0%,#fff4ea 100%);box-shadow:0 6px 0 rgba(121,25,32,.1)}
 .menu-body .kind-card.selected::after{border-color:var(--red);background:var(--red);content:"✓";transform:scale(1.04)}
-.menu-body .kind-card span{align-self:end;color:var(--red-deep);font-family:"Bree Serif",Georgia,serif;font-size:.88rem;line-height:1.05}
+.menu-body .kind-card span{align-self:end;color:var(--red-deep);font-family:"Fraunces",Georgia,serif;font-size:.88rem;line-height:1.05}
 .menu-body .kind-card small{align-self:start;margin:0;color:#846b65;font-size:.68rem;line-height:1.38}
 .menu-body .online-payment-panel{margin-top:13px;padding:15px}
 .menu-body .payment-ready{margin:14px 0 10px;padding:11px}
@@ -526,7 +526,7 @@ h1,h2,h3{font-family:"Bree Serif",Georgia,"Times New Roman",serif;letter-spacing
 }
 .menu-body .size-options .size-kicker{
   color:#a0574d;
-  font-family:"Nunito Sans",Inter,sans-serif;
+  font-family:"DM Sans",ui-sans-serif,sans-serif;
   font-size:.62rem;
   font-weight:900;
   letter-spacing:.045em;
@@ -535,7 +535,7 @@ h1,h2,h3{font-family:"Bree Serif",Georgia,"Times New Roman",serif;letter-spacing
 }
 .menu-body .size-options .size-copy b{
   color:var(--ink);
-  font-family:"Bree Serif",Georgia,serif;
+  font-family:"Fraunces",Georgia,serif;
   font-size:1.04rem;
   letter-spacing:-.015em;
   line-height:1.05;
@@ -543,7 +543,7 @@ h1,h2,h3{font-family:"Bree Serif",Georgia,"Times New Roman",serif;letter-spacing
 .menu-body .size-options .size-copy small{
   margin:1px 0 0;
   color:#806761;
-  font-family:"Nunito Sans",Inter,sans-serif;
+  font-family:"DM Sans",ui-sans-serif,sans-serif;
   font-size:.68rem;
   font-weight:700;
   line-height:1.32;
@@ -562,21 +562,21 @@ h1,h2,h3{font-family:"Bree Serif",Georgia,"Times New Roman",serif;letter-spacing
   padding:3px 9px 2px;
   border-radius:999px;
   color:var(--red-deep);
-  font-family:"Nunito Sans",Inter,sans-serif;
+  font-family:"DM Sans",ui-sans-serif,sans-serif;
   white-space:nowrap;
 }
 .menu-body .size-options .size>strong small{
   display:inline;
   margin:0;
   color:#864e41;
-  font-family:"Nunito Sans",Inter,sans-serif;
+  font-family:"DM Sans",ui-sans-serif,sans-serif;
   font-size:.61rem;
   font-weight:900;
   letter-spacing:.015em;
 }
 .menu-body .size-options .size>strong span{
   color:var(--red-deep);
-  font-family:"Righteous","Bree Serif",Georgia,serif;
+  font-family:"DM Sans",ui-sans-serif,sans-serif;
   font-size:.86rem;
   font-weight:400;
   letter-spacing:.01em;
@@ -806,7 +806,7 @@ nav>a.whatsapp-nav-link svg,nav>a.whatsapp-nav-link img{display:block;width:18px
 .offer-price small{color:#9b756d;font-size:.62rem;font-weight:900;letter-spacing:.07em;text-transform:uppercase}
 .offer-card-red .offer-price small{color:#ffcdbd}
 .offer-card-yellow .offer-price small{color:#745016}
-.offer-price strong{color:var(--red);font-family:"Righteous","Bree Serif",Georgia,serif;font-size:1.2rem;font-weight:400;letter-spacing:.01em}
+.offer-price strong{color:var(--red);font-family:"DM Sans",ui-sans-serif,sans-serif;font-size:1.2rem;font-weight:800;letter-spacing:-.025em}
 .offer-card-red .offer-price strong{color:#fff8e5}
 .offer-card-yellow .offer-price strong{color:#7a1a20}
 .offer-link{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:16px;color:var(--red-deep);font-size:.75rem;font-weight:950}
@@ -850,8 +850,9 @@ nav>a.whatsapp-nav-link svg,nav>a.whatsapp-nav-link img{display:block;width:18px
 .menu-offer-badge{position:absolute;top:10px;left:10px;padding:5px 8px;border-radius:999px;background:var(--yellow);color:var(--wine);font-size:.56rem;font-weight:950;letter-spacing:.08em;text-transform:uppercase}
 .menu-offer-copy{display:flex;min-height:153px;flex-direction:column;align-items:flex-start;gap:5px;padding:12px 13px 13px}
 .menu-offer-copy small{color:var(--red);font-size:.56rem;font-weight:950;letter-spacing:.1em;text-transform:uppercase}
-.menu-offer-copy b{display:block;min-height:38px;padding-right:21px;color:var(--ink);font-family:"Bree Serif",Georgia,serif;font-size:.98rem;line-height:1.1}
-.menu-offer-copy em{display:block;margin-top:auto;color:var(--red);font-family:"Righteous","Bree Serif",Georgia,serif;font-size:.88rem;font-style:normal;line-height:1.1;white-space:normal}
+.menu-offer-copy b{display:block;min-height:38px;padding-right:21px;color:var(--ink);font-family:"Fraunces",Georgia,serif;font-size:.98rem;line-height:1.1}
+.menu-offer-copy em{display:block;margin-top:auto;color:var(--red);font-family:"DM Sans",ui-sans-serif,sans-serif;font-size:.88rem;font-style:normal;font-weight:800;line-height:1.1;white-space:normal}
+.admin-metric-card strong,.admin-order-total strong{font-family:"Fraunces",Georgia,serif}
 .menu-offer-arrow{position:absolute;right:13px;bottom:14px;display:grid;width:25px;height:25px;place-items:center;border:1px solid var(--red);border-radius:50%;color:var(--red);font-size:.92rem;font-weight:950;transition:transform .18s ease,background .18s ease,color .18s ease}
 .menu-offer-card:hover .menu-offer-arrow{color:#fff;background:var(--red);transform:translateX(2px)}
 .menu-offer-especial{background:#fffdfa}
