@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow" />
   <meta name="description" content="Painel administrativo protegido da Pizza Lavras." />
   <title>Painel de pedidos | Pizza Lavras</title>
-  <link rel="stylesheet" href="./styles.css?v=18" />
+  <link rel="stylesheet" href="./styles.css?v=20" />
 </head>
 <body class="admin-body">
   <a class="skip" href="#admin-content">Pular para o conteúdo</a>
@@ -108,19 +108,19 @@
 
         <section class="admin-metrics" aria-label="Resumo dos pedidos">
           <article class="admin-metric-card red">
-            <span class="admin-metric-icon" aria-hidden="true">&#x1F355;</span>
+            <span class="admin-metric-icon" aria-hidden="true">🍕</span>
             <p>Pedidos recebidos</p>
             <strong data-metric-orders>—</strong>
             <small data-metric-orders-detail>Carregando…</small>
           </article>
           <article class="admin-metric-card yellow">
-            <span class="admin-metric-icon" aria-hidden="true">&#x1F525;</span>
+            <span class="admin-metric-icon" aria-hidden="true">🔥</span>
             <p>Para preparar</p>
             <strong data-metric-preparing>—</strong>
             <small>Novos e em preparo</small>
           </article>
           <article class="admin-metric-card cream">
-            <span class="admin-metric-icon" aria-hidden="true">&#x1F6F5;</span>
+            <span class="admin-metric-icon" aria-hidden="true">🛵</span>
             <p>Em entrega</p>
             <strong data-metric-delivery>—</strong>
             <small>Pedidos a caminho</small>
@@ -574,7 +574,7 @@
       if (!orders.length) {
         elements.ordersList.innerHTML = `
           <div class="admin-empty-state">
-            <span aria-hidden="true">&#x1F355;</span>
+            <span aria-hidden="true">🍕</span>
             <h3>${allOrders.length ? 'Nenhum pedido encontrado' : 'Ainda não chegaram pedidos por aqui'}</h3>
             <p>${allOrders.length ? 'Tente buscar outro nome, telefone ou status.' : 'Quando alguém finalizar um pedido no site, ele aparecerá nesta tela.'}</p>
           </div>`;
