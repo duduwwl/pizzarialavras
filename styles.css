@@ -851,7 +851,7 @@ nav>a.whatsapp-nav-link svg,nav>a.whatsapp-nav-link img{display:block;width:18px
 .menu-offer-copy{display:flex;min-height:153px;flex-direction:column;align-items:flex-start;gap:5px;padding:12px 13px 13px}
 .menu-offer-copy small{color:var(--red);font-size:.56rem;font-weight:950;letter-spacing:.1em;text-transform:uppercase}
 .menu-offer-copy b{display:block;min-height:38px;padding-right:21px;color:var(--ink);font-family:"Fraunces",Georgia,serif;font-size:.98rem;line-height:1.1}
-.menu-offer-copy em{display:block;margin-top:auto;color:var(--red);font-family:"DM Sans",ui-sans-serif,sans-serif;font-size:.88rem;font-style:normal;font-weight:800;line-height:1.1;white-space:normal}
+.menu-offer-copy em{display:inline-flex;align-self:flex-start;align-items:center;max-width:100%;min-height:28px;margin-top:auto;padding:5px 8px;border:1px solid #edb548;border-radius:999px;background:#fff0bd;color:var(--red-deep);font-family:"DM Sans",ui-sans-serif,sans-serif;font-size:.72rem;font-style:normal;font-weight:850;letter-spacing:-.025em;line-height:1;white-space:nowrap;box-shadow:0 2px 0 rgba(163,86,25,.14)}
 .admin-metric-card strong,.admin-order-total strong{font-family:"Fraunces",Georgia,serif}
 .menu-offer-arrow{position:absolute;right:13px;bottom:14px;display:grid;width:25px;height:25px;place-items:center;border:1px solid var(--red);border-radius:50%;color:var(--red);font-size:.92rem;font-weight:950;transition:transform .18s ease,background .18s ease,color .18s ease}
 .menu-offer-card:hover .menu-offer-arrow{color:#fff;background:var(--red);transform:translateX(2px)}
