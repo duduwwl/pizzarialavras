@@ -11,6 +11,7 @@ Cada pedido é criado na coleção `orders` com:
 - nome e telefone;
 - endereço de entrega;
 - pizzas, sabores, tamanho e valores em centavos;
+- refrigerantes, sucos e batatas fritas escolhidos como adicionais;
 - forma de finalização, status e datas.
 
 O cliente não consegue ler ou alterar pedidos depois de salvar. Somente o
@@ -24,6 +25,8 @@ administrador pode consultar a lista e mudar o status.
    `duduwwl.github.io` para o login funcionar no GitHub Pages.
 3. Em **Firestore Database → Regras**, substitua o conteúdo pelas regras do
    arquivo [`firestore.rules`](./firestore.rules) e clique em **Publicar**.
+   Esta versão das regras também valida os preços dos refrigerantes, sucos e
+   batatas do cardápio, para que não possam ser alterados pelo navegador.
 4. A conta administradora é `dudumesquita2004@gmail.com`. Ela precisa entrar
    pelo Google ou confirmar o e-mail para receber o acesso ao painel.
 5. Abra `https://duduwwl.github.io/pizzarialavras/admin.html`, entre com essa

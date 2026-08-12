@@ -13,12 +13,23 @@ const pizzas = [
   {id:'banana',category:'doces',name:'Banana Caramelada',description:'Banana, canela, leite condensado e farofa crocante da casa.',media:44,grande:56}
 ];
 
+const menuExtras = [
+  {id:'coca-lata',category:'refrigerantes',name:'Coca-Cola lata',description:'350 ml, bem gelada para acompanhar a pizza.',price:7,icon:'🥤'},
+  {id:'guarana-lata',category:'refrigerantes',name:'Guaraná Antarctica lata',description:'350 ml, clássico brasileiro e sempre gelado.',price:6.5,icon:'🫧'},
+  {id:'coca-2l',category:'refrigerantes',name:'Coca-Cola 2 L',description:'Para dividir à mesa com todo mundo.',price:13,icon:'🍾'},
+  {id:'suco-laranja',category:'sucos',name:'Suco de laranja',description:'Copo de 300 ml, leve e refrescante.',price:9,icon:'🍊'},
+  {id:'suco-uva',category:'sucos',name:'Suco de uva integral',description:'Garrafinha de 300 ml, sabor intenso.',price:9,icon:'🍇'},
+  {id:'suco-morango',category:'sucos',name:'Suco de morango',description:'Copo de 300 ml, cremoso e gelado.',price:9.5,icon:'🍓'},
+  {id:'fritas-p',category:'batatas',name:'Batata frita crocante',description:'Porção individual com molho da casa.',price:12,icon:'🍟'},
+  {id:'fritas-cheddar',category:'batatas',name:'Batata cheddar & bacon',description:'Porção generosa com cheddar cremoso.',price:16,icon:'🧀'}
+];
+
 const money = value => value.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 let firebaseOrderStorePromise;
 
 function getFirebaseOrderStore(){
   if(!firebaseOrderStorePromise){
-    firebaseOrderStorePromise=import('./firebase-order-store.js?v=15').catch(error=>{
+    firebaseOrderStorePromise=import('./firebase-order-store.js?v=16').catch(error=>{
       firebaseOrderStorePromise=null;
       throw error;
     });
@@ -30,6 +41,18 @@ document.querySelectorAll('[data-year]').forEach(node=>node.textContent=new Date
 
 // Shared account experience ----------------------------------------------------------
 const authDialog=document.querySelector('[data-auth-dialog]');
+document.querySelectorAll('[data-nav-toggle]').forEach(button=>button.addEventListener('click',()=>{
+  const wrapper=button.closest('.nav');
+  if(!wrapper)return;
+  const open=wrapper.classList.toggle('menu-open');
+  button.setAttribute('aria-expanded',String(open));
+}));
+document.querySelectorAll('.nav a').forEach(link=>link.addEventListener('click',()=>{
+  const wrapper=link.closest('.nav');
+  const toggle=wrapper?.querySelector('[data-nav-toggle]');
+  wrapper?.classList.remove('menu-open');
+  toggle?.setAttribute('aria-expanded','false');
+}));
 let customerSession=null;
 let authMode='login';
 
@@ -151,7 +174,7 @@ const menuGrid=document.querySelector('[data-menu-grid]');
 if(menuGrid){
   const MAX_CART_ITEMS=6;
   const state={filter:'todos',mode:'single',size:'media',fulfillment:'delivery',flavors:[],cart:[]};
-  const category={tradicionais:'Tradicional',especiais:'Especial',doces:'Doce'};
+  const category={tradicionais:'Tradicional',especiais:'Especial',doces:'Doce',refrigerantes:'Refrigerante',sucos:'Suco',batatas:'Batata frita'};
   const pizzaImages={
     mussarela:{src:'./assets/pizza-mussarela-artesanal.jpg',alt:'Pizza artesanal de mussarela com tomate fresco e orégano'},
     calabresa:{src:'./assets/pizza-calabresa-artesanal.jpg',alt:'Pizza artesanal de calabresa fatiada, cebola roxa e queijo derretido'},
@@ -189,10 +212,17 @@ if(menuGrid){
   let isSavingOrder=false;
   const modeNeeded=()=>state.mode==='duo'?2:1;
   const priceOf=pizza=>pizza[state.size];
+  const itemPrice=item=>item.kind==='extra'?item.price:priceOf(item);
 
   function renderMenu(){
-    const visible=state.filter==='todos'?pizzas:pizzas.filter(pizza=>pizza.category===state.filter);
-    menuGrid.innerHTML=visible.map(pizza=>{
+    const catalog=[...pizzas.map(pizza=>({...pizza,kind:'pizza'})),...menuExtras.map(extra=>({...extra,kind:'extra'}))];
+    const visible=state.filter==='todos'?catalog:catalog.filter(item=>item.category===state.filter);
+    menuGrid.innerHTML=visible.map(item=>{
+      if(item.kind==='extra'){
+        const inCart=state.cart.some(cartItem=>cartItem.kind==='extra'&&cartItem.id===item.id);
+        return `<article class="pizza-card extra-card ${inCart?'selected':''}"><div class="pizza-card-top"><div><p class="category">${category[item.category]}</p><h3>${item.name}</h3></div><span class="extra-icon" aria-hidden="true">${item.icon}</span></div><p class="description">${item.description}</p><div class="pizza-bottom"><span class="price"><small>Adicional</small><strong>${money(item.price)}</strong></span><button class="pick" type="button" data-extra="${item.id}" aria-pressed="${inCart}">${inCart?'Adicionado ✓':'Adicionar'}</button></div></article>`;
+      }
+      const pizza=item;
       const picked=state.flavors.some(item=>item.id===pizza.id);
       const visual=pizzaVisual(pizza);
       return `<article class="pizza-card pizza-card-photo ${picked?'selected':''}"><div class="pizza-photo"><img src="${visual.src}" alt="${visual.alt}" data-fallback-src="${visual.fallbackSrc}" loading="lazy" decoding="async" /><span>${category[pizza.category]}</span></div><div class="pizza-card-content"><h3>${pizza.name}</h3><p class="description">${pizza.description}</p><div class="pizza-bottom"><span class="price"><small>${state.size==='media'?'Média · 6 fatias':'Grande · 8 fatias'}</small><strong>${money(priceOf(pizza))}</strong></span><button class="pick" type="button" data-pick="${pizza.id}" aria-pressed="${picked}">${picked?'Escolhida ✓':'Escolher'}</button></div></div></article>`;
@@ -215,8 +245,12 @@ if(menuGrid){
 
   function renderCart(){
     if(!state.cart.length){cartItems.innerHTML='<p class="empty">Seu pedido está vazio.<small>Escolha um sabor no cardápio.</small></p>'}
-    else{cartItems.innerHTML=state.cart.map(item=>`<article class="cart-item"><div class="cart-line"><div><h4>${item.mode==='duo'?'Pizza meio a meio':item.flavors[0].name}</h4><p>${item.size==='media'?'Média · 6 fatias':'Grande · 8 fatias'}${item.mode==='duo'?` · ${item.flavors.map(pizza=>pizza.name).join(' + ')}`:''}</p></div><strong>${money(item.price)}</strong></div><button type="button" data-remove-cart="${item.id}">Remover</button></article>`).join('')}
-    const sub=state.cart.reduce((sum,item)=>sum+item.price,0);
+    else{cartItems.innerHTML=state.cart.map(item=>{
+      const title=item.kind==='extra'?item.name:(item.mode==='duo'?'Pizza meio a meio':item.flavors[0].name);
+      const details=item.kind==='extra'?'Adicional do cardápio':`${item.size==='media'?'Média · 6 fatias':'Grande · 8 fatias'}${item.mode==='duo'?` · ${item.flavors.map(pizza=>pizza.name).join(' + ')}`:''}`;
+      return `<article class="cart-item"><div class="cart-line"><div><h4>${title}</h4><p>${details}</p></div><strong>${money(itemPrice(item))}</strong></div><button type="button" data-remove-cart="${item.id}">Remover</button></article>`;
+    }).join('')}
+    const sub=state.cart.reduce((sum,item)=>sum+itemPrice(item),0);
     const fee=state.cart.length&&state.fulfillment==='delivery'?8:0;
     const isPickup=state.fulfillment==='pickup';
     cartCount.textContent=state.cart.length;
@@ -231,7 +265,7 @@ if(menuGrid){
     if(state.flavors.length!==modeNeeded())return false;
     if(state.cart.length>=MAX_CART_ITEMS){feedback.textContent=`Você pode adicionar até ${MAX_CART_ITEMS} pizzas por pedido.`;return false}
     const id=globalThis.crypto?.randomUUID?globalThis.crypto.randomUUID():`${Date.now()}-${Math.random()}`;
-    state.cart.push({id,mode:state.mode,size:state.size,flavors:[...state.flavors],price:Math.max(...state.flavors.map(priceOf))});
+    state.cart.push({id,kind:'pizza',mode:state.mode,size:state.size,flavors:[...state.flavors],price:Math.max(...state.flavors.map(priceOf))});
     state.flavors=[];
     feedback.textContent=state.mode==='duo'?'Pizza meio a meio adicionada ao pedido.':'Pizza adicionada ao pedido.';
     refresh();
@@ -241,7 +275,18 @@ if(menuGrid){
   document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{state.filter=button.dataset.filter;document.querySelectorAll('[data-filter]').forEach(item=>item.classList.toggle('active',item===button));renderMenu()}));
   document.querySelectorAll('input[name="mode"]').forEach(input=>input.addEventListener('change',()=>{state.mode=input.value;state.flavors=state.flavors.slice(0,modeNeeded());if(state.mode==='single'&&state.flavors.length===1)addCurrentPizza();else{renderMenu();renderBuilder()}}));
   document.querySelectorAll('input[name="size"]').forEach(input=>input.addEventListener('change',()=>{state.size=input.value;renderMenu();renderBuilder()}));
-  menuGrid.addEventListener('click',event=>{const button=event.target.closest('[data-pick]');if(!button)return;const pizza=pizzas.find(item=>item.id===button.dataset.pick);const existing=state.flavors.findIndex(item=>item.id===pizza.id);if(existing>=0){state.flavors.splice(existing,1);renderMenu();renderBuilder();return}if(state.mode==='single'){state.flavors=[pizza];addCurrentPizza();return}if(state.flavors.length<modeNeeded())state.flavors.push(pizza);if(state.flavors.length===modeNeeded())addCurrentPizza();else{renderMenu();renderBuilder()}});
+  menuGrid.addEventListener('click',event=>{
+    const extraButton=event.target.closest('[data-extra]');
+    if(extraButton){
+      const extra=menuExtras.find(item=>item.id===extraButton.dataset.extra);
+      const existing=state.cart.findIndex(item=>item.kind==='extra'&&item.id===extra.id);
+      if(existing>=0){state.cart.splice(existing,1);feedback.textContent='Adicional removido do pedido.'}
+      else if(state.cart.length>=MAX_CART_ITEMS){feedback.textContent=`Você pode adicionar até ${MAX_CART_ITEMS} itens por pedido.`}
+      else{state.cart.push({...extra,kind:'extra'});feedback.textContent=`${extra.name} adicionado ao pedido.`}
+      renderMenu();renderCart();return;
+    }
+    const button=event.target.closest('[data-pick]');if(!button)return;const pizza=pizzas.find(item=>item.id===button.dataset.pick);const existing=state.flavors.findIndex(item=>item.id===pizza.id);if(existing>=0){state.flavors.splice(existing,1);renderMenu();renderBuilder();return}if(state.mode==='single'){state.flavors=[pizza];addCurrentPizza();return}if(state.flavors.length<modeNeeded())state.flavors.push(pizza);if(state.flavors.length===modeNeeded())addCurrentPizza();else{renderMenu();renderBuilder()}
+  });
   flavors.addEventListener('click',event=>{const button=event.target.closest('[data-remove-flavor]');if(!button)return;state.flavors=state.flavors.filter(pizza=>pizza.id!==button.dataset.removeFlavor);renderMenu();renderBuilder()});
   cartItems.addEventListener('click',event=>{const button=event.target.closest('[data-remove-cart]');if(!button)return;state.cart=state.cart.filter(item=>item.id!==button.dataset.removeCart);feedback.textContent='Item removido do pedido.';renderCart()});
 
@@ -261,11 +306,11 @@ if(menuGrid){
   const currentMethod=()=>document.querySelector('input[name="online-method"]:checked').value;
 
   function validateCheckout(){
-    if(!state.cart.length){feedback.textContent='Adicione pelo menos uma pizza antes de finalizar.';return false}
+    if(!state.cart.length){feedback.textContent='Adicione pelo menos um item antes de finalizar.';return false}
     return form.reportValidity();
   }
   function currentAmounts(){
-    const subtotal=state.cart.reduce((sum,item)=>sum+item.price,0);
+    const subtotal=state.cart.reduce((sum,item)=>sum+itemPrice(item),0);
     const deliveryFee=state.cart.length&&state.fulfillment==='delivery'?8:0;
     return {subtotalCents:Math.round(subtotal*100),deliveryFeeCents:Math.round(deliveryFee*100),totalCents:Math.round((subtotal+deliveryFee)*100)};
   }
@@ -277,7 +322,9 @@ if(menuGrid){
     const fulfillmentMethod=state.fulfillment;
     const payload={
       customer:{name:checkoutValue(data,'name'),phone:checkoutValue(data,'phone')},
-      items:state.cart.map(item=>({size:item.size,flavors:item.flavors.map(pizza=>pizza.id),unitPriceCents:Math.round(item.price*100)})),
+      items:state.cart.map(item=>item.kind==='extra'
+        ? {kind:'extra',id:item.id,name:item.name,category:item.category,unitPriceCents:Math.round(item.price*100)}
+        : {kind:'pizza',size:item.size,flavors:item.flavors.map(pizza=>pizza.id),unitPriceCents:Math.round(item.price*100)}),
       subtotalCents:amounts.subtotalCents,
       deliveryFeeCents:amounts.deliveryFeeCents,
       totalCents:amounts.totalCents,
@@ -298,7 +345,9 @@ if(menuGrid){
   }
   function orderSummary(finalization){
     const data=new FormData(form),amounts=currentAmounts();
-    const order=state.cart.map((item,index)=>`${index+1}. ${item.mode==='duo'?`Meio a meio: ${item.flavors.map(pizza=>pizza.name).join(' / ')}`:item.flavors[0].name} (${item.size==='media'?'Média':'Grande'}) — ${money(item.price)}`).join('\n');
+    const order=state.cart.map((item,index)=>item.kind==='extra'
+      ? `${index+1}. ${item.name} — ${money(item.price)}`
+      : `${index+1}. ${item.mode==='duo'?`Meio a meio: ${item.flavors.map(pizza=>pizza.name).join(' / ')}`:item.flavors[0].name} (${item.size==='media'?'Média':'Grande'}) — ${money(item.price)}`).join('\n');
     const extra=data.get('complement')?`, ${data.get('complement')}`:'';
     const fulfillment=state.fulfillment==='pickup'
       ? 'Retirada: vou buscar o pedido na Pizza Lavras.'

@@ -126,13 +126,37 @@ service cloud.firestore {
         == (firstPrice > secondPrice ? firstPrice : secondPrice);
     }
 
-    function validItem(item) {
-      return hasAllowedFields(item, ['size', 'flavors', 'unitPriceCents'], [])
+    function validPizzaItem(item) {
+      return hasAllowedFields(item, ['kind', 'size', 'flavors', 'unitPriceCents'], [])
+        && item.kind == 'pizza'
         && item.size is string
         && item.size in ['media', 'grande']
         && validFlavors(item.flavors)
         && item.unitPriceCents is int
         && validItemPrice(item);
+    }
+
+    function validExtraItem(item) {
+      return hasAllowedFields(item, ['kind', 'id', 'name', 'category', 'unitPriceCents'], [])
+        && item.kind == 'extra'
+        && item.id is string
+        && item.name is string
+        && item.category is string
+        && item.unitPriceCents is int
+        && (
+          (item.id == 'coca-lata' && item.name == 'Coca-Cola lata' && item.category == 'refrigerantes' && item.unitPriceCents == 700)
+          || (item.id == 'guarana-lata' && item.name == 'Guaraná Antarctica lata' && item.category == 'refrigerantes' && item.unitPriceCents == 650)
+          || (item.id == 'coca-2l' && item.name == 'Coca-Cola 2 L' && item.category == 'refrigerantes' && item.unitPriceCents == 1300)
+          || (item.id == 'suco-laranja' && item.name == 'Suco de laranja' && item.category == 'sucos' && item.unitPriceCents == 900)
+          || (item.id == 'suco-uva' && item.name == 'Suco de uva integral' && item.category == 'sucos' && item.unitPriceCents == 900)
+          || (item.id == 'suco-morango' && item.name == 'Suco de morango' && item.category == 'sucos' && item.unitPriceCents == 950)
+          || (item.id == 'fritas-p' && item.name == 'Batata frita crocante' && item.category == 'batatas' && item.unitPriceCents == 1200)
+          || (item.id == 'fritas-cheddar' && item.name == 'Batata cheddar & bacon' && item.category == 'batatas' && item.unitPriceCents == 1600)
+        );
+    }
+
+    function validItem(item) {
+      return validPizzaItem(item) || validExtraItem(item);
     }
 
     function validItems(items) {
@@ -178,8 +202,8 @@ service cloud.firestore {
         && validCustomer(order.customer)
         && validItems(order.items)
         && order.subtotalCents is int
-        && order.subtotalCents >= 3800
-        && order.subtotalCents <= 39000
+        && order.subtotalCents >= 650
+        && order.subtotalCents <= 50000
         && subtotalMatchesItems(order.items, order.subtotalCents)
         && order.deliveryFeeCents is int
         && order.fulfillmentMethod is string

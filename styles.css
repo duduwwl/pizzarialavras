@@ -921,3 +921,88 @@ nav>a.whatsapp-nav-link svg,nav>a.whatsapp-nav-link img{display:block;width:18px
   transform:none;
 }
 .pillar .doodle.slice{font-size:4.2rem}
+
+/* Menu extras and responsive ordering polish. */
+.topbar{position:sticky;top:0;box-shadow:0 4px 18px rgba(66,20,20,.09)}
+.nav{min-width:0}
+.filters{padding:2px 0 6px;scrollbar-width:thin}
+.extra-card{min-height:220px;background:linear-gradient(145deg,#fff 0%,#fff9ef 100%)}
+.extra-card .pizza-card-top{align-items:flex-start}
+.extra-card .description{min-height:0;margin-top:13px}
+.extra-icon{display:grid;width:54px;height:54px;flex:0 0 54px;place-items:center;border:1px solid #efc96a;border-radius:16px;background:#fff0bd;font-family:"Segoe UI Emoji","Apple Color Emoji",sans-serif;font-size:1.65rem;box-shadow:0 4px 0 rgba(177,103,23,.12)}
+.extra-card.selected .extra-icon{border-color:var(--red);background:#fff7e1}
+
+@media(max-width:720px){
+  .topbar{position:sticky}
+  .nav{gap:8px}
+  .brand{min-width:0}
+  .brand-icon{width:40px;height:40px}
+  .brand>span:last-child{font-size:.94em}
+  nav{min-width:0;gap:7px}
+  .nav-button{white-space:nowrap}
+  .filters{flex-wrap:nowrap;max-width:100%;margin-right:-16px;padding-right:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .filter{flex:0 0 auto}
+  .extra-card{min-height:204px}
+  .extra-icon{width:45px;height:45px;flex-basis:45px;border-radius:13px;font-size:1.38rem}
+}
+
+@media(max-width:390px){
+  .nav-button{padding:9px 10px;font-size:.67rem}
+  nav>a.whatsapp-nav-link{width:32px;height:32px;flex-basis:32px}
+}
+
+/* Compact navigation: the full menu stays one tap away on every phone. */
+.nav-menu-toggle{
+  display:none;
+  width:42px;
+  height:42px;
+  place-content:center;
+  gap:4px;
+  margin-left:auto;
+  padding:0;
+  border:1px solid currentColor;
+  border-radius:13px;
+  color:inherit;
+  background:transparent;
+  cursor:pointer;
+}
+.nav-menu-toggle span{display:block;width:18px;height:2px;border-radius:2px;background:currentColor}
+.lightbar .nav-menu-toggle{color:var(--red-deep)}
+
+@media(max-width:720px){
+  .nav{position:relative;min-height:66px;flex-wrap:nowrap}
+  .nav-menu-toggle{display:grid}
+  .nav>nav{
+    position:absolute;
+    z-index:30;
+    top:calc(100% + 8px);
+    right:0;
+    display:none;
+    width:min(290px,calc(100vw - 32px));
+    min-width:0;
+    flex-direction:column;
+    align-items:stretch;
+    gap:4px;
+    padding:10px;
+    border:1px solid rgba(227,210,197,.9);
+    border-radius:18px;
+    background:var(--cream);
+    box-shadow:0 18px 40px rgba(54,20,18,.22);
+  }
+  .nav.menu-open>nav{display:flex}
+  .nav>nav>a:not(.nav-button),
+  .nav>nav .nav-login,
+  .nav>nav .whatsapp-nav-link{
+    display:flex;
+    width:100%;
+    min-height:42px;
+    align-items:center;
+    justify-content:flex-start;
+    padding:10px 12px;
+    border-radius:11px;
+  }
+  .nav>nav .whatsapp-nav-link{justify-content:center;color:#0f7d4b;background:#e7f7e9}
+  .nav>nav .nav-button{justify-content:center;margin-top:3px}
+  .lightbar .nav>nav{background:#fffdf9}
+  .topbar:not(.lightbar) .nav-menu-toggle{color:#fff8ed}
+}
