@@ -598,8 +598,8 @@ h1,h2,h3{font-family:"Fraunces",Georgia,"Times New Roman",serif;letter-spacing:-
   box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
 }
 .route-symbol.route-icon svg,.whatsapp-icon svg{display:block;width:100%;height:100%}
-.route-symbol.route-icon-delivery{color:#8f3026;background:linear-gradient(145deg,#ffe9a7,#ffd168)}
-.route-symbol.route-icon-pickup{color:#8b3b29;background:linear-gradient(145deg,#fff0bd,#ffdb7b)}
+.route-symbol.route-icon-delivery{color:#8f3026;background:linear-gradient(145deg,#ffe681,#f6b927)}
+.route-symbol.route-icon-pickup{color:#8b3b29;background:linear-gradient(145deg,#ffe992,#f7c443)}
 .route-symbol.route-icon-secure{color:#8a2e2b;background:linear-gradient(145deg,#fff1bd,#ffd26c)}
 .route-symbol.route-icon-whatsapp{color:#147a4b;background:linear-gradient(145deg,#e7faee,#bfeccc);border-color:rgba(20,122,75,.16)}
 .whatsapp-icon{padding:7px;border:1px solid rgba(20,122,75,.13)}
@@ -966,6 +966,13 @@ nav>a.whatsapp-nav-link svg,nav>a.whatsapp-nav-link img{display:block;width:18px
 .nav>nav>a:not(.nav-button){transition:color .18s ease,background .18s ease,transform .18s ease}
 .nav>nav>a:not(.nav-button):hover{transform:translateY(-1px)}
 .nav-button{font-family:"DM Sans",Inter,Arial,sans-serif;font-weight:900;letter-spacing:.01em}
+.lightbar .nav>nav>a:not(.nav-button){padding:9px 3px;color:#4a302b;opacity:.9}
+.lightbar .nav>nav>a:not(.nav-button):hover,.lightbar .nav>nav>a.active{color:var(--red-deep);opacity:1}
+.lightbar .nav>nav>a:not(.nav-button)::after{bottom:-5px;height:3px;border-radius:999px}
+.lightbar .nav>nav .nav-login{padding:9px 13px;border:1px solid #e8cfc3;border-radius:999px;background:#fffaf6;color:var(--red-deep)}
+.lightbar .nav-button{display:inline-flex;align-items:center;gap:8px;padding:11px 14px;box-shadow:0 3px 0 #d89422;transition:transform .18s ease,box-shadow .18s ease}
+.lightbar .nav-button:hover{transform:translateY(-1px);box-shadow:0 5px 0 #d89422}
+.nav-button-icon{display:grid;width:20px;height:20px;place-items:center;border-radius:50%;background:rgba(95,20,22,.13);font-family:Arial,sans-serif;font-size:1rem;line-height:1}
 
 @media(max-width:720px){
   .extra-photo{height:108px}

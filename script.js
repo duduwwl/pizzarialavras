@@ -18,10 +18,10 @@ const menuExtras = [
   {id:'guarana-lata',category:'refrigerantes',name:'Guaraná Antarctica lata',description:'350 ml, clássico brasileiro e sempre gelado.',price:6.5,image:'./assets/refri-guarana-lata.jpg',imageClass:'drink-contain'},
   {id:'coca-zero-lata',category:'refrigerantes',name:'Coca-Cola Zero lata',description:'350 ml, sem açúcar e bem gelada.',price:7,image:'./assets/refri-coca-zero-lata.png',imageClass:'drink-contain'},
   {id:'sprite-lata',category:'refrigerantes',name:'Sprite lata',description:'350 ml, sabor limão para refrescar.',price:7,image:'./assets/refri-sprite-lata.png',imageClass:'drink-contain'},
-  {id:'suco-maracuja',category:'sucos',name:'Del Valle maracujá',description:'Néctar de 290 ml, refrescante e gelado.',price:8,image:'./assets/sucos-del-valle-ilustrativo.png',imagePosition:'0% 0%'},
-  {id:'suco-uva',category:'sucos',name:'Del Valle uva',description:'Néctar de 290 ml, cheio de sabor.',price:8,image:'./assets/sucos-del-valle-ilustrativo.png',imagePosition:'100% 0%'},
-  {id:'suco-laranja',category:'sucos',name:'Del Valle laranja',description:'Néctar de 290 ml, leve e refrescante.',price:8,image:'./assets/sucos-del-valle-ilustrativo.png',imagePosition:'0% 100%'},
-  {id:'suco-pessego',category:'sucos',name:'Del Valle pêssego',description:'Néctar de 290 ml, doce na medida.',price:8,image:'./assets/sucos-del-valle-ilustrativo.png',imagePosition:'100% 100%'},
+  {id:'suco-maracuja',category:'sucos',name:'Del Valle maracujá',description:'Néctar de 290 ml, refrescante e gelado.',price:8,image:'./assets/suco-del-valle-maracuja-lata.png',imageClass:'drink-contain'},
+  {id:'suco-uva',category:'sucos',name:'Del Valle uva',description:'Néctar de 290 ml, cheio de sabor.',price:8,image:'./assets/suco-del-valle-uva-lata.png',imageClass:'drink-contain'},
+  {id:'suco-laranja',category:'sucos',name:'Del Valle laranja',description:'Néctar de 290 ml, leve e refrescante.',price:8,image:'./assets/suco-del-valle-laranja-lata.png',imageClass:'drink-contain'},
+  {id:'suco-pessego',category:'sucos',name:'Del Valle pêssego',description:'Néctar de 290 ml, doce na medida.',price:8,image:'./assets/suco-del-valle-pessego-lata.png',imageClass:'drink-contain'},
   {id:'fritas-p',category:'batatas',name:'Batata frita crocante',description:'Porção individual com molho da casa.',price:12,image:'./assets/batatas-ilustrativas.png',imagePosition:'0% 50%'},
   {id:'fritas-cheddar',category:'batatas',name:'Batata cheddar & bacon',description:'Porção generosa com cheddar cremoso e bacon.',price:16,image:'./assets/batatas-ilustrativas.png',imagePosition:'100% 50%'}
 ];
@@ -218,7 +218,9 @@ if(menuGrid){
 
   function renderMenu(){
     const catalog=[...pizzas.map(pizza=>({...pizza,kind:'pizza'})),...menuExtras.map(extra=>({...extra,kind:'extra'}))];
-    const visible=state.filter==='todos'?catalog:catalog.filter(item=>item.category===state.filter);
+    const visible=state.filter==='todos'
+      ? catalog.filter(item=>item.kind==='pizza'||item.category==='batatas')
+      : catalog.filter(item=>item.category===state.filter);
     const offers=document.querySelector('[data-menu-offers]');
     if(offers)offers.hidden=state.filter!=='todos';
     menuGrid.innerHTML=visible.map(item=>{
