@@ -14,14 +14,16 @@ const pizzas = [
 ];
 
 const menuExtras = [
-  {id:'coca-lata',category:'refrigerantes',name:'Coca-Cola lata',description:'350 ml, bem gelada para acompanhar a pizza.',price:7,icon:'🥤'},
-  {id:'guarana-lata',category:'refrigerantes',name:'Guaraná Antarctica lata',description:'350 ml, clássico brasileiro e sempre gelado.',price:6.5,icon:'🫧'},
-  {id:'coca-2l',category:'refrigerantes',name:'Coca-Cola 2 L',description:'Para dividir à mesa com todo mundo.',price:13,icon:'🍾'},
-  {id:'suco-laranja',category:'sucos',name:'Suco de laranja',description:'Copo de 300 ml, leve e refrescante.',price:9,icon:'🍊'},
-  {id:'suco-uva',category:'sucos',name:'Suco de uva integral',description:'Garrafinha de 300 ml, sabor intenso.',price:9,icon:'🍇'},
-  {id:'suco-morango',category:'sucos',name:'Suco de morango',description:'Copo de 300 ml, cremoso e gelado.',price:9.5,icon:'🍓'},
-  {id:'fritas-p',category:'batatas',name:'Batata frita crocante',description:'Porção individual com molho da casa.',price:12,icon:'🍟'},
-  {id:'fritas-cheddar',category:'batatas',name:'Batata cheddar & bacon',description:'Porção generosa com cheddar cremoso.',price:16,icon:'🧀'}
+  {id:'coca-lata',category:'refrigerantes',name:'Coca-Cola lata',description:'350 ml, bem gelada para acompanhar a pizza.',price:7,image:'./assets/refri-coca-cola-lata.jpg',imageClass:'drink-contain'},
+  {id:'guarana-lata',category:'refrigerantes',name:'Guaraná Antarctica lata',description:'350 ml, clássico brasileiro e sempre gelado.',price:6.5,image:'./assets/refri-guarana-lata.jpg',imageClass:'drink-contain'},
+  {id:'coca-zero-lata',category:'refrigerantes',name:'Coca-Cola Zero lata',description:'350 ml, sem açúcar e bem gelada.',price:7,image:'./assets/refri-coca-zero-lata.png',imageClass:'drink-contain'},
+  {id:'sprite-lata',category:'refrigerantes',name:'Sprite lata',description:'350 ml, sabor limão para refrescar.',price:7,image:'./assets/refri-sprite-lata.png',imageClass:'drink-contain'},
+  {id:'suco-maracuja',category:'sucos',name:'Del Valle maracujá',description:'Néctar de 290 ml, refrescante e gelado.',price:8,image:'./assets/sucos-del-valle-ilustrativo.png',imagePosition:'0% 0%'},
+  {id:'suco-uva',category:'sucos',name:'Del Valle uva',description:'Néctar de 290 ml, cheio de sabor.',price:8,image:'./assets/sucos-del-valle-ilustrativo.png',imagePosition:'100% 0%'},
+  {id:'suco-laranja',category:'sucos',name:'Del Valle laranja',description:'Néctar de 290 ml, leve e refrescante.',price:8,image:'./assets/sucos-del-valle-ilustrativo.png',imagePosition:'0% 100%'},
+  {id:'suco-pessego',category:'sucos',name:'Del Valle pêssego',description:'Néctar de 290 ml, doce na medida.',price:8,image:'./assets/sucos-del-valle-ilustrativo.png',imagePosition:'100% 100%'},
+  {id:'fritas-p',category:'batatas',name:'Batata frita crocante',description:'Porção individual com molho da casa.',price:12,image:'./assets/batatas-ilustrativas.png',imagePosition:'0% 50%'},
+  {id:'fritas-cheddar',category:'batatas',name:'Batata cheddar & bacon',description:'Porção generosa com cheddar cremoso e bacon.',price:16,image:'./assets/batatas-ilustrativas.png',imagePosition:'100% 50%'}
 ];
 
 const money = value => value.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
@@ -29,7 +31,7 @@ let firebaseOrderStorePromise;
 
 function getFirebaseOrderStore(){
   if(!firebaseOrderStorePromise){
-    firebaseOrderStorePromise=import('./firebase-order-store.js?v=16').catch(error=>{
+    firebaseOrderStorePromise=import('./firebase-order-store.js?v=17').catch(error=>{
       firebaseOrderStorePromise=null;
       throw error;
     });
@@ -217,10 +219,13 @@ if(menuGrid){
   function renderMenu(){
     const catalog=[...pizzas.map(pizza=>({...pizza,kind:'pizza'})),...menuExtras.map(extra=>({...extra,kind:'extra'}))];
     const visible=state.filter==='todos'?catalog:catalog.filter(item=>item.category===state.filter);
+    const offers=document.querySelector('[data-menu-offers]');
+    if(offers)offers.hidden=state.filter!=='todos';
     menuGrid.innerHTML=visible.map(item=>{
       if(item.kind==='extra'){
         const inCart=state.cart.some(cartItem=>cartItem.kind==='extra'&&cartItem.id===item.id);
-        return `<article class="pizza-card extra-card ${inCart?'selected':''}"><div class="pizza-card-top"><div><p class="category">${category[item.category]}</p><h3>${item.name}</h3></div><span class="extra-icon" aria-hidden="true">${item.icon}</span></div><p class="description">${item.description}</p><div class="pizza-bottom"><span class="price"><small>Adicional</small><strong>${money(item.price)}</strong></span><button class="pick" type="button" data-extra="${item.id}" aria-pressed="${inCart}">${inCart?'Adicionado ✓':'Adicionar'}</button></div></article>`;
+        const position=item.imagePosition?` style="object-position:${item.imagePosition}"`:'';
+        return `<article class="pizza-card extra-card extra-card-photo ${inCart?'selected':''}"><div class="extra-photo ${item.imageClass||''}"><img src="${item.image}" alt="${item.name}"${position} loading="lazy" decoding="async" /><span>${category[item.category]}</span></div><div class="pizza-card-content"><h3>${item.name}</h3><p class="description">${item.description}</p><div class="pizza-bottom"><span class="price"><small>Adicional</small><strong>${money(item.price)}</strong></span><button class="pick" type="button" data-extra="${item.id}" aria-pressed="${inCart}">${inCart?'Adicionado ✓':'Adicionar'}</button></div></div></article>`;
       }
       const pizza=item;
       const picked=state.flavors.some(item=>item.id===pizza.id);

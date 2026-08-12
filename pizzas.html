@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Cardápio de pizzas tradicionais, especiais e doces da Pizza Lavras." />
   <title>Cardápio | Pizza Lavras</title>
-  <link rel="stylesheet" href="./styles.css?v=22" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css?v=23" />
 </head>
 <body class="menu-body">
   <a class="skip" href="#menu">Pular para o cardápio</a>
@@ -37,8 +40,8 @@
             </div>
             <div class="selected-flavors" data-selected-flavors><span>Nenhum sabor escolhido ainda.</span></div>
           </section>
-          <div class="filters" id="menu-list" aria-label="Filtrar cardápio"><button class="filter active" type="button" data-filter="todos">Todos <span>20</span></button><button class="filter" type="button" data-filter="tradicionais">Tradicionais <span>5</span></button><button class="filter" type="button" data-filter="especiais">Especiais <span>4</span></button><button class="filter" type="button" data-filter="doces">Doces <span>3</span></button><button class="filter" type="button" data-filter="refrigerantes">Refrigerantes <span>3</span></button><button class="filter" type="button" data-filter="sucos">Sucos <span>3</span></button><button class="filter" type="button" data-filter="batatas">Batatas <span>2</span></button></div>
-          <section class="menu-offers" id="ofertas" aria-labelledby="menu-offers-title">
+          <div class="filters" id="menu-list" aria-label="Filtrar cardápio"><button class="filter active" type="button" data-filter="todos">Todos <span>22</span></button><button class="filter" type="button" data-filter="tradicionais">Tradicionais <span>5</span></button><button class="filter" type="button" data-filter="especiais">Especiais <span>4</span></button><button class="filter" type="button" data-filter="doces">Doces <span>3</span></button><button class="filter" type="button" data-filter="refrigerantes">Refrigerantes <span>4</span></button><button class="filter" type="button" data-filter="sucos">Sucos <span>4</span></button><button class="filter" type="button" data-filter="batatas">Batatas <span>2</span></button></div>
+          <section class="menu-offers" id="ofertas" data-menu-offers aria-labelledby="menu-offers-title">
             <div class="menu-offers-heading"><div><p class="eyebrow menu-combo-kicker"><svg class="combo-heading-icon" aria-hidden="true" viewBox="0 0 32 32" fill="none"><path d="M5 9.5h13.5l-1.3 11.2a3.5 3.5 0 0 1-3.48 3.1H9.78a3.5 3.5 0 0 1-3.48-3.1L5 9.5Z" fill="currentColor" opacity=".16"/><path d="M5 9.5h13.5l-1.3 11.2a3.5 3.5 0 0 1-3.48 3.1H9.78a3.5 3.5 0 0 1-3.48-3.1L5 9.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M3.8 6h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M23.6 7.1 29 17.6H18.2l5.4-10.5Z" fill="currentColor" opacity=".16"/><path d="M23.6 7.1 29 17.6H18.2l5.4-10.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="23.6" cy="14.4" r="1.15" fill="currentColor"/><circle cx="26.1" cy="15.3" r="1.15" fill="currentColor"/><path d="M21 21h7.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> Combos promocionais</p><h3 id="menu-offers-title">Ofertas da casa para completar o pedido.</h3></div><p>Escolha seu combo com refrigerante e confirme a disponibilidade no WhatsApp.</p></div>
             <div class="menu-offer-grid">
               <a class="menu-offer-card menu-offer-calabresa" href="#menu-list"><span class="menu-offer-photo"><img src="./assets/pizza-calabresa-artesanal.jpg" alt="Pizza de calabresa dourada" /><span class="menu-offer-badge">Promo</span></span><span class="menu-offer-copy"><small>Combo promocional</small><b>Calabresa Grande + refri 2 L</b><em>R$ 59,90</em></span><span class="menu-offer-arrow" aria-hidden="true">&rarr;</span></a>
@@ -118,6 +121,6 @@
     </section>
     <p class="auth-feedback" data-auth-feedback aria-live="polite"></p>
   </dialog>
-  <script src="./script.js?v=18"></script>
+  <script src="./script.js?v=19"></script>
 </body>
 </html>
