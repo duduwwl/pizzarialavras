@@ -1216,3 +1216,91 @@ h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400
   .lightbar .nav>nav .nav-login{color:var(--red-deep);background:#fffaf6;border-color:#ead8d0}
   .lightbar .nav>nav>a:not(.nav-button).active{color:var(--red-deep);background:#fff0df;box-shadow:none}
 }
+
+/* Final menu polish: the customization cards now read as one bold red-and-yellow family. */
+@media(min-width:721px){
+  .menu-offer-card:nth-child(4){display:none}
+  .topbar .nav>nav{gap:8px;padding-inline:10px}
+  .topbar .nav>nav>a:not(.nav-button),.topbar .nav>nav .nav-login{padding-inline:13px}
+  .topbar .nav>nav .whatsapp-nav-link{margin-inline:5px}
+}
+
+.menu-body .builder-options .option,
+.menu-body .size-options .size{
+  border-color:#8e1d28;
+  background:
+    radial-gradient(circle at 92% 18%,rgba(255,217,95,.28) 0 3px,transparent 3.8px),
+    radial-gradient(circle at 86% 28%,rgba(255,217,95,.16) 0 2px,transparent 2.8px),
+    linear-gradient(135deg,#8f1a26 0%,#c92832 58%,#a91c28 100%);
+  box-shadow:0 5px 0 rgba(89,16,22,.24),inset 0 1px 0 rgba(255,242,199,.18);
+}
+.menu-body .builder-options .option:hover,
+.menu-body .size-options .size:hover{
+  border-color:#ffdc69;
+  box-shadow:0 7px 0 rgba(89,16,22,.28),inset 0 1px 0 rgba(255,242,199,.22);
+}
+.menu-body .builder-options .option.selected,
+.menu-body .size-options .size.selected{
+  border-color:#ffdc69;
+  background:
+    radial-gradient(circle at 92% 18%,rgba(255,230,123,.42) 0 3px,transparent 3.8px),
+    radial-gradient(circle at 86% 28%,rgba(255,230,123,.24) 0 2px,transparent 2.8px),
+    linear-gradient(135deg,#7e1621 0%,#bd222c 58%,#951923 100%);
+  box-shadow:0 7px 0 rgba(73,12,18,.33),0 0 0 2px rgba(255,201,64,.19),inset 0 1px 0 rgba(255,242,199,.24);
+}
+.menu-body .builder-options .option::before{display:none}
+.menu-body .builder-options .option::after{border-color:#ffdb70;background:rgba(74,11,19,.28)}
+.menu-body .builder-options .option.selected::after{border-color:#ffdf78;background:#ffca42;color:#6f1721}
+.menu-body .builder-options .option b,
+.menu-body .size-options .size b{color:#fffaf0}
+.menu-body .builder-options .option small,
+.menu-body .size-options .size small{color:#ffe7ae}
+.menu-body .builder-options .pizza-mode-icon{
+  padding:3px;
+  border:2px solid #ffdd75;
+  border-radius:14px;
+  background:linear-gradient(145deg,#ffe993,#ffbc32);
+  box-shadow:0 3px 0 rgba(100,33,18,.3),inset 0 1px 0 rgba(255,255,255,.72);
+}
+.menu-body .builder-options .pizza-mode-icon svg{border-radius:50%}
+.menu-body .size-options .size::before{
+  border-color:#ffda70;
+  background:linear-gradient(145deg,#fff0b0 0%,#ffca40 100%);
+  color:#7d1d24;
+  box-shadow:0 3px 0 rgba(104,36,18,.28),inset 0 1px 0 rgba(255,255,255,.76);
+}
+.menu-body .size-options .size-broto::before{background:linear-gradient(145deg,#fff3be 0%,#ffd45b 100%)}
+.menu-body .size-options .size-medium::before{background:linear-gradient(145deg,#ffe985 0%,#ffb92f 100%)}
+.menu-body .size-options .size-large::before{border-color:#ffd55d;background:linear-gradient(145deg,#ffd96d 0%,#f59127 100%);color:#681820}
+.menu-body .size-options .size>strong{border-color:#ffdd78;background:linear-gradient(180deg,#fff0af 0%,#ffc640 100%);color:#6f1721;box-shadow:0 3px 0 rgba(93,30,17,.28),inset 0 1px 0 rgba(255,255,255,.8)}
+
+/* Delivery, pickup and payment retain clean white cards with clearly framed icons. */
+.checkout-routes .route-symbol.route-icon{
+  width:40px;
+  height:40px;
+  padding:6px;
+  border:2px solid #d99a2b;
+  border-radius:12px;
+  background:linear-gradient(145deg,#ffe993,#ffc744);
+  box-shadow:0 3px 0 rgba(125,58,16,.18),inset 0 1px 0 rgba(255,255,255,.75);
+}
+.checkout-routes .route-symbol.route-icon-secure{
+  border-color:#e4b5a8;
+  background:#fff;
+  color:#8d2630;
+  box-shadow:0 3px 0 rgba(121,31,37,.12),inset 0 1px 0 rgba(255,255,255,.95);
+}
+.payment-flow .route-card:first-child{background:#fff}
+
+/* Keep the checkout CTA and its arrow as separate, tactile targets. */
+.topbar .nav-button{gap:10px}
+.topbar .nav-button-icon{
+  width:24px;
+  height:24px;
+  border:1px solid rgba(104,30,24,.34);
+  background:#fff2ba;
+  color:#6d1720;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.88),0 2px 0 rgba(122,53,18,.18);
+  font-size:1.05rem;
+  font-weight:900;
+}
