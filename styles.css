@@ -980,6 +980,33 @@ nav>a.whatsapp-nav-link svg,nav>a.whatsapp-nav-link img{display:block;width:18px
   .extra-card-photo h3{font-size:1.05rem}
 }
 
+/* Menu icons stay friendly and instantly recognizable at a glance. */
+.route-symbol.route-icon-delivery svg,.route-symbol.route-icon-pickup svg{display:none}
+.route-symbol.route-icon-delivery::after,.route-symbol.route-icon-pickup::after{display:grid;width:100%;height:100%;place-items:center;font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif;font-size:1.35rem;line-height:1;filter:drop-shadow(0 2px 0 rgba(112,53,14,.14))}
+.route-symbol.route-icon-delivery::after{content:"🛵"}
+.route-symbol.route-icon-pickup::after{content:"🏪"}
+
+/* The display face gives the brand headings a more crafted pizzeria character. */
+h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400;letter-spacing:-.035em}
+.hero h1{max-width:690px;font-size:clamp(3.45rem,5.5vw,5.9rem);line-height:.96;letter-spacing:-.045em}
+.menu-hero h1{font-size:clamp(3.35rem,5.8vw,5.75rem);line-height:.98;letter-spacing:-.045em}
+
+/* Restaurant-style navigation: one composed control instead of a loose link row. */
+.nav>nav{gap:3px;padding:5px 6px;border:1px solid rgba(255,237,225,.22);border-radius:999px;background:rgba(80,16,24,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.nav>nav>a:not(.nav-button),.nav>nav .nav-login{min-height:38px;padding:0 12px;border-radius:999px}
+.nav>nav>a:not(.nav-button)::after{display:none}
+.nav>nav>a:not(.nav-button).active{background:rgba(255,255,255,.13);box-shadow:inset 0 -2px 0 var(--yellow)}
+.lightbar .nav>nav{border-color:#ead9d1;background:#fffdfa;box-shadow:0 6px 18px rgba(91,39,30,.07)}
+.lightbar .nav>nav>a:not(.nav-button).active{background:#fff0df;box-shadow:inset 0 -2px 0 var(--red)}
+.lightbar .nav>nav .whatsapp-nav-link{width:38px;height:38px;min-height:38px;padding:0;justify-content:center}
+
+@media(max-width:720px){
+  .nav>nav{padding:10px;border-radius:18px;background:var(--cream);box-shadow:0 18px 40px rgba(54,20,18,.22)}
+  .nav>nav>a:not(.nav-button),.nav>nav .nav-login{min-height:42px;padding:10px 12px}
+  .nav>nav>a:not(.nav-button).active{box-shadow:none}
+  .hero h1,.menu-hero h1{font-size:clamp(3rem,13vw,4.25rem)}
+}
+
 /* Compact navigation: the full menu stays one tap away on every phone. */
 .nav-menu-toggle{
   display:none;
