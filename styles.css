@@ -1157,3 +1157,51 @@ h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400
   .menu-body .size-options .size-copy b{font-size:.94rem}
   .menu-body .size-options .size-copy small{font-size:.62rem}
 }
+
+/* Cardápio uses the same confident red header as the home page. */
+.lightbar{
+  border-bottom-color:rgba(255,235,218,.18);
+  background:var(--wine);
+  color:#fff8ef;
+}
+.lightbar .brand b{color:#fffaf0}
+.lightbar .nav>nav{
+  border-color:rgba(255,237,225,.23);
+  background:rgba(80,16,24,.17);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1);
+}
+.lightbar .nav>nav>a:not(.nav-button){color:#fff8ef;opacity:.9}
+.lightbar .nav>nav>a:not(.nav-button):hover,
+.lightbar .nav>nav>a:not(.nav-button).active{color:#fff;background:rgba(255,255,255,.13);opacity:1}
+.lightbar .nav>nav>a:not(.nav-button).active{box-shadow:inset 0 -2px 0 var(--yellow)}
+.lightbar .nav>nav .nav-login{border-color:rgba(255,238,221,.48);background:transparent;color:#fff8ef}
+.lightbar .nav>nav .whatsapp-nav-link{border-color:rgba(176,246,197,.82);background:#168a50;color:#fff}
+.lightbar .nav-menu-toggle{color:#fff8ef}
+
+/* Equal size cards make the Broto, Média and Grande options easy to compare. */
+@media(min-width:721px){
+  .menu-body .size-options{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .menu-body .size-options .size{
+    grid-template-columns:40px minmax(0,1fr);
+    grid-template-areas:"mark copy" "price price";
+    min-height:122px;
+    gap:8px 10px;
+    padding:13px;
+  }
+  .menu-body .size-options .size::before{width:40px;height:40px}
+  .menu-body .size-options .size>strong{justify-self:start;align-self:end}
+}
+.menu-body .size-options .size>strong{
+  border:1px solid #e1a12f;
+  background:linear-gradient(180deg,#ffe79a 0%,#ffc640 100%);
+  box-shadow:0 3px 0 rgba(161,82,15,.22),inset 0 1px 0 rgba(255,255,255,.78);
+}
+.menu-body .size-options .size>strong small{color:#794024}
+.menu-body .size-options .size>strong span{color:#742124;font-weight:900}
+
+@media(max-width:720px){
+  .lightbar .nav>nav{background:#fffdf9;color:var(--ink)}
+  .lightbar .nav>nav>a:not(.nav-button),
+  .lightbar .nav>nav .nav-login{color:var(--red-deep);background:#fffaf6;border-color:#ead8d0}
+  .lightbar .nav>nav>a:not(.nav-button).active{color:var(--red-deep);background:#fff0df;box-shadow:none}
+}
