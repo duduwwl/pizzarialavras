@@ -1426,6 +1426,72 @@ h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400
 .menu-body .size-options .size>strong span{line-height:1;white-space:nowrap}
 @media(max-width:390px){.menu-body .size-options .size>strong{min-width:126px;padding-inline:10px}}
 
+/* Refinamentos finais do seletor: preço sempre aparece inteiro dentro do selo. */
+.menu-body .size-options .size>strong,
+.menu-body .size-options .size.selected>strong{
+  display:inline-flex;
+  width:max-content;
+  min-width:138px;
+  min-height:34px;
+  box-sizing:border-box;
+  padding:0 13px;
+  border:1px solid #a53026;
+  border-radius:999px;
+  background:linear-gradient(180deg,#fff4bc 0%,#ffc83f 100%);
+  color:#641820;
+  box-shadow:0 3px 0 rgba(112,34,21,.24),inset 0 1px 0 rgba(255,255,255,.85);
+  font-weight:800;
+  letter-spacing:.01em;
+  white-space:nowrap;
+}
+.menu-body .size-options .size>strong small,
+.menu-body .size-options .size>strong span{display:inline;flex:0 0 auto}
+
+/* Cada rota ganha um emblema vermelho emoldurado; a rota selecionada fica amarela. */
+.fulfillment-options .route-symbol.route-icon-delivery,
+.fulfillment-options .route-symbol.route-icon-pickup{
+  position:relative;
+  overflow:hidden;
+  border:2px solid #ffd35a;
+  outline:1px solid #8f1d28;
+  outline-offset:2px;
+  border-radius:11px;
+}
+.fulfillment-options .route-symbol.route-icon-delivery::before,
+.fulfillment-options .route-symbol.route-icon-pickup::before{
+  position:absolute;
+  inset:3px;
+  z-index:0;
+  border:1px solid rgba(255,240,183,.7);
+  border-radius:7px;
+  content:"";
+}
+.fulfillment-options .route-symbol.route-icon-delivery::after,
+.fulfillment-options .route-symbol.route-icon-pickup::after{position:relative;z-index:1}
+.payment-flow .checkout-routes .route-card.selected{
+  border-color:#d6292d;
+  background:linear-gradient(135deg,#fff1ab 0%,#ffd353 100%);
+  box-shadow:0 4px 0 rgba(132,36,24,.17),inset 0 1px 0 rgba(255,255,255,.8);
+}
+.payment-flow .checkout-routes .route-card.selected b{color:#61171f}
+.payment-flow .checkout-routes .route-card.selected small{color:#743525}
+
+/* A seta do CTA é leve e direta, sem círculo branco ao redor. */
+.topbar .nav-button .nav-button-icon{
+  display:inline;
+  width:auto;
+  height:auto;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  color:currentColor;
+  font-size:1.22em;
+  font-weight:700;
+  line-height:1;
+}
+
 /* Same photographic language for each category, with unique food photos kept intact. */
 .pizza-card-photo .pizza-photo{isolation:isolate;background:#3c1115}
 .pizza-card-photo .pizza-photo::before{position:absolute;z-index:1;inset:0;pointer-events:none;content:""}

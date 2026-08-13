@@ -23,7 +23,7 @@ const menuExtras = [
   {id:'suco-laranja',category:'sucos',name:'Del Valle laranja',description:'Néctar de 290 ml, leve e refrescante.',price:8,image:'./assets/suco-del-valle-laranja-lata.png',imageClass:'drink-contain'},
   {id:'suco-pessego',category:'sucos',name:'Del Valle pêssego',description:'Néctar de 290 ml, doce na medida.',price:8,image:'./assets/suco-del-valle-pessego-lata.png',imageClass:'drink-contain'},
   {id:'fritas-p',category:'batatas',name:'Batata frita crocante',description:'Porção individual com molho da casa.',price:12,image:'./assets/batatas-ilustrativas.png',imagePosition:'0% 50%'},
-  {id:'fritas-cheddar',category:'batatas',name:'Batata cheddar & bacon',description:'Porção generosa com cheddar cremoso e bacon.',price:16,image:'./assets/batatas-ilustrativas.png',imagePosition:'100% 50%'}
+  {id:'fritas-cheddar',category:'batatas',name:'Batata cheddar & bacon',description:'Porção generosa com cheddar cremoso e bacon.',price:16,image:'./assets/batata-cheddar-bacon-artesanal.png'}
 ];
 
 const money = value => value.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
