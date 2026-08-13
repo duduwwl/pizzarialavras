@@ -1412,6 +1412,20 @@ h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400
   box-shadow:0 3px 0 rgba(123,42,23,.22),inset 0 1px 0 #fff;
 }
 
+/* Price label: fixed inner spacing keeps “A partir de R$ …” fully framed on every size. */
+.menu-body .size-options .size>strong{
+  min-width:132px;
+  min-height:32px;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  padding:0 12px;
+  line-height:1;
+}
+.menu-body .size-options .size>strong small,
+.menu-body .size-options .size>strong span{line-height:1;white-space:nowrap}
+@media(max-width:390px){.menu-body .size-options .size>strong{min-width:126px;padding-inline:10px}}
+
 /* Same photographic language for each category, with unique food photos kept intact. */
 .pizza-card-photo .pizza-photo{isolation:isolate;background:#3c1115}
 .pizza-card-photo .pizza-photo::before{position:absolute;z-index:1;inset:0;pointer-events:none;content:""}
