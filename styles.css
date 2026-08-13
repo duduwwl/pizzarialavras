@@ -1373,3 +1373,19 @@ h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400
   color:#168a50;
   box-shadow:0 3px 0 rgba(18,104,61,.12),inset 0 1px 0 #fff;
 }
+
+/* Selected delivery mode is unmistakable, with the yellow the customer sees elsewhere in the journey. */
+.fulfillment-options .route-card.selected{
+  background:linear-gradient(135deg,#ffeaa0 0%,#ffc640 100%);
+}
+.fulfillment-options .route-card.selected b{color:#671820}
+.fulfillment-options .route-card.selected small{color:#7b3a24}
+.fulfillment-options .route-symbol.route-icon-delivery,
+.fulfillment-options .route-symbol.route-icon-pickup{
+  border-color:#ffcf55;
+  background:linear-gradient(145deg,#d92c36 0%,#a91d2a 100%);
+  box-shadow:0 3px 0 rgba(99,20,25,.3),inset 0 1px 0 rgba(255,239,186,.28);
+}
+.fulfillment-options .route-symbol.route-icon-delivery::after,
+.fulfillment-options .route-symbol.route-icon-pickup::after{filter:drop-shadow(0 1px 0 rgba(255,255,255,.35))}
+.fulfillment-options .route-symbol.route-icon-pickup::after{content:"🏬"}
