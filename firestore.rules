@@ -90,21 +90,21 @@ service cloud.firestore {
     function priceFor(flavorId, size) {
       let brotoPrices = {
         'mussarela': 2800, 'calabresa': 3000, 'marguerita': 3100,
-        'portuguesa': 3300, 'frango': 3400, 'lavras': 3600,
-        'lombo': 3700, 'quatro': 3800, 'rucula': 3700,
+        'portuguesa': 3200, 'frango': 3400, 'lavras': 3300,
+        'lombo': 3400, 'quatro': 3500, 'rucula': 3500,
         'romeu': 3200, 'chocolate': 3300, 'banana': 3200
       };
       let mediumPrices = {
         'mussarela': 3800, 'calabresa': 4100, 'marguerita': 4200,
-        'portuguesa': 4500, 'frango': 4600, 'lavras': 4800,
-        'lombo': 4900, 'quatro': 5100, 'rucula': 5000,
+        'portuguesa': 4500, 'frango': 4300, 'lavras': 4400,
+        'lombo': 4500, 'quatro': 4500, 'rucula': 4400,
         'romeu': 4300, 'chocolate': 4500, 'banana': 4400
       };
       let largePrices = {
         'mussarela': 4900, 'calabresa': 5300, 'marguerita': 5400,
-        'portuguesa': 5700, 'frango': 5800, 'lavras': 6100,
-        'lombo': 6200, 'quatro': 6500, 'rucula': 6400,
-        'romeu': 5500, 'chocolate': 5700, 'banana': 5600
+        'portuguesa': 5500, 'frango': 5200, 'lavras': 5400,
+        'lombo': 5500, 'quatro': 5500, 'rucula': 5300,
+        'romeu': 5500, 'chocolate': 5400, 'banana': 5200
       };
 
       return size == 'broto'

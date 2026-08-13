@@ -1389,3 +1389,41 @@ h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400
 .fulfillment-options .route-symbol.route-icon-delivery::after,
 .fulfillment-options .route-symbol.route-icon-pickup::after{filter:drop-shadow(0 1px 0 rgba(255,255,255,.35))}
 .fulfillment-options .route-symbol.route-icon-pickup::after{content:"🏬"}
+
+/* O tamanho escolhido se torna um botão amarelo bem visível antes do cliente escolher o sabor. */
+.menu-body .size-options .size.selected{
+  border-color:#9a3126;
+  background:
+    radial-gradient(circle at 90% 18%,rgba(179,43,37,.18) 0 3px,transparent 3.8px),
+    linear-gradient(135deg,#ffefb3 0%,#ffd45a 56%,#f8af31 100%);
+  box-shadow:0 6px 0 rgba(127,42,24,.25),inset 0 1px 0 rgba(255,255,255,.72);
+}
+.menu-body .size-options .size.selected::before{
+  border-color:#9d2928;
+  background:linear-gradient(145deg,#ca2832 0%,#921922 100%);
+  color:#fff8e8;
+  box-shadow:0 3px 0 rgba(102,22,25,.25),inset 0 1px 0 rgba(255,231,163,.24);
+}
+.menu-body .size-options .size.selected .size-copy b{color:#641b21}
+.menu-body .size-options .size.selected .size-copy small{color:#743625}
+.menu-body .size-options .size.selected>strong{
+  border-color:#9a2925;
+  background:#fff9e5;
+  box-shadow:0 3px 0 rgba(123,42,23,.22),inset 0 1px 0 #fff;
+}
+
+/* Same photographic language for each category, with unique food photos kept intact. */
+.pizza-card-photo .pizza-photo{isolation:isolate;background:#3c1115}
+.pizza-card-photo .pizza-photo::before{position:absolute;z-index:1;inset:0;pointer-events:none;content:""}
+.pizza-card-photo .pizza-photo::after{z-index:1}
+.pizza-card-photo .pizza-photo span{z-index:2}
+.pizza-card-photo .pizza-photo img{transform:scale(1.015);filter:saturate(1.07) contrast(1.05) brightness(1.02)}
+.pizza-card-photo:hover .pizza-photo img{transform:scale(1.07)}
+.pizza-category-tradicionais .pizza-photo::before{background:linear-gradient(135deg,rgba(104,17,18,.2),transparent 58%)}
+.pizza-category-especiais .pizza-photo::before{background:linear-gradient(135deg,rgba(104,48,13,.24),transparent 58%)}
+.pizza-category-especiais .pizza-photo img{filter:saturate(1.16) contrast(1.08) brightness(1.01)}
+.pizza-category-doces .pizza-photo::before{background:linear-gradient(135deg,rgba(82,31,17,.25),transparent 60%)}
+.pizza-category-doces .pizza-photo img{filter:saturate(1.1) contrast(1.08) brightness(1.03) sepia(.05)}
+.pizza-category-tradicionais .pizza-photo span{border:1px solid rgba(198,35,42,.18)}
+.pizza-category-especiais .pizza-photo span{border:1px solid rgba(188,108,20,.24);color:#8a401d}
+.pizza-category-doces .pizza-photo span{border:1px solid rgba(107,54,31,.25);color:#75331e}
