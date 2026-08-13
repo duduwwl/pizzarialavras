@@ -1,16 +1,16 @@
 const pizzas = [
-  {id:'mussarela',category:'tradicionais',name:'Mussarela Clássica',description:'Molho da casa, mussarela derretida, tomate fresco e orégano.',media:38,grande:49},
-  {id:'calabresa',category:'tradicionais',name:'Calabresa da Vila',description:'Calabresa fatiada, cebola roxa, mussarela e orégano.',media:41,grande:53},
-  {id:'marguerita',category:'tradicionais',name:'Marguerita',description:'Mussarela, tomate, manjericão fresco e um toque de azeite.',media:42,grande:54},
-  {id:'portuguesa',category:'tradicionais',name:'Portuguesa',description:'Presunto, ovos, cebola, pimentão, ervilha, mussarela e azeitonas.',media:45,grande:57},
-  {id:'frango',category:'tradicionais',name:'Frango com Catupiry',description:'Frango bem temperado, Catupiry cremoso, mussarela e orégano.',media:46,grande:58},
-  {id:'lavras',category:'especiais',name:'Lavras Especial',description:'Frango cremoso, bacon crocante, milho, mussarela e molho da casa.',media:48,grande:61},
-  {id:'lombo',category:'especiais',name:'Lombo Mineiro',description:'Lombo defumado, requeijão, cebola caramelizada e mussarela.',media:49,grande:62},
-  {id:'quatro',category:'especiais',name:'Quatro Queijos',description:'Mussarela, provolone, parmesão, gorgonzola e um toque de orégano.',media:51,grande:65},
-  {id:'rucula',category:'especiais',name:'Rúcula & Tomate Seco',description:'Mussarela, tomate seco, rúcula fresca e pesto suave.',media:50,grande:64},
-  {id:'romeu',category:'doces',name:'Romeu & Julieta',description:'Mussarela dourada, goiabada cremosa e pitada de canela.',media:43,grande:55},
-  {id:'chocolate',category:'doces',name:'Chocolate Crocante',description:'Chocolate ao leite, granulado crocante e borda levemente dourada.',media:45,grande:57},
-  {id:'banana',category:'doces',name:'Banana Caramelada',description:'Banana, canela, leite condensado e farofa crocante da casa.',media:44,grande:56}
+  {id:'mussarela',category:'tradicionais',name:'Mussarela Clássica',description:'Molho da casa, mussarela derretida, tomate fresco e orégano.',broto:28,media:38,grande:49},
+  {id:'calabresa',category:'tradicionais',name:'Calabresa da Vila',description:'Calabresa fatiada, cebola roxa, mussarela e orégano.',broto:30,media:41,grande:53},
+  {id:'marguerita',category:'tradicionais',name:'Marguerita',description:'Mussarela, tomate, manjericão fresco e um toque de azeite.',broto:31,media:42,grande:54},
+  {id:'portuguesa',category:'tradicionais',name:'Portuguesa',description:'Presunto, ovos, cebola, pimentão, ervilha, mussarela e azeitonas.',broto:33,media:45,grande:57},
+  {id:'frango',category:'tradicionais',name:'Frango com Catupiry',description:'Frango bem temperado, Catupiry cremoso, mussarela e orégano.',broto:34,media:46,grande:58},
+  {id:'lavras',category:'especiais',name:'Lavras Especial',description:'Frango cremoso, bacon crocante, milho, mussarela e molho da casa.',broto:36,media:48,grande:61},
+  {id:'lombo',category:'especiais',name:'Lombo Mineiro',description:'Lombo defumado, requeijão, cebola caramelizada e mussarela.',broto:37,media:49,grande:62},
+  {id:'quatro',category:'especiais',name:'Quatro Queijos',description:'Mussarela, provolone, parmesão, gorgonzola e um toque de orégano.',broto:38,media:51,grande:65},
+  {id:'rucula',category:'especiais',name:'Rúcula & Tomate Seco',description:'Mussarela, tomate seco, rúcula fresca e pesto suave.',broto:37,media:50,grande:64},
+  {id:'romeu',category:'doces',name:'Romeu & Julieta',description:'Mussarela dourada, goiabada cremosa e pitada de canela.',broto:32,media:43,grande:55},
+  {id:'chocolate',category:'doces',name:'Chocolate Crocante',description:'Chocolate ao leite, granulado crocante e borda levemente dourada.',broto:33,media:45,grande:57},
+  {id:'banana',category:'doces',name:'Banana Caramelada',description:'Banana, canela, leite condensado e farofa crocante da casa.',broto:32,media:44,grande:56}
 ];
 
 const menuExtras = [
@@ -213,6 +213,7 @@ if(menuGrid){
   const feedback=document.querySelector('[data-feedback]');
   let isSavingOrder=false;
   const modeNeeded=()=>state.mode==='duo'?2:1;
+  const sizeLabel=size=>({broto:'Broto · 4 pedaços',media:'Média · 6 fatias',grande:'Grande · 8 fatias'})[size]||'Pizza';
   const priceOf=pizza=>pizza[state.size];
   const itemPrice=item=>item.kind==='extra'?item.price:priceOf(item);
 
@@ -232,7 +233,7 @@ if(menuGrid){
       const pizza=item;
       const picked=state.flavors.some(item=>item.id===pizza.id);
       const visual=pizzaVisual(pizza);
-      return `<article class="pizza-card pizza-card-photo ${picked?'selected':''}"><div class="pizza-photo"><img src="${visual.src}" alt="${visual.alt}" data-fallback-src="${visual.fallbackSrc}" loading="lazy" decoding="async" /><span>${category[pizza.category]}</span></div><div class="pizza-card-content"><h3>${pizza.name}</h3><p class="description">${pizza.description}</p><div class="pizza-bottom"><span class="price"><small>${state.size==='media'?'Média · 6 fatias':'Grande · 8 fatias'}</small><strong>${money(priceOf(pizza))}</strong></span><button class="pick" type="button" data-pick="${pizza.id}" aria-pressed="${picked}">${picked?'Escolhida ✓':'Escolher'}</button></div></div></article>`;
+      return `<article class="pizza-card pizza-card-photo ${picked?'selected':''}"><div class="pizza-photo"><img src="${visual.src}" alt="${visual.alt}" data-fallback-src="${visual.fallbackSrc}" loading="lazy" decoding="async" /><span>${category[pizza.category]}</span></div><div class="pizza-card-content"><h3>${pizza.name}</h3><p class="description">${pizza.description}</p><div class="pizza-bottom"><span class="price"><small>${sizeLabel(state.size)}</small><strong>${money(priceOf(pizza))}</strong></span><button class="pick" type="button" data-pick="${pizza.id}" aria-pressed="${picked}">${picked?'Escolhida ✓':'Escolher'}</button></div></div></article>`;
     }).join('');
     menuGrid.querySelectorAll('img[data-fallback-src]').forEach(image=>image.addEventListener('error',()=>{
       const fallback=image.dataset.fallbackSrc;
@@ -254,7 +255,7 @@ if(menuGrid){
     if(!state.cart.length){cartItems.innerHTML='<p class="empty">Seu pedido está vazio.<small>Escolha um sabor no cardápio.</small></p>'}
     else{cartItems.innerHTML=state.cart.map(item=>{
       const title=item.kind==='extra'?item.name:(item.mode==='duo'?'Pizza meio a meio':item.flavors[0].name);
-      const details=item.kind==='extra'?'Adicional do cardápio':`${item.size==='media'?'Média · 6 fatias':'Grande · 8 fatias'}${item.mode==='duo'?` · ${item.flavors.map(pizza=>pizza.name).join(' + ')}`:''}`;
+      const details=item.kind==='extra'?'Adicional do cardápio':`${sizeLabel(item.size)}${item.mode==='duo'?` · ${item.flavors.map(pizza=>pizza.name).join(' + ')}`:''}`;
       return `<article class="cart-item"><div class="cart-line"><div><h4>${title}</h4><p>${details}</p></div><strong>${money(itemPrice(item))}</strong></div><button type="button" data-remove-cart="${item.id}">Remover</button></article>`;
     }).join('')}
     const sub=state.cart.reduce((sum,item)=>sum+itemPrice(item),0);
@@ -354,7 +355,7 @@ if(menuGrid){
     const data=new FormData(form),amounts=currentAmounts();
     const order=state.cart.map((item,index)=>item.kind==='extra'
       ? `${index+1}. ${item.name} — ${money(item.price)}`
-      : `${index+1}. ${item.mode==='duo'?`Meio a meio: ${item.flavors.map(pizza=>pizza.name).join(' / ')}`:item.flavors[0].name} (${item.size==='media'?'Média':'Grande'}) — ${money(item.price)}`).join('\n');
+      : `${index+1}. ${item.mode==='duo'?`Meio a meio: ${item.flavors.map(pizza=>pizza.name).join(' / ')}`:item.flavors[0].name} (${sizeLabel(item.size).replace(/ · .*/, '')}) — ${money(item.price)}`).join('\n');
     const extra=data.get('complement')?`, ${data.get('complement')}`:'';
     const fulfillment=state.fulfillment==='pickup'
       ? 'Retirada: vou buscar o pedido na Pizza Lavras.'

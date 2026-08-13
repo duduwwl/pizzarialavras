@@ -368,7 +368,9 @@ h1,h2,h3{font-family:"Fraunces",Georgia,"Times New Roman",serif;letter-spacing:-
   font-size:1.06rem;
   content:"M";
 }
-.menu-body .size-options .size:nth-child(2)::before{content:"G"}
+.menu-body .size-options .size:nth-child(1)::before{content:"B"}
+.menu-body .size-options .size:nth-child(2)::before{content:"M"}
+.menu-body .size-options .size:nth-child(3)::before{content:"G"}
 .menu-body .size-options .size:hover{border-color:#de9b90;box-shadow:0 6px 15px rgba(128,47,40,.09)}
 .menu-body .size-options .size.selected{border-color:var(--red);background:linear-gradient(135deg,#fff 0%,#fff5eb 100%);box-shadow:0 7px 0 rgba(121,25,32,.1)}
 .menu-body .size-options .size.selected::before{border-color:#e6a733;background:var(--yellow);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 3px 0 rgba(182,103,20,.15)}
@@ -857,6 +859,7 @@ nav>a.whatsapp-nav-link svg,nav>a.whatsapp-nav-link img{display:block;width:18px
 .menu-offer-card:hover .menu-offer-arrow{color:#fff;background:var(--red);transform:translateX(2px)}
 .menu-offer-especial{background:#fffdfa}
 .menu-offer-doce{background:#fffdf8}
+.menu-offer-frango{background:#fffdfa}
 .menu-offer-note{margin:12px 0 0;color:#8a695f;font-size:.65rem;line-height:1.45}
 .menu-offer-note strong{color:var(--red-deep)}
 
@@ -888,6 +891,15 @@ nav>a.whatsapp-nav-link svg,nav>a.whatsapp-nav-link img{display:block;width:18px
   .menu-offer-copy b{min-height:40px;font-size:.9rem}
   .menu-offer-copy em{padding-right:18px;font-size:.81rem}
   .menu-offer-arrow{right:10px;bottom:11px;width:23px;height:23px;font-size:.82rem}
+}
+
+@media(max-width:430px){
+  .menu-offer-grid{grid-template-columns:1fr}
+  .menu-offer-card{display:grid;grid-template-columns:112px minmax(0,1fr);grid-template-rows:1fr;min-height:132px;border-radius:16px}
+  .menu-offer-photo{height:100%}
+  .menu-offer-copy{min-height:0;padding:13px 38px 13px 12px}
+  .menu-offer-copy b{min-height:0;font-size:1rem}
+  .menu-offer-copy em{margin-top:3px}
 }
 
 /* Ingredient emojis keep the three story cards immediate and easy to scan. */
@@ -1042,7 +1054,8 @@ h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400
     padding:10px;
     border:1px solid rgba(227,210,197,.9);
     border-radius:18px;
-    background:var(--cream);
+    background:var(--wine);
+    color:#fff8ef;
     box-shadow:0 18px 40px rgba(54,20,18,.22);
   }
   .nav.menu-open>nav{display:flex}
@@ -1057,8 +1070,90 @@ h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400
     padding:10px 12px;
     border-radius:11px;
   }
+  .nav>nav>a:not(.nav-button),
+  .nav>nav .nav-login{border:1px solid rgba(255,246,234,.18);color:#fff8ef;background:rgba(255,255,255,.06)}
+  .nav>nav>a:not(.nav-button).active{color:var(--yellow);background:rgba(255,255,255,.12)}
+  .nav>nav .nav-login{display:flex;color:#fff8ef}
   .nav>nav .whatsapp-nav-link{justify-content:center;color:#0f7d4b;background:#e7f7e9}
   .nav>nav .nav-button{justify-content:center;margin-top:3px}
-  .lightbar .nav>nav{background:#fffdf9}
+  .lightbar .nav>nav{background:#fffdf9;color:var(--ink)}
+  .lightbar .nav>nav>a:not(.nav-button),
+  .lightbar .nav>nav .nav-login{color:var(--red-deep);background:#fffaf6;border-color:#ead8d0}
+  .lightbar .nav>nav>a:not(.nav-button).active{color:var(--red-deep);background:#fff0df}
   .topbar:not(.lightbar) .nav-menu-toggle{color:#fff8ed}
+}
+
+/* Tablet and compact desktop: preserve balanced columns without horizontal clipping. */
+@media(min-width:721px) and (max-width:1080px){
+  .container{width:min(100% - 48px,980px)}
+  .nav{gap:12px}
+  .nav>nav{gap:1px}
+  .nav>nav>a:not(.nav-button),.nav>nav .nav-login{padding-right:9px;padding-left:9px}
+  .order-layout{grid-template-columns:minmax(0,1fr) 322px}
+  .menu-offer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .menu-offer-card{min-height:258px}
+}
+
+/* Final alignment pass: every navigation control shares a clear, tappable frame. */
+.topbar .nav{min-height:84px;padding-block:8px}
+.topbar .nav>nav{align-items:center;min-height:50px}
+.topbar .nav>nav>a:not(.nav-button),
+.topbar .nav>nav .nav-login{display:inline-flex;align-items:center;justify-content:center}
+.topbar .nav>nav .whatsapp-nav-link{
+  width:42px;
+  height:42px;
+  flex:0 0 42px;
+  border:2px solid rgba(255,238,194,.72);
+  box-shadow:0 3px 0 rgba(32,89,49,.38),inset 0 1px 0 rgba(255,255,255,.27);
+}
+.lightbar .nav>nav .whatsapp-nav-link{border-color:#88dca7}
+
+/* The manager dashboard gets a stronger red command-center background. */
+.admin-dashboard-head h1{
+  font-family:"Fraunces","DM Serif Display",Georgia,serif;
+  font-weight:700;
+  letter-spacing:-.052em;
+  line-height:.98;
+}
+.admin-orders-panel{
+  position:relative;
+  overflow:hidden;
+  border:2px solid #a51f29;
+  background:linear-gradient(135deg,#941d28 0%,#c52d35 57%,#7f1722 100%);
+  box-shadow:0 18px 38px rgba(111,27,33,.22),inset 0 1px 0 rgba(255,245,232,.22);
+}
+.admin-orders-panel::before,.admin-orders-panel::after{
+  position:absolute;
+  border:1px solid rgba(255,224,170,.35);
+  border-radius:50%;
+  content:"";
+  pointer-events:none;
+}
+.admin-orders-panel::before{top:-115px;right:-75px;width:270px;height:270px}
+.admin-orders-panel::after{bottom:-95px;left:-68px;width:210px;height:210px}
+.admin-orders-panel>*{position:relative;z-index:1}
+.admin-orders-head{border-bottom-color:rgba(255,241,221,.32)}
+.admin-orders-head .eyebrow{color:#ffdb70}
+.admin-orders-head h2{color:#fffaf1}
+.admin-search input,.admin-orders-controls select{border-color:#f1b8a7;background:#fffdf9}
+.admin-orders-list{padding:14px;border:1px solid rgba(255,235,215,.34);border-radius:18px;background:rgba(255,249,239,.16)}
+.admin-orders-feedback{color:#fff0bd}
+.admin-order-card{border:1px solid #f0c9bd;box-shadow:0 5px 14px rgba(80,13,19,.12)}
+.admin-order-card:hover{border-color:#ffb17a;box-shadow:0 9px 22px rgba(80,13,19,.22)}
+.admin-order-footer{background:#fff3ed}
+
+/* Three pizza sizes remain compact on phones without squeezing the copy. */
+@media(max-width:720px){
+  .topbar .nav{min-height:72px;padding-block:6px}
+  .topbar .nav>nav{min-height:0}
+  .topbar .nav>nav .whatsapp-nav-link{width:100%;height:42px;flex-basis:auto;border-width:1px}
+  .menu-body .size-options{grid-template-columns:1fr}
+}
+
+@media(min-width:721px) and (max-width:1080px){
+  .menu-body .size-options{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .menu-body .size-options .size{grid-template-columns:38px minmax(0,1fr);grid-template-areas:"mark copy" "price price";min-height:112px;padding:11px;gap:6px 8px}
+  .menu-body .size-options .size::before{width:38px;height:38px}
+  .menu-body .size-options .size-copy b{font-size:.94rem}
+  .menu-body .size-options .size-copy small{font-size:.62rem}
 }

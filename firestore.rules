@@ -88,6 +88,12 @@ service cloud.firestore {
     }
 
     function priceFor(flavorId, size) {
+      let brotoPrices = {
+        'mussarela': 2800, 'calabresa': 3000, 'marguerita': 3100,
+        'portuguesa': 3300, 'frango': 3400, 'lavras': 3600,
+        'lombo': 3700, 'quatro': 3800, 'rucula': 3700,
+        'romeu': 3200, 'chocolate': 3300, 'banana': 3200
+      };
       let mediumPrices = {
         'mussarela': 3800, 'calabresa': 4100, 'marguerita': 4200,
         'portuguesa': 4500, 'frango': 4600, 'lavras': 4800,
@@ -101,9 +107,11 @@ service cloud.firestore {
         'romeu': 5500, 'chocolate': 5700, 'banana': 5600
       };
 
-      return size == 'media'
-        ? mediumPrices.get(flavorId, -1)
-        : largePrices.get(flavorId, -1);
+      return size == 'broto'
+        ? brotoPrices.get(flavorId, -1)
+        : (size == 'media'
+          ? mediumPrices.get(flavorId, -1)
+          : largePrices.get(flavorId, -1));
     }
 
     function validFlavors(flavors) {
@@ -130,7 +138,7 @@ service cloud.firestore {
       return hasAllowedFields(item, ['kind', 'size', 'flavors', 'unitPriceCents'], [])
         && item.kind == 'pizza'
         && item.size is string
-        && item.size in ['media', 'grande']
+        && item.size in ['broto', 'media', 'grande']
         && validFlavors(item.flavors)
         && item.unitPriceCents is int
         && validItemPrice(item);
