@@ -1304,3 +1304,55 @@ h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400
   font-size:1.05rem;
   font-weight:900;
 }
+
+/* Fresh tomatoes replace the flat ingredient mark in the home promise bar. */
+.promise .ingredient-tomato{
+  position:relative;
+  display:block;
+  width:46px;
+  height:46px;
+  grid-row:span 2;
+  align-self:center;
+  overflow:visible;
+  font-size:0;
+  font-style:normal;
+}
+.promise .ingredient-tomato::before,
+.promise .ingredient-tomato::after{
+  position:absolute;
+  border:2px solid #8f2725;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 31% 27%,#ffd0a4 0 7%,transparent 8%),
+    radial-gradient(circle at 58% 68%,rgba(130,29,25,.12) 0 38%,transparent 39%),
+    linear-gradient(145deg,#ff7158 0%,#e83e35 59%,#b7252a 100%);
+  box-shadow:inset -5px -6px 0 rgba(123,29,28,.14),0 3px 0 rgba(91,24,22,.18);
+  content:"";
+}
+.promise .ingredient-tomato::before{z-index:1;top:13px;left:2px;width:28px;height:28px}
+.promise .ingredient-tomato::after{top:5px;right:1px;width:27px;height:27px;opacity:.98}
+.promise .ingredient-tomato span::before{
+  position:absolute;
+  z-index:3;
+  top:1px;
+  right:3px;
+  width:30px;
+  height:21px;
+  background:linear-gradient(135deg,#5d963d,#2f6e38);
+  clip-path:polygon(50% 40%,61% 0,66% 34%,100% 15%,75% 49%,100% 70%,61% 64%,50% 100%,39% 64%,0 70%,25% 49%,0 15%,34% 34%,39% 0);
+  filter:drop-shadow(0 2px 0 rgba(41,87,38,.18));
+  content:"";
+}
+.promise .ingredient-tomato span::after{
+  position:absolute;
+  z-index:4;
+  top:5px;
+  right:14px;
+  width:4px;
+  height:9px;
+  border-radius:999px;
+  background:#3b7038;
+  box-shadow:0 1px 0 rgba(27,69,31,.2);
+  content:"";
+  transform:rotate(8deg);
+}
