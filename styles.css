@@ -1356,3 +1356,20 @@ h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400
   content:"";
   transform:rotate(8deg);
 }
+
+/* Checkout routes: red outlines make both delivery choices equally visible. */
+.fulfillment-options .route-card{
+  border:2px solid var(--red);
+  box-shadow:0 2px 0 rgba(129,28,35,.1);
+}
+.fulfillment-options .route-card:hover,
+.fulfillment-options .route-card.selected{
+  border-color:var(--red);
+  box-shadow:0 4px 0 rgba(129,28,35,.16),0 0 0 2px rgba(214,40,40,.06);
+}
+.checkout-routes .route-symbol.route-icon-whatsapp{
+  border-color:#a8d8b7;
+  background:#fff;
+  color:#168a50;
+  box-shadow:0 3px 0 rgba(18,104,61,.12),inset 0 1px 0 #fff;
+}
