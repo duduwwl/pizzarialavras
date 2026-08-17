@@ -1464,6 +1464,13 @@ h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400
   letter-spacing:-.055em;
   text-wrap:balance;
 }
+.hero h1::first-letter{
+  font-family:"DM Serif Display",Georgia,serif;
+  font-size:1.18em;
+  font-weight:400;
+  letter-spacing:-.09em;
+  text-shadow:1px 0 0 rgba(255,250,241,.72);
+}
 .hero-description{
   max-width:540px;
   font-family:"DM Sans",ui-sans-serif,sans-serif;
