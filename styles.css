@@ -1447,6 +1447,38 @@ h1,h2,h3{font-family:"DM Serif Display","Fraunces",Georgia,serif;font-weight:400
 .menu-body .size-options .size>strong small,
 .menu-body .size-options .size>strong span{display:inline;flex:0 0 auto}
 
+/* Home: a more editorial, crafted first impression for the opening copy. */
+.hero .eyebrow{
+  font-family:"DM Sans",ui-sans-serif,sans-serif;
+  font-size:.74rem;
+  font-weight:800;
+  letter-spacing:.19em;
+}
+.hero h1{
+  max-width:700px;
+  font-family:"Bodoni Moda","DM Serif Display",Georgia,serif;
+  font-weight:600;
+  font-optical-sizing:auto;
+  font-style:normal;
+  line-height:.92;
+  letter-spacing:-.055em;
+  text-wrap:balance;
+}
+.hero-description{
+  max-width:540px;
+  font-family:"DM Sans",ui-sans-serif,sans-serif;
+  font-size:1.1rem;
+  font-weight:500;
+  letter-spacing:-.018em;
+  line-height:1.68;
+}
+.hero-actions .button,.hero-actions .under-link,.hero-stats{
+  font-family:"DM Sans",ui-sans-serif,sans-serif;
+  letter-spacing:-.012em;
+}
+.hero-stats b{font-size:.86rem;font-weight:800;letter-spacing:-.015em}
+.hero-stats small{font-size:.72rem;font-weight:600;letter-spacing:-.01em}
+
 /* Cada rota ganha um emblema vermelho emoldurado; a rota selecionada fica amarela. */
 .fulfillment-options .route-symbol.route-icon-delivery,
 .fulfillment-options .route-symbol.route-icon-pickup{
